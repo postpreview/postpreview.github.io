@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Post Preview Tool – Professional Feed Mockup | PostPreview</title>
+  <meta name="description" content="Preview your LinkedIn posts before publishing. Check how your professional updates, images, and headlines look on the LinkedIn feed to maximize engagement." />
+  <meta name="keywords" content="linkedin preview, linkedin post mockup, linkedin feed preview, professional post tool, linkedin ads preview" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/linkedin-preview.html" />
+
+  <meta property="og:title" content="LinkedIn Post Preview Tool – PostPreview" />
+  <meta property="og:description" content="Stop guessing how your LinkedIn posts look. Use our free tool to visualize professional updates before they go live." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/linkedin-preview.html" />
+  <meta property="og:image" content="https://postpreview.github.io/og-image.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PostPreview - LinkedIn Post Preview Tool",
+    "url": "https://postpreview.github.io/linkedin-preview.html",
+    "description": "Free tool to preview LinkedIn posts. Optimize your professional updates, check line breaks, and see how images appear on the LinkedIn feed.",
+    "applicationCategory": "Business Application",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Global Site Styles */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #7c3aed; --accent2: #06b6d4;
+      --text: #f0f0f5; --muted: #6b6b80; --radius: 16px;
+      --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; }
+    
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; border-radius: 10px; font-weight: 500; cursor: pointer; text-decoration: none; border: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #6d28d9); color: #fff; }
+
+    /* Tool UI */
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .tool-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .tool-layout { grid-template-columns: 1fr; } }
+
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; height: fit-content; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; display: block; }
+    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); }
+    
+    /* LinkedIn Mockup Style (Professional Light Theme) */
+    .li-preview-card { background: #ffffff; border-radius: 8px; color: #000; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; width: 100%; max-width: 550px; margin: 0 auto; border: 1px solid #e0e0e0; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .li-header { padding: 12px 16px; display: flex; gap: 12px; }
+    .li-avatar { width: 48px; height: 48px; border-radius: 4px; background: #f3f3f3; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #666; }
+    .li-user-info { display: flex; flex-direction: column; }
+    .li-name { font-weight: 600; font-size: 14px; color: rgba(0,0,0,0.9); }
+    .li-headline { font-size: 12px; color: rgba(0,0,0,0.6); }
+    .li-time { font-size: 12px; color: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 4px; }
+    .li-content { padding: 8px 16px; font-size: 14px; color: rgba(0,0,0,0.9); white-space: pre-wrap; word-break: break-word; }
+    .li-image-area { background: #f3f6f8; min-height: 280px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-top: 1px solid #ebebeb; }
+    .li-image-area img { width: 100%; height: auto; }
+    .li-actions { padding: 4px 12px; border-top: 1px solid #ebebeb; display: flex; gap: 8px; }
+    .li-btn { padding: 10px; font-size: 14px; font-weight: 600; color: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 4px; }
+
+    /* Content Sections */
+    .content-section { padding: 80px 5%; background: var(--bg2); }
+    .section-title { font-family: var(--font-head); font-size: 2.2rem; margin-bottom: 20px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+    .step-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); }
+    .step-num { font-size: 2rem; font-weight: 800; color: var(--accent2); margin-bottom: 10px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 64px 5% 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
+    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 5% 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 800px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+    }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer-widget h4 {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="index.html#tools">All Tools</a>
+    <a href="#how-to">How to Use</a>
+    <a href="#description">Details</a>
+  </nav>
+  <a href="index.html" class="btn btn-primary">Back to Home</a>
+</header>
+
+<section class="container">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h1 class="section-title">LinkedIn Post Preview Tool</h1>
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">Ensure your professional updates look perfect. Preview text truncation and image layouts before sharing with your network.</p>
+  </div>
+
+  <div class="tool-layout">
+    <div class="input-panel">
+      <div class="form-group">
+        <label class="form-label">Full Name / Company Name</label>
+        <input type="text" id="liName" class="form-input" placeholder="Jane Doe" value="Jane Doe" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Professional Headline</label>
+        <input type="text" id="liHeadline" class="form-input" placeholder="Marketing Director at TechCo" value="Creative Director | UI/UX Specialist" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Content</label>
+        <textarea id="liText" class="form-textarea" style="height: 140px;" placeholder="Share an insight...">I am thrilled to share that our team has just launched a new social media suite! 🚀 
+
+The journey has been incredible, and I'm proud of everyone involved. Check out the preview below. 
+
+#LinkedIn #CareerGrowth #Innovation</textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Image</label>
+        <input type="file" id="liFile" accept="image/*" class="form-input" />
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="li-preview-card">
+        <div class="li-header">
+          <div class="li-avatar" id="avatarLetter">J</div>
+          <div class="li-user-info">
+            <span class="li-name" id="previewName">Jane Doe</span>
+            <span class="li-headline" id="previewHeadline">Creative Director | UI/UX Specialist</span>
+            <span class="li-time">1h • 🌐</span>
+          </div>
+        </div>
+        <div class="li-content" id="previewText">I am thrilled to share that our team has just launched a new social media suite! 🚀 
+
+The journey has been incredible, and I'm proud of everyone involved. Check out the preview below. 
+
+#LinkedIn #CareerGrowth #Innovation</div>
+        <div class="li-image-area" id="previewImageArea">
+          <span style="color: #666; font-size: 13px;">1200 x 627 Recommended</span>
+        </div>
+        <div class="li-actions">
+          <div class="li-btn">👍 Like</div>
+          <div class="li-btn">💬 Comment</div>
+          <div class="li-btn">🔁 Repost</div>
+          <div class="li-btn">🚀 Send</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" id="how-to">
+  <div class="container">
+    <h2 class="section-title">How to Optimize LinkedIn Posts</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Check the Hook</h3>
+        <p style="color: var(--muted);">LinkedIn cuts off text after a few lines. Ensure your first three lines (the "hook") encourage users to click "see more".</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Verify Media</h3>
+        <p style="color: var(--muted);">Upload your graphic to ensure no vital information is cropped out by LinkedIn’s auto-formatting.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Personalize Branding</h3>
+        <p style="color: var(--muted);">Toggle between personal profile and company page names to see which fits the tone of your update best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="description">
+  <div style="max-width: 800px;">
+    <h2 class="section-title">Master the Professional Feed</h2>
+    <p>LinkedIn is the world's largest professional network, and how you present your insights matters. Our <strong>LinkedIn Post Preview Tool</strong> is designed to help B2B marketers, recruiters, and thought leaders refine their presence.</p>
+    <br>
+    <p>Unlike other platforms, LinkedIn prioritizes professional readability. Using this tool allows you to visualize white space, check hashtag density, and ensure your call-to-action is visible before the fold. It's a vital part of a professional content strategy.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <!-- Brand Widget -->
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">👁</div>
+        Post<span>Preview</span>
+      </a>
+      <p>The free social media post preview tool for creators, marketers, and businesses. See before you post.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Twitter">𝕏</a>
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="Instagram">◎</a>
+      </div>
+    </div>
+
+    <!-- Tools Widget -->
+    <div class="footer-widget">
+      <h4>Preview Tools</h4>
+      <ul class="footer-links">
+        <li><a href="#preview">Facebook Preview</a></li>
+        <li><a href="#preview">Instagram Preview</a></li>
+        <li><a href="#preview">Twitter/X Preview</a></li>
+        <li><a href="#preview">LinkedIn Preview</a></li>
+        <li><a href="#preview">YouTube Preview</a></li>
+        <li><a href="#preview">TikTok Preview</a></li>
+        <li><a href="#preview">Pinterest Preview</a></li>
+        <li><a href="#preview">Reddit Preview</a></li>
+      </ul>
+    </div>
+
+    <!-- Resources Widget -->
+    <div class="footer-widget">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Social Media Tips</a></li>
+        <li><a href="#">Character Limits Guide</a></li>
+        <li><a href="#">Image Size Guide</a></li>
+        <li><a href="#">Platform Comparison</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+
+    <!-- Company Widget -->
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<script>
+  const nameIn = document.getElementById('liName');
+  const headIn = document.getElementById('liHeadline');
+  const textIn = document.getElementById('liText');
+  const fileIn = document.getElementById('liFile');
+  
+  const pName = document.getElementById('previewName');
+  const pHead = document.getElementById('previewHeadline');
+  const pText = document.getElementById('previewText');
+  const pImgArea = document.getElementById('previewImageArea');
+  const avatarLetter = document.getElementById('avatarLetter');
+
+  function update() {
+    pName.textContent = nameIn.value || 'Jane Doe';
+    pHead.textContent = headIn.value || 'Headline';
+    pText.textContent = textIn.value;
+    avatarLetter.textContent = (nameIn.value || 'J').charAt(0).toUpperCase();
+  }
+
+  nameIn.addEventListener('input', update);
+  headIn.addEventListener('input', update);
+  textIn.addEventListener('input', update);
+
+  fileIn.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        pImgArea.innerHTML = `<img src="${e.target.result}" alt="LinkedIn Preview" />`;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+</body>
+</html>
