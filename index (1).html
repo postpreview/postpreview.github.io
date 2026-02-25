@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PostPreview – Social Media Post Preview Tools | See Before You Post</title>
+  <meta name="description" content="Preview your social media posts before publishing. Free tools for Facebook, Instagram, Twitter/X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, WhatsApp & more." />
+  <meta name="keywords" content="social media preview, post preview, Facebook preview, Instagram preview, Twitter preview, LinkedIn preview, YouTube preview, TikTok preview, social media tools" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PostPreview – Social Media Post Preview Tools" />
+  <meta property="og:description" content="Preview your social media posts across all platforms before publishing. Free, instant previews for 10+ networks." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/" />
+  <meta property="og:image" content="https://postpreview.github.io/og-image.jpg" />
+  <meta property="og:site_name" content="PostPreview" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PostPreview – Social Media Post Preview Tools" />
+  <meta name="twitter:description" content="See how your posts will look before you publish them across Facebook, Instagram, Twitter, LinkedIn & more." />
+  <meta name="twitter:image" content="https://postpreview.github.io/og-image.jpg" />
+  <meta name="twitter:site" content="@postpreview" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PostPreview",
+    "url": "https://postpreview.github.io/",
+    "description": "Free social media post preview tools for 10+ platforms including Facebook, Instagram, Twitter, LinkedIn, and more.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://postpreview.github.io/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "PostPreview",
+    "url": "https://postpreview.github.io/",
+    "logo": "https://postpreview.github.io/logo.png",
+    "sameAs": [
+      "https://twitter.com/postpreview",
+      "https://www.linkedin.com/company/postpreview"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is PostPreview?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PostPreview is a free online tool that lets you preview how your social media posts will look on different platforms before you publish them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which social media platforms are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PostPreview supports Facebook, Instagram, Twitter/X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, WhatsApp, and Reddit previews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is PostPreview free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all PostPreview tools are completely free to use with no sign-up required."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --bg3: #16161f;
+      --card: #1a1a24;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --accent3: #f59e0b;
+      --text: #f0f0f5;
+      --muted: #6b6b80;
+      --radius: 16px;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo span { color: var(--accent2); }
+
+    nav { display: flex; gap: 2px; align-items: center; }
+    nav a {
+      padding: 7px 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(124,58,237,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(124,58,237,0.6); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 120px 5% 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: #a78bfa;
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    /* ─── SECTIONS ─── */
+    section { position: relative; }
+    .section-label {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.25);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      font-weight: 300;
+    }
+    .section-head { margin-bottom: 56px; }
+    .container { padding: 96px 5%; }
+
+    /* ─── TOOLS GRID ─── */
+    .tools-section { background: var(--bg2); }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.02));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .tool-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 20px 40px rgba(124,58,237,0.2); }
+
+    .tool-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .tool-name {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .tool-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .tool-tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid;
+    }
+
+    /* ─── PREVIEW AREA ─── */
+    .preview-section { background: var(--bg); }
+    .preview-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .preview-layout { grid-template-columns: 1fr; } }
+
+    .input-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .input-panel h3 {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; display: block; }
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-textarea { height: 90px; }
+    .char-count { font-size: 0.75rem; color: var(--muted); text-align: right; margin-top: 4px; }
+    .char-count.warn { color: var(--accent3); }
+    .char-count.over { color: #ef4444; }
+
+    .platform-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .ptab {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .ptab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .ptab:hover:not(.active) { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    .preview-panel {
+      position: sticky;
+      top: 88px;
+    }
+    .preview-frame {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .preview-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .preview-platform-name {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+    .preview-body { padding: 20px; }
+
+    /* Post Mockups */
+    .post-mockup { font-size: 0.88rem; }
+
+    /* Twitter/X */
+    .x-post {
+      display: flex;
+      gap: 12px;
+    }
+    .x-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1d9bf0, #0c7abf);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 16px; color: #fff;
+    }
+    .x-content { flex: 1; }
+    .x-name-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+    .x-name { font-weight: 700; font-size: 0.92rem; }
+    .x-handle { color: var(--muted); font-size: 0.82rem; }
+    .x-verified { color: #1d9bf0; font-size: 14px; }
+    .x-text { line-height: 1.5; margin-bottom: 12px; color: var(--text); word-break: break-word; }
+    .x-image { width: 100%; border-radius: 12px; background: var(--bg3); height: 160px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; margin-bottom: 12px; overflow: hidden; }
+    .x-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+    .x-actions { display: flex; gap: 20px; color: var(--muted); font-size: 0.8rem; }
+    .x-action { display: flex; align-items: center; gap: 4px; cursor: pointer; transition: color 0.2s; }
+    .x-action:hover { color: #1d9bf0; }
+
+    /* Facebook */
+    .fb-post { background: var(--bg3); border-radius: 12px; overflow: hidden; }
+    .fb-header { padding: 14px; display: flex; gap: 10px; align-items: center; }
+    .fb-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #1877f2, #0a5bc5); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+    .fb-meta .fb-name { font-weight: 700; font-size: 0.9rem; }
+    .fb-meta .fb-time { font-size: 0.75rem; color: var(--muted); }
+    .fb-text { padding: 0 14px 12px; line-height: 1.5; color: var(--text); word-break: break-word; }
+    .fb-image { width: 100%; height: 160px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; overflow: hidden; }
+    .fb-image img { width: 100%; height: 100%; object-fit: cover; }
+    .fb-actions { padding: 8px 14px; display: flex; gap: 4px; border-top: 1px solid var(--border); }
+    .fb-action { flex: 1; padding: 6px; text-align: center; border-radius: 6px; font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: background 0.2s; }
+    .fb-action:hover { background: var(--bg2); }
+
+    /* Instagram */
+    .ig-post {}
+    .ig-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .ig-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+    .ig-name { font-weight: 700; font-size: 0.9rem; }
+    .ig-image { width: 100%; height: 200px; background: var(--bg3); border-radius: 12px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; overflow: hidden; }
+    .ig-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+    .ig-actions { display: flex; gap: 14px; margin-bottom: 8px; color: var(--muted); font-size: 0.85rem; }
+    .ig-likes { font-weight: 700; font-size: 0.85rem; margin-bottom: 6px; }
+    .ig-caption { font-size: 0.85rem; line-height: 1.5; color: var(--text); word-break: break-word; }
+    .ig-caption strong { font-weight: 700; }
+
+    /* LinkedIn */
+    .li-post {}
+    .li-header { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+    .li-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #0a66c2, #0854a0); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+    .li-info .li-name { font-weight: 700; font-size: 0.9rem; }
+    .li-info .li-title { font-size: 0.75rem; color: var(--muted); }
+    .li-text { line-height: 1.6; color: var(--text); word-break: break-word; margin-bottom: 12px; }
+    .li-image { width: 100%; height: 150px; background: var(--bg3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; margin-bottom: 12px; overflow: hidden; }
+    .li-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+    .li-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .li-action { padding: 5px 10px; border-radius: 100px; font-size: 0.78rem; color: var(--muted); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+    .li-action:hover { border-color: #0a66c2; color: #0a66c2; }
+
+    /* YouTube */
+    .yt-post {}
+    .yt-thumb { width: 100%; height: 170px; background: var(--bg3); border-radius: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; position: relative; overflow: hidden; }
+    .yt-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+    .yt-play { position: absolute; width: 48px; height: 48px; background: rgba(255,0,0,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; }
+    .yt-title { font-weight: 700; font-size: 0.9rem; line-height: 1.3; margin-bottom: 6px; }
+    .yt-meta { font-size: 0.78rem; color: var(--muted); }
+
+    /* TikTok */
+    .tt-post { background: #000; border-radius: 12px; overflow: hidden; }
+    .tt-video { width: 100%; height: 200px; background: linear-gradient(180deg, #1a1a2e, #16213e); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; position: relative; overflow: hidden; }
+    .tt-video img { width: 100%; height: 100%; object-fit: cover; }
+    .tt-overlay { position: absolute; inset: 0; padding: 12px; display: flex; flex-direction: column; justify-content: flex-end; background: linear-gradient(transparent, rgba(0,0,0,0.7)); }
+    .tt-username { color: #fff; font-weight: 700; font-size: 0.85rem; margin-bottom: 4px; }
+    .tt-caption { color: rgba(255,255,255,0.9); font-size: 0.8rem; line-height: 1.4; }
+    .tt-actions-side { position: absolute; right: 10px; bottom: 10px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+    .tt-action-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; color: #fff; font-size: 0.65rem; }
+    .tt-action-btn span { font-size: 20px; }
+
+    /* Pinterest */
+    .pin-post { background: var(--bg3); border-radius: 12px; overflow: hidden; }
+    .pin-image { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; overflow: hidden; }
+    .pin-image img { width: 100%; height: 100%; object-fit: cover; }
+    .pin-content { padding: 14px; }
+    .pin-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+    .pin-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.4; }
+
+    /* WhatsApp */
+    .wa-post { background: #075e54; border-radius: 12px; padding: 10px; }
+    .wa-bubble { background: #128c7e; border-radius: 0 12px 12px 12px; padding: 10px 12px; max-width: 85%; }
+    .wa-text { color: #fff; font-size: 0.88rem; line-height: 1.5; word-break: break-word; }
+    .wa-time { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-align: right; margin-top: 4px; }
+    .wa-link-preview { background: rgba(0,0,0,0.2); border-left: 3px solid #25d366; padding: 8px; border-radius: 4px; margin-top: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.9); }
+
+    /* Reddit */
+    .rd-post {}
+    .rd-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.78rem; color: var(--muted); }
+    .rd-sub { color: var(--text); font-weight: 700; }
+    .rd-title { font-weight: 700; font-size: 0.95rem; line-height: 1.3; margin-bottom: 10px; }
+    .rd-content { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 12px; word-break: break-word; }
+    .rd-image { width: 100%; height: 150px; background: var(--bg3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.8rem; margin-bottom: 12px; overflow: hidden; }
+    .rd-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+    .rd-actions { display: flex; gap: 10px; }
+    .rd-action { padding: 5px 10px; background: var(--bg3); border-radius: 100px; font-size: 0.78rem; color: var(--muted); cursor: pointer; border: none; transition: background 0.2s; }
+    .rd-action:hover { background: var(--bg2); color: var(--text); }
+
+    /* Snapchat */
+    .sc-post { background: #fffc00; border-radius: 12px; overflow: hidden; }
+    .sc-image { width: 100%; height: 200px; background: #f5f200; display: flex; align-items: center; justify-content: center; color: rgba(0,0,0,0.4); font-size: 0.8rem; overflow: hidden; }
+    .sc-image img { width: 100%; height: 100%; object-fit: cover; }
+    .sc-bottom { padding: 10px 14px; background: rgba(0,0,0,0.85); }
+    .sc-text { color: #fff; font-size: 0.88rem; font-weight: 500; }
+    .sc-username { color: #fffc00; font-size: 0.78rem; margin-top: 2px; }
+
+    /* ─── FEATURES ─── */
+    .features-section { background: var(--bg3); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      padding: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all 0.25s;
+    }
+    .feature-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; }
+    .feature-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-section { background: var(--bg); }
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
+    .step {
+      display: flex;
+      gap: 24px;
+      position: relative;
+    }
+    .step:not(:last-child) .step-line {
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      width: 2px;
+      height: calc(100% - 8px);
+      background: linear-gradient(var(--accent), transparent);
+    }
+    .step-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .step-content { padding-bottom: 40px; }
+    .step-title { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; margin-top: 8px; }
+    .step-text { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--bg2); }
+    .faq-list { max-width: 750px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .faq-q:hover { background: rgba(255,255,255,0.03); }
+    .faq-chevron { font-size: 18px; color: var(--muted); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+      padding: 0 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 20px 18px; }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: var(--bg3);
+      text-align: center;
+      padding: 96px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(124,58,237,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .cta-section p { color: var(--muted); max-width: 480px; margin: 0 auto 36px; position: relative; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 5% 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 800px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+    }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer-widget h4 {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── IMAGE UPLOAD ─── */
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 16px;
+    }
+    .upload-area:hover { border-color: var(--accent); background: rgba(124,58,237,0.05); }
+    .upload-area p { font-size: 0.82rem; color: var(--muted); }
+    .upload-area span { font-size: 24px; display: block; margin-bottom: 6px; }
+    #imageInput { display: none; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .hero h1 { letter-spacing: -1px; }
+      .hero-stats { gap: 24px; }
+      .preview-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="#tools">Tools</a>
+    <a href="#preview">Preview</a>
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <a href="#preview" class="btn btn-primary">Try Free ↗</a>
+</header>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">✨ Free · No signup required</div>
+  <h1 class="animate">See How Your Posts Look<br><span class="gradient-text">Before You Publish</span></h1>
+  <p class="animate delay-1">Preview your social media content across 10+ platforms instantly. Stop guessing — start posting with confidence.</p>
+  <div class="hero-ctas animate delay-2">
+    <a href="#preview" class="btn btn-primary">Start Previewing Free</a>
+    <a href="#tools" class="btn btn-outline">Explore All Tools</a>
+  </div>
+  <div class="hero-stats animate delay-3">
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Platforms Supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Free to Use</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Sign-up Required</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Previews</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ TOOLS ══════════════════ -->
+<section class="tools-section" id="tools">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">All Tools</div>
+      <h2 class="section-title">Preview on Every Platform</h2>
+      <p class="section-sub">Choose a platform below to instantly preview how your content will look to your audience.</p>
+    </div>
+    <div class="tools-grid" id="toolsGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PREVIEW TOOL ══════════════════ -->
+<section class="preview-section" id="preview">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-label">Live Preview</div>
+      <h2 class="section-title">Craft the Perfect Post</h2>
+      <p class="section-sub">Enter your content below and see a real-time preview for your chosen platform.</p>
+    </div>
+    <div class="preview-layout">
+
+      <!-- INPUT PANEL -->
+      <div class="input-panel">
+        <h3>✏️ Post Content</h3>
+        <div class="platform-tabs" id="platformTabs">
+          <!-- JS-generated -->
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your Name / Brand</label>
+          <input type="text" class="form-input" id="inputName" placeholder="e.g. Acme Corp" value="Your Brand" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Handle / Username</label>
+          <input type="text" class="form-input" id="inputHandle" placeholder="@username" value="@yourbrand" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Post Text</label>
+          <textarea class="form-textarea" id="inputText" placeholder="Write your post content here...">Just launched our new product! 🚀 Excited to share this with everyone. Check the link below for more details. #launch #product #excited</textarea>
+          <div class="char-count" id="charCount">0 / 280</div>
+        </div>
+
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+          <span>🖼️</span>
+          <p>Click to upload an image (optional)</p>
+          <input type="file" id="imageInput" accept="image/*" />
+        </div>
+
+        <div id="imagePreviewThumb" style="display:none; margin-bottom:16px;">
+          <img id="thumbImg" style="width:100%;border-radius:10px;max-height:120px;object-fit:cover;" />
+          <button onclick="removeImage()" style="margin-top:6px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:0.78rem;cursor:pointer;">✕ Remove Image</button>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Platform Title (YouTube / Reddit / Pinterest)</label>
+          <input type="text" class="form-input" id="inputTitle" placeholder="e.g. My Amazing Video Title" value="Check Out Our New Product Launch!" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subreddit (Reddit only)</label>
+          <input type="text" class="form-input" id="inputSubreddit" placeholder="r/subreddit" value="r/startups" />
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="updatePreview()">🔄 Refresh Preview</button>
+      </div>
+
+      <!-- PREVIEW PANEL -->
+      <div class="preview-panel">
+        <div class="preview-frame">
+          <div class="preview-header">
+            <div class="preview-platform-name">
+              <div class="preview-dot"></div>
+              <span id="previewPlatformName">Twitter / X Preview</span>
+            </div>
+            <span style="font-size:0.78rem;color:var(--muted);">Live Preview</span>
+          </div>
+          <div class="preview-body" id="previewBody">
+            <!-- Dynamic preview -->
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:12px;text-align:center;">⚡ Updates in real-time as you type</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FEATURES ══════════════════ -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-head" style="text-align:center;">
+      <div class="section-label">Why PostPreview</div>
+      <h2 class="section-title">Everything You Need</h2>
+      <p class="section-sub" style="margin:0 auto;">Powerful features to make your social media content shine.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Real-Time Preview</div>
+        <div class="feature-text">See your changes instantly as you type. No delays, no reloads — just immediate visual feedback on how your post will appear.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">10+ Platforms</div>
+        <div class="feature-text">From Facebook and Instagram to TikTok, Reddit, and Snapchat — preview your posts across every major social network.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖼️</div>
+        <div class="feature-title">Image Upload</div>
+        <div class="feature-text">Upload your photos and see exactly how they'll appear in each platform's feed, stories, or timeline format.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📏</div>
+        <div class="feature-title">Character Counters</div>
+        <div class="feature-text">Never exceed platform character limits again. Our live counters match each network's specific requirements.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🆓</div>
+        <div class="feature-title">Completely Free</div>
+        <div class="feature-text">No subscriptions, no sign-ups, no hidden fees. All tools are 100% free and open for everyone to use anytime.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-title">Privacy First</div>
+        <div class="feature-text">Your content stays on your device. We don't store, share, or log anything you type into the preview tool.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+<section class="how-section" id="how">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three Simple Steps</h2>
+    <p class="section-sub" style="margin:0 auto 56px;">Get your post preview ready in under a minute.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">1</div>
+        <div class="step-content" style="text-align:left;">
+          <div class="step-title">Choose Your Platform</div>
+          <div class="step-text">Pick from 10+ social media platforms — Facebook, Instagram, Twitter/X, LinkedIn, TikTok, YouTube, Pinterest, Snapchat, WhatsApp, or Reddit.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-line"></div>
+        <div class="step-num">2</div>
+        <div class="step-content" style="text-align:left;">
+          <div class="step-title">Enter Your Content</div>
+          <div class="step-text">Type or paste your post text, add your name and handle, and optionally upload an image. Our tool instantly renders the preview.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content" style="text-align:left;">
+          <div class="step-title">Refine and Publish</div>
+          <div class="step-text">Tweak your content until it looks perfect, then copy it over to your social media account with total confidence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FAQ ══════════════════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-head" style="text-align:center;">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <!-- JS injected -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA ══════════════════ -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <h2>Ready to Post with <span class="gradient-text">Confidence?</span></h2>
+  <p>Start previewing your social media posts for free — no account needed.</p>
+  <div class="cta-btns">
+    <a href="#preview" class="btn btn-primary">Start Previewing Now</a>
+    <a href="#tools" class="btn btn-outline">Explore All Tools</a>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <!-- Brand Widget -->
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">👁</div>
+        Post<span>Preview</span>
+      </a>
+      <p>The free social media post preview tool for creators, marketers, and businesses. See before you post.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Twitter">𝕏</a>
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="Instagram">◎</a>
+      </div>
+    </div>
+
+    <!-- Tools Widget -->
+    <div class="footer-widget">
+      <h4>Preview Tools</h4>
+      <ul class="footer-links">
+        <li><a href="#preview">Facebook Preview</a></li>
+        <li><a href="#preview">Instagram Preview</a></li>
+        <li><a href="#preview">Twitter/X Preview</a></li>
+        <li><a href="#preview">LinkedIn Preview</a></li>
+        <li><a href="#preview">YouTube Preview</a></li>
+        <li><a href="#preview">TikTok Preview</a></li>
+        <li><a href="#preview">Pinterest Preview</a></li>
+        <li><a href="#preview">Reddit Preview</a></li>
+      </ul>
+    </div>
+
+    <!-- Resources Widget -->
+    <div class="footer-widget">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Social Media Tips</a></li>
+        <li><a href="#">Character Limits Guide</a></li>
+        <li><a href="#">Image Size Guide</a></li>
+        <li><a href="#">Platform Comparison</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+
+    <!-- Company Widget -->
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<!-- ══════════════════ JS ══════════════════ -->
+<script>
+  // ── Platform Data ──
+  const platforms = [
+    { id: 'twitter', name: 'Twitter / X', icon: '𝕏', color: '#1d9bf0', bg: 'rgba(29,155,240,0.15)', tag: 'Max 280 chars', tagColor: '#1d9bf0', limit: 280 },
+    { id: 'facebook', name: 'Facebook', icon: '📘', color: '#1877f2', bg: 'rgba(24,119,242,0.15)', tag: 'Max 63,206 chars', tagColor: '#1877f2', limit: 63206 },
+    { id: 'instagram', name: 'Instagram', icon: '📸', color: '#e1306c', bg: 'rgba(225,48,108,0.15)', tag: 'Max 2,200 chars', tagColor: '#e1306c', limit: 2200 },
+    { id: 'linkedin', name: 'LinkedIn', icon: '💼', color: '#0a66c2', bg: 'rgba(10,102,194,0.15)', tag: 'Max 3,000 chars', tagColor: '#0a66c2', limit: 3000 },
+    { id: 'youtube', name: 'YouTube', icon: '▶️', color: '#ff0000', bg: 'rgba(255,0,0,0.15)', tag: 'Video + Title', tagColor: '#ff0000', limit: 5000 },
+    { id: 'tiktok', name: 'TikTok', icon: '🎵', color: '#69c9d0', bg: 'rgba(105,201,208,0.15)', tag: 'Max 2,200 chars', tagColor: '#69c9d0', limit: 2200 },
+    { id: 'pinterest', name: 'Pinterest', icon: '📌', color: '#e60023', bg: 'rgba(230,0,35,0.15)', tag: 'Max 500 chars', tagColor: '#e60023', limit: 500 },
+    { id: 'whatsapp', name: 'WhatsApp', icon: '💬', color: '#25d366', bg: 'rgba(37,211,102,0.15)', tag: 'Max 65,536 chars', tagColor: '#25d366', limit: 65536 },
+    { id: 'reddit', name: 'Reddit', icon: '🤖', color: '#ff4500', bg: 'rgba(255,69,0,0.15)', tag: 'Max 40,000 chars', tagColor: '#ff4500', limit: 40000 },
+    { id: 'snapchat', name: 'Snapchat', icon: '👻', color: '#fffc00', bg: 'rgba(255,252,0,0.15)', tag: 'Max 250 chars', tagColor: '#fffc00', limit: 250 },
+  ];
+
+  let currentPlatform = 'twitter';
+  let uploadedImageSrc = null;
+
+  // ── Build Tools Grid ──
+  const toolsGrid = document.getElementById('toolsGrid');
+  platforms.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'tool-card' + (p.id === currentPlatform ? ' active' : '');
+    card.innerHTML = `
+      <div class="tool-icon" style="background:${p.bg};">${p.icon}</div>
+      <div class="tool-name">${p.name}</div>
+      <div class="tool-desc">Preview your ${p.name} posts exactly as your followers will see them.</div>
+      <div class="tool-tag" style="color:${p.tagColor};border-color:${p.tagColor}22;">${p.tag}</div>
+    `;
+    card.addEventListener('click', () => {
+      currentPlatform = p.id;
+      document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      updatePlatformTabs();
+      updatePreview();
+      document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+    });
+    toolsGrid.appendChild(card);
+  });
+
+  // ── Build Platform Tabs ──
+  function buildPlatformTabs() {
+    const tabs = document.getElementById('platformTabs');
+    tabs.innerHTML = '';
+    platforms.forEach(p => {
+      const tab = document.createElement('button');
+      tab.className = 'ptab' + (p.id === currentPlatform ? ' active' : '');
+      tab.textContent = p.icon + ' ' + p.name.split(' ')[0];
+      tab.addEventListener('click', () => {
+        currentPlatform = p.id;
+        updatePlatformTabs();
+        document.querySelectorAll('.tool-card').forEach((c, i) => {
+          c.classList.toggle('active', platforms[i].id === currentPlatform);
+        });
+        updatePreview();
+      });
+      tabs.appendChild(tab);
+    });
+  }
+
+  function updatePlatformTabs() {
+    document.querySelectorAll('.ptab').forEach((tab, i) => {
+      tab.classList.toggle('active', platforms[i].id === currentPlatform);
+    });
+    document.getElementById('previewPlatformName').textContent = platforms.find(p => p.id === currentPlatform).name + ' Preview';
+    updateCharCount();
+  }
+
+  buildPlatformTabs();
+
+  // ── Char Count ──
+  const inputText = document.getElementById('inputText');
+  const charCount = document.getElementById('charCount');
+
+  function updateCharCount() {
+    const p = platforms.find(x => x.id === currentPlatform);
+    const len = inputText.value.length;
+    charCount.textContent = `${len} / ${p.limit.toLocaleString()}`;
+    charCount.className = 'char-count';
+    if (len > p.limit) charCount.classList.add('over');
+    else if (len > p.limit * 0.85) charCount.classList.add('warn');
+  }
+
+  inputText.addEventListener('input', () => { updateCharCount(); updatePreview(); });
+  ['inputName','inputHandle','inputTitle','inputSubreddit'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updatePreview);
+  });
+
+  // ── Image Upload ──
+  document.getElementById('imageInput').addEventListener('change', function() {
+    if (!this.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedImageSrc = e.target.result;
+      document.getElementById('thumbImg').src = uploadedImageSrc;
+      document.getElementById('imagePreviewThumb').style.display = 'block';
+      updatePreview();
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+
+  function removeImage() {
+    uploadedImageSrc = null;
+    document.getElementById('imagePreviewThumb').style.display = 'none';
+    document.getElementById('imageInput').value = '';
+    updatePreview();
+  }
+
+  // ── Get Values ──
+  function vals() {
+    return {
+      name: document.getElementById('inputName').value || 'Your Brand',
+      handle: document.getElementById('inputHandle').value || '@yourbrand',
+      text: document.getElementById('inputText').value || '',
+      title: document.getElementById('inputTitle').value || 'Post Title',
+      subreddit: document.getElementById('inputSubreddit').value || 'r/general',
+      img: uploadedImageSrc
+    };
+  }
+
+  function imgBlock(cls) {
+    const v = vals();
+    if (v.img) return `<div class="${cls}"><img src="${v.img}" alt="Post image" /></div>`;
+    return `<div class="${cls}">🖼️ Image Preview</div>`;
+  }
+
+  // ── Render Previews ──
+  const renderers = {
+    twitter: () => {
+      const v = vals();
+      const init = v.name ? v.name[0].toUpperCase() : 'U';
+      return `<div class="post-mockup x-post">
+        <div class="x-avatar">${init}</div>
+        <div class="x-content">
+          <div class="x-name-row">
+            <span class="x-name">${esc(v.name)}</span>
+            <span class="x-verified">✓</span>
+            <span class="x-handle">${esc(v.handle)} · now</span>
+          </div>
+          <div class="x-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
+          ${v.img ? `<div class="x-image"><img src="${v.img}" alt="post image"></div>` : ''}
+          <div class="x-actions">
+            <span class="x-action">💬 12</span>
+            <span class="x-action">🔁 48</span>
+            <span class="x-action">❤️ 284</span>
+            <span class="x-action">📈 9.2K</span>
+          </div>
+        </div>
+      </div>`;
+    },
+    facebook: () => {
+      const v = vals();
+      const init = v.name[0]?.toUpperCase() || 'U';
+      return `<div class="fb-post post-mockup">
+        <div class="fb-header">
+          <div class="fb-avatar">${init}</div>
+          <div class="fb-meta">
+            <div class="fb-name">${esc(v.name)}</div>
+            <div class="fb-time">Just now · 🌐</div>
+          </div>
+        </div>
+        <div class="fb-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
+        ${v.img ? `<div class="fb-image"><img src="${v.img}" alt="post"></div>` : ''}
+        <div class="fb-actions">
+          <div class="fb-action">👍 Like</div>
+          <div class="fb-action">💬 Comment</div>
+          <div class="fb-action">↗️ Share</div>
+        </div>
+      </div>`;
+    },
+    instagram: () => {
+      const v = vals();
+      const init = v.name[0]?.toUpperCase() || 'U';
+      return `<div class="post-mockup ig-post">
+        <div class="ig-header">
+          <div class="ig-avatar">${init}</div>
+          <div>
+            <div class="ig-name">${esc(v.handle.replace('@',''))}</div>
+            <div style="font-size:0.75rem;color:var(--muted);">Sponsored · 🌐</div>
+          </div>
+          <span style="margin-left:auto;color:var(--muted);">···</span>
+        </div>
+        ${v.img ? `<div class="ig-image"><img src="${v.img}" alt="post"></div>` : '<div class="ig-image">🖼️ Photo Preview</div>'}
+        <div class="ig-actions">
+          <span>❤️</span><span>💬</span><span>✈️</span>
+          <span style="margin-left:auto">🔖</span>
+        </div>
+        <div class="ig-likes">1,284 likes</div>
+        <div class="ig-caption"><strong>${esc(v.handle.replace('@',''))}</strong> ${esc(v.text).replace(/\n/g,'<br>')}</div>
+      </div>`;
+    },
+    linkedin: () => {
+      const v = vals();
+      const init = v.name[0]?.toUpperCase() || 'U';
+      return `<div class="post-mockup li-post">
+        <div class="li-header">
+          <div class="li-avatar">${init}</div>
+          <div class="li-info">
+            <div class="li-name">${esc(v.name)}</div>
+            <div class="li-title">Professional · 1st · Just now</div>
+          </div>
+        </div>
+        <div class="li-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
+        ${v.img ? `<div class="li-image"><img src="${v.img}" alt="post"></div>` : ''}
+        <div class="li-actions">
+          <button class="li-action">👍 Like</button>
+          <button class="li-action">💬 Comment</button>
+          <button class="li-action">🔁 Repost</button>
+          <button class="li-action">✈️ Send</button>
+        </div>
+      </div>`;
+    },
+    youtube: () => {
+      const v = vals();
+      return `<div class="post-mockup yt-post">
+        <div class="yt-thumb">
+          ${v.img ? `<img src="${v.img}" alt="thumbnail">` : '<span style="font-size:40px">▶️</span>'}
+          <div class="yt-play">▶</div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:4px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#cc0000);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;">${v.name[0]?.toUpperCase()}</div>
+          <div>
+            <div class="yt-title">${esc(v.title)}</div>
+            <div class="yt-meta">${esc(v.name)} · 12K views · Just now</div>
+          </div>
+        </div>
+      </div>`;
+    },
+    tiktok: () => {
+      const v = vals();
+      return `<div class="post-mockup tt-post">
+        <div class="tt-video">
+          ${v.img ? `<img src="${v.img}" alt="video">` : ''}
+          <div class="tt-overlay">
+            <div class="tt-username">${esc(v.handle)}</div>
+            <div class="tt-caption">${esc(v.text).replace(/\n/g,' ')}</div>
+          </div>
+          <div class="tt-actions-side">
+            <div class="tt-action-btn"><span>❤️</span>24K</div>
+            <div class="tt-action-btn"><span>💬</span>312</div>
+            <div class="tt-action-btn"><span>🔖</span>5K</div>
+            <div class="tt-action-btn"><span>↗️</span>890</div>
+          </div>
+        </div>
+      </div>`;
+    },
+    pinterest: () => {
+      const v = vals();
+      return `<div class="post-mockup pin-post" style="max-width:240px;">
+        ${v.img ? `<div class="pin-image"><img src="${v.img}" alt="pin"></div>` : '<div class="pin-image" style="height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);">📌 Pin Image</div>'}
+        <div class="pin-content">
+          <div class="pin-title">${esc(v.title)}</div>
+          <div class="pin-desc">${esc(v.text).replace(/\n/g,' ')}</div>
+          <button class="btn btn-primary" style="margin-top:10px;padding:6px 16px;font-size:0.8rem;">Save</button>
+        </div>
+      </div>`;
+    },
+    whatsapp: () => {
+      const v = vals();
+      const time = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      return `<div class="post-mockup wa-post">
+        <div class="wa-bubble">
+          <div class="wa-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
+          ${v.img ? `<img src="${v.img}" alt="img" style="width:100%;border-radius:8px;margin-top:8px;">` : ''}
+          <div class="wa-time">${time} ✓✓</div>
+        </div>
+      </div>`;
+    },
+    reddit: () => {
+      const v = vals();
+      return `<div class="post-mockup rd-post">
+        <div class="rd-header">
+          <span class="rd-sub">${esc(v.subreddit)}</span>
+          <span>· Posted by ${esc(v.handle)} · Just now</span>
+        </div>
+        <div class="rd-title">${esc(v.title)}</div>
+        ${v.text ? `<div class="rd-content">${esc(v.text).replace(/\n/g,'<br>')}</div>` : ''}
+        ${v.img ? `<div class="rd-image"><img src="${v.img}" alt="post"></div>` : ''}
+        <div class="rd-actions">
+          <button class="rd-action">▲ 1.2K</button>
+          <button class="rd-action">▼</button>
+          <button class="rd-action">💬 48 Comments</button>
+          <button class="rd-action">↗️ Share</button>
+          <button class="rd-action">··· More</button>
+        </div>
+      </div>`;
+    },
+    snapchat: () => {
+      const v = vals();
+      return `<div class="post-mockup sc-post">
+        <div class="sc-image">
+          ${v.img ? `<img src="${v.img}" alt="snap">` : '<span style="font-size:40px">👻</span>'}
+        </div>
+        <div class="sc-bottom">
+          <div class="sc-text">${esc(v.text).replace(/\n/g,' ')}</div>
+          <div class="sc-username">${esc(v.handle)}</div>
+        </div>
+      </div>`;
+    }
+  };
+
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updatePreview() {
+    const renderer = renderers[currentPlatform];
+    if (renderer) {
+      document.getElementById('previewBody').innerHTML = renderer();
+    }
+    updateCharCount();
+  }
+
+  updatePreview();
+
+  // ── FAQ ──
+  const faqs = [
+    { q: 'What is PostPreview?', a: 'PostPreview is a free online tool that lets you preview how your social media posts will look on different platforms before you publish them. It supports 10+ major social networks.' },
+    { q: 'Which social media platforms are supported?', a: 'PostPreview currently supports Facebook, Instagram, Twitter/X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, WhatsApp, and Reddit — with more platforms being added regularly.' },
+    { q: 'Is PostPreview free to use?', a: 'Yes! All PostPreview tools are completely free to use with no sign-up, subscription, or credit card required. Just visit the site and start previewing.' },
+    { q: 'Does PostPreview store my content?', a: 'No. Your content is processed entirely in your browser. We do not store, log, or share anything you type or upload. Your privacy is fully protected.' },
+    { q: 'Can I upload images to the preview?', a: 'Absolutely! You can upload any image from your device and see exactly how it will appear in each platform's post format — feeds, timelines, and stories.' },
+    { q: 'How accurate are the previews?', a: 'Our previews closely replicate the look and feel of each platform's native post UI, including avatars, action buttons, character limits, and layout. Small platform updates may create minor visual differences.' },
+    { q: 'Can I use PostPreview on mobile?', a: 'Yes! PostPreview is fully responsive and works great on smartphones, tablets, and desktop computers.' },
+  ];
+
+  const faqList = document.getElementById('faqList');
+  faqs.forEach(f => {
+    const item = document.createElement('div');
+    item.className = 'faq-item';
+    item.innerHTML = `
+      <div class="faq-q">
+        <span>${f.q}</span>
+        <span class="faq-chevron">⌄</span>
+      </div>
+      <div class="faq-a">${f.a}</div>
+    `;
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+    faqList.appendChild(item);
+  });
+
+  // ── Intersection Observer for animations ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.tool-card, .feature-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
