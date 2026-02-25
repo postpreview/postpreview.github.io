@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facebook Post Preview Tool – See Your Post Before Publishing | PostPreview</title>
+  <meta name="description" content="Use our free Facebook preview tool to see exactly how your status updates, images, and links will appear on the FB newsfeed. No login required." />
+  <meta name="keywords" content="facebook preview, fb post tool, facebook mockup, social media preview, facebook post simulator" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/facebook-preview.html" />
+
+  <meta property="og:title" content="Facebook Post Preview Tool – PostPreview" />
+  <meta property="og:description" content="Preview your Facebook content instantly. See how your brand looks on the world's largest social network before you hit post." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/facebook-preview.html" />
+  <meta property="og:image" content="https://postpreview.github.io/og-fb.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS inherited and optimized from index.html */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #1877f2; /* FB Blue */
+      --accent2: #06b6d4; --text: #f0f0f5; --muted: #6b6b80;
+      --radius: 16px; --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+    
+    /* Header & Footer Styles from Index */
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+    nav a:hover { color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 10px; font-weight: 500; cursor: pointer; border: none; text-decoration: none; transition: 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 20px rgba(24,119,242,0.3); }
+
+    /* Layout */
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .preview-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .preview-layout { grid-template-columns: 1fr; } }
+
+    /* Input Panel */
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; display: block; }
+    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); }
+    .upload-area { border: 2px dashed var(--border); padding: 20px; text-align: center; cursor: pointer; border-radius: 10px; margin-bottom: 16px; }
+
+    /* Facebook Mockup Specifics */
+    .preview-frame { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; position: sticky; top: 100px; }
+    .fb-post { background: #242526; border-radius: 8px; color: #e4e6eb; font-family: Segoe UI, Helvetica, Arial, sans-serif; }
+    .fb-header { padding: 12px 16px; display: flex; gap: 10px; }
+    .fb-avatar { width: 40px; height: 40px; border-radius: 50%; background: #4e4f50; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .fb-name { font-weight: 600; font-size: 0.93rem; }
+    .fb-time { font-size: 0.8rem; color: #b0b3b8; }
+    .fb-text { padding: 4px 16px 16px; font-size: 0.93rem; white-space: pre-wrap; }
+    .fb-image { width: 100%; background: #000; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+    .fb-image img { width: 100%; height: auto; display: block; }
+    .fb-actions { display: flex; padding: 4px; border-top: 1px solid #3e4042; margin: 0 12px; }
+    .fb-action { flex: 1; text-align: center; padding: 8px; color: #b0b3b8; font-size: 0.87rem; font-weight: 600; }
+
+    /* Content Sections */
+    .content-section { padding: 80px 5%; background: var(--bg2); border-top: 1px solid var(--border); }
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    @media (max-width: 800px) { .content-grid { grid-template-columns: 1fr; } }
+    h2 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; }
+    .step-item { margin-bottom: 20px; }
+    .step-item h4 { color: var(--accent); margin-bottom: 5px; }
+
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 64px 5% 32px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="index.html#tools">All Tools</a>
+    <a href="#how-to">How to Use</a>
+    <a href="#description">Details</a>
+  </nav>
+  <a href="index.html" class="btn btn-primary">Try All Networks ↗</a>
+</header>
+
+<main class="container">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h1 style="font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.5rem);">Facebook <span style="color: var(--accent);">Post Preview</span></h1>
+    <p style="color: var(--muted); max-width: 600px; margin: 10px auto;">Optimize your Facebook engagement by visualizing your content exactly as it appears in the feed.</p>
+  </div>
+
+  <div class="preview-layout">
+    <div class="input-panel">
+      <div class="form-group">
+        <label class="form-label">Page or Profile Name</label>
+        <input type="text" id="fbName" class="form-input" value="Your Brand Name" oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Status / Text</label>
+        <textarea id="fbText" class="form-textarea" rows="5" oninput="syncPreview()">Check out our latest update! We are revolutionizing how creators preview social media content. #marketing #facebook</textarea>
+      </div>
+      <div class="upload-area" onclick="document.getElementById('fbFile').click()">
+        <p>📷 Upload Post Image</p>
+        <input type="file" id="fbFile" hidden accept="image/*" onchange="handleImage(this)">
+      </div>
+      <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="window.print()">Download Preview (PDF)</button>
+    </div>
+
+    <div class="preview-frame">
+      <div style="padding: 15px; border-bottom: 1px solid var(--border); font-size: 0.8rem; font-weight: bold; color: var(--muted);">NEWS FEED DESKTOP PREVIEW</div>
+      <div class="fb-post" id="fbPost">
+        <div class="fb-header">
+          <div class="fb-avatar" id="avatarInit">Y</div>
+          <div>
+            <div class="fb-name" id="previewName">Your Brand Name</div>
+            <div class="fb-time">Just now · 🌎</div>
+          </div>
+        </div>
+        <div class="fb-text" id="previewText">Check out our latest update! We are revolutionizing how creators preview social media content. #marketing #facebook</div>
+        <div class="fb-image" id="previewImageWrap">
+          <span style="color: #4e4f50;">Image Placeholder</span>
+        </div>
+        <div class="fb-actions">
+          <div class="fb-action">Like</div>
+          <div class="fb-action">Comment</div>
+          <div class="fb-action">Share</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="content-section" id="how-to">
+  <div class="content-grid">
+    <div>
+      <h2>How to use the Facebook Previewer</h2>
+      <div class="step-item">
+        <h4>1. Enter Brand Details</h4>
+        <p>Input your Facebook Page name to see how your branding matches the content.</p>
+      </div>
+      <div class="step-item">
+        <h4>2. Compose Your Message</h4>
+        <p>Type your post text. Pay attention to how the first few lines appear before the "See More" cut-off.</p>
+      </div>
+      <div class="step-item">
+        <h4>3. Add Visuals</h4>
+        <p>Upload a JPG or PNG to test aspect ratios and see if your image text is readable in the feed.</p>
+      </div>
+    </div>
+    <div id="description">
+      <h2>Why use a Facebook Mockup?</h2>
+      <p>Facebook's algorithm prioritizes content that looks professional and engages users. By using a <strong>Facebook Post Preview tool</strong>, you ensure that:</p>
+      <ul style="margin-left: 20px; margin-top: 15px; color: var(--muted);">
+        <li>Important information isn't cropped out of images.</li>
+        <li>Your hashtags and links are positioned for maximum clicks.</li>
+        <li>Your brand voice looks consistent in the dark mode/standard UI.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="logo">Post<span>Preview</span></a>
+      <p style="color: var(--muted); margin-top: 15px; font-size: 0.9rem;">The ultimate toolkit for social media managers. Preview, refine, and publish with confidence.</p>
+    </div>
+    <div>
+      <h4 style="margin-bottom: 15px;">Quick Tools</h4>
+      <ul style="list-style: none; font-size: 0.9rem; line-height: 2;">
+        <li><a href="index.html" style="color: var(--muted); text-decoration: none;">Instagram Preview</a></li>
+        <li><a href="index.html" style="color: var(--muted); text-decoration: none;">Twitter/X Preview</a></li>
+        <li><a href="index.html" style="color: var(--muted); text-decoration: none;">LinkedIn Preview</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="margin-bottom: 15px;">Legal</h4>
+      <ul style="list-style: none; font-size: 0.9rem; line-height: 2;">
+        <li><a href="#" style="color: var(--muted); text-decoration: none;">Privacy Policy</a></li>
+        <li><a href="#" style="color: var(--muted); text-decoration: none;">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="text-align: center; margin-top: 40px; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px;">
+    © 2026 PostPreview. All rights reserved. Built for Social Success.
+  </div>
+</footer>
+
+<script>
+  function syncPreview() {
+    const name = document.getElementById('fbName').value;
+    const text = document.getElementById('fbText').value;
+    
+    document.getElementById('previewName').innerText = name || "Your Brand Name";
+    document.getElementById('previewText').innerText = text || "";
+    document.getElementById('avatarInit').innerText = name ? name.charAt(0).toUpperCase() : "Y";
+  }
+
+  function handleImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const wrap = document.getElementById('previewImageWrap');
+        wrap.innerHTML = `<img src="${e.target.result}" alt="Facebook Post Image">`;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+</body>
+</html>
