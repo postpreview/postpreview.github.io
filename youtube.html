@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Thumbnail & Video Preview Tool | PostPreview</title>
+<meta name="description" content="Preview your YouTube video thumbnails, titles, and descriptions before publishing. See how your video appears in search results, suggested feed, and channel page.">
+<meta name="keywords" content="youtube thumbnail preview, youtube title preview, youtube description preview, youtube video preview, youtube search preview, youtube channel preview">
+<link rel="canonical" href="https://postpreview.github.io/youtube">
+<meta property="og:title" content="YouTube Thumbnail & Video Preview Tool | PostPreview">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"YouTube Video Preview Tool","url":"https://postpreview.github.io/youtube","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Preview YouTube thumbnails, titles and descriptions before publishing."}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+:root { --accent: #ff0000; --accent-rgb: 255,0,0; }
+.yt-wrap { background: #0f0f0f; border-radius: 14px; overflow: hidden; font-family: 'Roboto','Arial',sans-serif; }
+/* Search Result */
+.yt-search-result { display: flex; gap: 10px; padding: 12px; }
+.yt-thumb-wrap { position: relative; flex-shrink: 0; width: 168px; }
+.yt-thumb { width: 168px; height: 94px; background: #3f3f3f; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #717171; font-size: 0.75rem; }
+.yt-thumb img { width:100%;height:100%;object-fit:cover;display:block; }
+.yt-duration { position:absolute; bottom:4px; right:4px; background:rgba(0,0,0,0.85); color:#fff; font-size:0.72rem; padding:1px 4px; border-radius:3px; font-weight:600; }
+.yt-info { flex: 1; min-width: 0; }
+.yt-title { font-size:0.9rem;font-weight:500;color:#f1f1f1;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
+.yt-channel-row { display:flex;align-items:center;gap:6px;margin-bottom:3px; }
+.yt-channel { font-size:0.78rem;color:#aaa; }
+.yt-verified-yt { color:#aaa;font-size:12px; }
+.yt-meta { font-size:0.78rem;color:#aaa; }
+/* Feed Card */
+.yt-feed-card { padding: 10px; }
+.yt-feed-thumb { width:100%;border-radius:10px;position:relative;overflow:hidden;background:#3f3f3f; aspect-ratio:16/9; display:flex;align-items:center;justify-content:center;color:#717171; }
+.yt-feed-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.yt-feed-duration { position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,0.85);color:#fff;font-size:0.72rem;padding:2px 5px;border-radius:3px;font-weight:700; }
+.yt-feed-footer { display:flex;gap:10px;margin-top:8px; }
+.yt-feed-channel-avatar { width:36px;height:36px;border-radius:50%;background:#ff0000;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden; }
+.yt-feed-channel-avatar img{width:100%;height:100%;object-fit:cover;}
+.yt-feed-title { font-size:0.88rem;font-weight:500;color:#f1f1f1;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
+.yt-feed-meta { font-size:0.75rem;color:#aaa;margin-top:2px; }
+/* Description */
+.yt-desc-box { background:#272727;border-radius:12px;margin:8px;padding:12px; }
+.yt-desc-title { font-size:0.88rem;font-weight:700;color:#f1f1f1;margin-bottom:8px; }
+.yt-desc-stats { font-size:0.8rem;color:#f1f1f1;margin-bottom:6px; }
+.yt-desc-text { font-size:0.82rem;color:#aaa;line-height:1.5;white-space:pre-wrap;word-break:break-word; }
+.yt-desc-hashtags { margin-top:6px; }
+.yt-hashtag { color:#3ea6ff;font-size:0.82rem; }
+/* Subscribe section */
+.yt-sub-bar { display:flex;align-items:center;gap:8px;padding:8px 10px; }
+.yt-channel-name { font-size:0.88rem;font-weight:700;color:#f1f1f1; }
+.yt-sub-count { font-size:0.75rem;color:#aaa; }
+.yt-sub-btn { background:#ff0000;color:#fff;border:none;border-radius:100px;padding:8px 18px;font-size:0.82rem;font-weight:700;cursor:pointer;margin-left:auto; }
+.yt-actions-bar { display:flex;gap:6px;padding:4px 10px 8px; }
+.yt-action-btn { background:#272727;border:none;border-radius:100px;padding:7px 14px;color:#f1f1f1;font-size:0.8rem;cursor:pointer;display:flex;align-items:center;gap:5px; }
+</style>
+</head>
+<body>
+<header class="pp-header">
+  <a href="index.html" class="pp-logo"><div class="pp-logo-icon" style="background:#ff0000">▶</div>Post<span style="color:#ff0000">Preview</span></a>
+  <a href="index.html" style="font-size:0.82rem;color:var(--muted);text-decoration:none;">← All Tools</a>
+</header>
+<nav class="snav" id="sideNav"></nav>
+<main class="pp-main">
+  <div class="page-hero fade-in">
+    <div class="page-hero-icon" style="background:rgba(255,0,0,0.15)">▶️</div>
+    <div><h1>YouTube Video Preview</h1><p>Preview thumbnail, title, description & search results before uploading</p></div>
+  </div>
+  <div class="tool-layout">
+    <div class="input-panel fade-in-2">
+      <div class="panel-header">✏️ Video Details</div>
+      <div class="panel-body">
+        <div class="form-group"><label class="form-label">Channel Name</label><input class="form-input" id="inChannel" value="Your Channel Name"></div>
+        <div class="form-group"><label class="form-label">Subscriber Count</label><input class="form-input" id="inSubs" value="12.4K subscribers"></div>
+        <div class="form-group">
+          <label class="form-label">Video Title</label>
+          <textarea class="form-textarea" id="inTitle" rows="3" placeholder="Your video title...">I Tried Every Productivity Method For 30 Days – Here's What Actually Worked</textarea>
+          <div class="char-bar"><div class="char-bar-fill" id="charBarFill"></div></div>
+          <div class="char-info"><span></span><span id="charCount">0 / 100</span></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" id="inDesc" rows="5" placeholder="Video description...">In this video I tested GTD, Pomodoro, Time Blocking, and 7 other productivity systems to find the ONE that actually delivers results.
+
+⏱️ Chapters:
+00:00 - Intro
+02:30 - The Pomodoro Technique
+08:45 - Time Blocking
+15:20 - GTD Method
+22:10 - Final Results
+
+📌 Subscribe for weekly productivity content!
+
+#productivity #timemanagement #habits</textarea>
+        </div>
+        <div class="form-group"><label class="form-label">Video Duration</label><input class="form-input" id="inDuration" value="18:42" placeholder="e.g. 10:30"></div>
+        <div class="form-group"><label class="form-label">View Count</label><input class="form-input" id="inViews" value="84K views"></div>
+        <div class="form-group"><label class="form-label">Upload Date</label><input class="form-input" id="inDate" value="2 days ago"></div>
+        <div class="form-group">
+          <label class="form-label">Thumbnail Image</label>
+          <div id="uploadArea" class="upload-area" onclick="document.getElementById('imgInput').click()"><div class="upload-area-icon">🖼️</div><p>Upload thumbnail (16:9)</p></div>
+          <div id="uploadPreview" class="upload-preview" style="display:none"><img id="uploadThumb" src=""><button class="upload-remove" onclick="removeImg()">✕</button></div>
+          <input type="file" id="imgInput" accept="image/*" style="display:none">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Preview Mode</label>
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="setView('search',this)">Search</button>
+            <button class="tab-btn" onclick="setView('feed',this)">Feed</button>
+            <button class="tab-btn" onclick="setView('page',this)">Video Page</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="renderAll()">🔄 Update Preview</button>
+      </div>
+    </div>
+    <div class="preview-panel fade-in-3">
+      <div class="preview-box">
+        <div class="preview-box-header"><span class="preview-box-title" id="previewLabel">🔍 Search Result Preview</span><span class="live-badge"><span class="live-dot"></span>Live</span></div>
+        <div class="preview-box-body"><div class="device-frame mobile"><div id="ytRender"></div></div></div>
+      </div>
+      <div class="tips-box">
+        <h4>💡 YouTube Best Practices</h4>
+        <ul>
+          <li>Optimal title length is 60–70 characters to avoid truncation</li>
+          <li>Use a custom thumbnail — it's the #1 click driver</li>
+          <li>Add chapters in the description to boost watch time</li>
+          <li>First 3 lines of description appear in search results</li>
+          <li>Include target keyword in title, description, and tags</li>
+          <li>Videos between 7–15 minutes tend to rank best</li>
+        </ul>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px">
+        <span class="preview-box-title" style="display:block;margin-bottom:12px">🔗 Related Tools</span>
+        <div class="related-tools">
+          <a href="tiktok.html" class="related-card"><span class="related-card-icon">🎵</span><span class="related-card-name">TikTok</span></a>
+          <a href="instagram.html" class="related-card"><span class="related-card-icon">📸</span><span class="related-card-name">Instagram</span></a>
+          <a href="twitter.html" class="related-card"><span class="related-card-icon">𝕏</span><span class="related-card-name">Twitter/X</span></a>
+          <a href="linkedin.html" class="related-card"><span class="related-card-icon">💼</span><span class="related-card-name">LinkedIn</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer class="pp-footer"><span class="pp-footer-copy">© 2025 PostPreview — YouTube Preview Tool</span><div class="pp-footer-links"><a href="index.html">Home</a><a href="#">Privacy</a><a href="#">Terms</a></div></footer>
+<script src="shared.js"></script>
+<script>
+document.getElementById('sideNav').innerHTML = PP.navHTML('youtube');
+let imgSrc=null, currentView='search';
+function setView(v,btn){ currentView=v; document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.getElementById('previewLabel').textContent={search:'🔍 Search Result Preview',feed:'📺 Feed Card Preview',page:'🎬 Video Page Preview'}[v]; renderAll(); }
+PP.loadImage('imgInput', src=>{ imgSrc=src; document.getElementById('uploadArea').style.display='none'; document.getElementById('uploadPreview').style.display='block'; document.getElementById('uploadThumb').src=src; renderAll(); });
+function removeImg(){ imgSrc=null; document.getElementById('uploadArea').style.display='block'; document.getElementById('uploadPreview').style.display='none'; renderAll(); }
+function updateCharCount(){ const len=document.getElementById('inTitle').value.length,max=100; document.getElementById('charBarFill').style.width=Math.min(len/max*100,100)+'%'; document.getElementById('charBarFill').style.background=len>max?'#ef4444':len>70?'#f59e0b':'#ff0000'; document.getElementById('charCount').textContent=`${len} / 100`; }
+function formatDesc(text){ return PP.esc(text).replace(/(#\w+)/g,'<span class="yt-hashtag">$1</span>'); }
+function renderAll(){
+  updateCharCount();
+  const channel=document.getElementById('inChannel').value||'Your Channel';
+  const subs=document.getElementById('inSubs').value||'0 subscribers';
+  const title=document.getElementById('inTitle').value||'Your Video Title';
+  const desc=document.getElementById('inDesc').value||'';
+  const dur=document.getElementById('inDuration').value||'0:00';
+  const views=document.getElementById('inViews').value||'0 views';
+  const date=document.getElementById('inDate').value||'Just now';
+  const init=channel[0]?.toUpperCase()||'Y';
+  const thumbHTML=imgSrc?`<img src="${imgSrc}" alt="thumbnail">`:'<span style="font-size:0.8rem">🖼️ Thumbnail</span>';
+  if(currentView==='search'){
+    document.getElementById('ytRender').innerHTML=`<div class="yt-wrap">
+      <div style="padding:10px 12px;font-size:0.8rem;color:#aaa;border-bottom:1px solid #3f3f3f">🔍 productivity methods</div>
+      <div class="yt-search-result">
+        <div class="yt-thumb-wrap"><div class="yt-thumb">${thumbHTML}</div><div class="yt-duration">${PP.esc(dur)}</div></div>
+        <div class="yt-info">
+          <div class="yt-title">${PP.esc(title)}</div>
+          <div class="yt-channel-row"><span class="yt-channel">${PP.esc(channel)}</span><span class="yt-verified-yt">✓</span></div>
+          <div class="yt-meta">${PP.esc(views)} · ${PP.esc(date)}</div>
+        </div>
+      </div>
+      <div class="yt-search-result" style="opacity:0.4">
+        <div class="yt-thumb-wrap"><div class="yt-thumb" style="background:#2a2a2a"></div><div class="yt-duration">12:18</div></div>
+        <div class="yt-info"><div class="yt-title">Another related video title...</div><div class="yt-channel">Other Channel</div><div class="yt-meta">238K views · 1 week ago</div></div>
+      </div>
+    </div>`;
+  } else if(currentView==='feed'){
+    document.getElementById('ytRender').innerHTML=`<div class="yt-wrap">
+      <div class="yt-feed-card">
+        <div class="yt-feed-thumb">${thumbHTML}<div class="yt-feed-duration">${PP.esc(dur)}</div></div>
+        <div class="yt-feed-footer">
+          <div class="yt-feed-channel-avatar">${init}</div>
+          <div><div class="yt-feed-title">${PP.esc(title)}</div><div class="yt-feed-meta">${PP.esc(channel)} · ${PP.esc(views)} · ${PP.esc(date)}</div></div>
+        </div>
+      </div>
+    </div>`;
+  } else {
+    const descLines=desc.substring(0,300);
+    document.getElementById('ytRender').innerHTML=`<div class="yt-wrap">
+      <div style="width:100%;background:#3f3f3f;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+        ${imgSrc?`<img src="${imgSrc}" alt="video" style="width:100%;height:100%;object-fit:cover;display:block;">`:'<span style="font-size:40px">▶️</span>'}
+        <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.85);color:#fff;font-size:0.75rem;padding:2px 6px;border-radius:3px;font-weight:700">${PP.esc(dur)}</div>
+      </div>
+      <div style="padding:10px 12px">
+        <div style="font-size:0.95rem;font-weight:700;color:#f1f1f1;line-height:1.3;margin-bottom:8px">${PP.esc(title)}</div>
+      </div>
+      <div class="yt-sub-bar">
+        <div style="width:32px;height:32px;border-radius:50%;background:#ff0000;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff">${init}</div>
+        <div><div class="yt-channel-name">${PP.esc(channel)}</div><div class="yt-sub-count">${PP.esc(subs)}</div></div>
+        <button class="yt-sub-btn">Subscribe</button>
+      </div>
+      <div class="yt-actions-bar">
+        <button class="yt-action-btn">👍 28K</button>
+        <button class="yt-action-btn">👎</button>
+        <button class="yt-action-btn">↗️ Share</button>
+        <button class="yt-action-btn">⬇️ Download</button>
+        <button class="yt-action-btn">··· More</button>
+      </div>
+      <div class="yt-desc-box">
+        <div class="yt-desc-stats">${PP.esc(views)} · ${PP.esc(date)}</div>
+        <div class="yt-desc-text">${formatDesc(descLines)}${desc.length>300?'\n<span style="color:#3ea6ff;cursor:pointer">...more</span>':''}</div>
+      </div>
+    </div>`;
+  }
+}
+['inChannel','inSubs','inTitle','inDesc','inDuration','inViews','inDate'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('input',renderAll); });
+renderAll();
+</script>
+</body></html>
