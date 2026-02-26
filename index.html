@@ -841,8 +841,48 @@
       <h2 class="section-title">Preview on Every Platform</h2>
       <p class="section-sub">Choose a platform below to instantly preview how your content will look to your audience.</p>
     </div>
-    <div class="tools-grid" id="toolsGrid">
-      <!-- Cards injected by JS -->
+    <div class="tools-grid">
+      <div class="tool-card active" onclick="setCurrentPlatform('twitter')">
+        <div class="tool-icon" style="background:rgba(29,155,240,0.15);">𝕏</div>
+        <div class="tool-name">Twitter / X</div>
+        <div class="tool-desc">Preview your Twitter / X posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#1d9bf0; border-color:#1d9bf022;">Max 280 chars</div>
+      </div>
+
+      <div class="tool-card" onclick="setCurrentPlatform('facebook')">
+        <div class="tool-icon" style="background:rgba(24,119,242,0.15);">📘</div>
+        <div class="tool-name">Facebook</div>
+        <div class="tool-desc">Preview your Facebook posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#1877f2; border-color:#1877f222;">Max 63,206 chars</div>
+      </div>
+
+      <div class="tool-card" onclick="setCurrentPlatform('instagram')">
+        <div class="tool-icon" style="background:rgba(225,48,108,0.15);">📸</div>
+        <div class="tool-name">Instagram</div>
+        <div class="tool-desc">Preview your Instagram posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#e1306c; border-color:#e1306c22;">Max 2,200 chars</div>
+      </div>
+
+      <div class="tool-card" onclick="setCurrentPlatform('linkedin')">
+        <div class="tool-icon" style="background:rgba(10,102,194,0.15);">💼</div>
+        <div class="tool-name">LinkedIn</div>
+        <div class="tool-desc">Preview your LinkedIn posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#0a66c2; border-color:#0a66c222;">Max 3,000 chars</div>
+      </div>
+
+      <div class="tool-card" onclick="setCurrentPlatform('youtube')">
+        <div class="tool-icon" style="background:rgba(255,0,0,0.15);">▶️</div>
+        <div class="tool-name">YouTube</div>
+        <div class="tool-desc">Preview your YouTube posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#ff0000; border-color:#ff000022;">Video + Title</div>
+      </div>
+
+      <div class="tool-card" onclick="setCurrentPlatform('tiktok')">
+        <div class="tool-icon" style="background:rgba(105,201,208,0.15);">🎵</div>
+        <div class="tool-name">TikTok</div>
+        <div class="tool-desc">Preview your TikTok posts exactly as your followers will see them.</div>
+        <div class="tool-tag" style="color:#69c9d0; border-color:#69c9d022;">Max 2,200 chars</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1006,8 +1046,36 @@
       <div class="section-label">FAQ</div>
       <h2 class="section-title">Frequently Asked Questions</h2>
     </div>
-    <div class="faq-list" id="faqList">
-      <!-- JS injected -->
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>What is PostPreview?</span>
+          <span class="faq-chevron">⌄</span>
+        </div>
+        <div class="faq-a">
+          PostPreview is a free online tool that lets you preview how your social media posts will look on different platforms before you publish them. It supports 10+ major social networks.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Is PostPreview free to use?</span>
+          <span class="faq-chevron">⌄</span>
+        </div>
+        <div class="faq-a">
+          Yes! All PostPreview tools are completely free to use with no sign-up, subscription, or credit card required. Just visit the site and start previewing.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Does PostPreview store my content?</span>
+          <span class="faq-chevron">⌄</span>
+        </div>
+        <div class="faq-a">
+          No. Your content is processed entirely in your browser. We do not store, log, or share anything you type or upload. Your privacy is fully protected.
+        </div>
+      </div>
     </div>
   </div>
 </section>
