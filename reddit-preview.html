@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reddit Post Preview Tool – See Your Post Before Submitting | PostPreview</title>
+  <meta name="description" content="Use our free Reddit preview tool to see exactly how your titles, self-text, and images will appear on the Reddit feed. Optimize your upvotes instantly." />
+  <meta name="keywords" content="reddit preview, reddit mockup, reddit post tool, subreddit preview, social media preview tool" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/reddit-preview" />
+
+  <meta property="og:title" content="Reddit Post Preview Tool – PostPreview" />
+  <meta property="og:description" content="Preview your Reddit content instantly. See how your post looks in the feed before you submit to your favorite subreddit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/reddit-preview" />
+  <meta property="og:image" content="https://postpreview.github.io/og-reddit.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Reddit Preview Tool",
+    "url": "https://postpreview.github.io/reddit-preview",
+    "description": "A free tool to preview how Reddit posts look in the feed before publishing.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS Inherited from Design System */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #FF4500; /* Reddit Orange */
+      --accent2: #06b6d4; --text: #f0f0f5; --muted: #6b6b80;
+      --radius: 16px; --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+    nav a:hover { color: var(--text); }
+
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .preview-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .preview-layout { grid-template-columns: 1fr; } }
+
+    /* Input Panel */
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; height: fit-content; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; display: block; }
+    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); outline: none; transition: 0.2s; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { height: 120px; resize: none; }
+    .upload-area { border: 2px dashed var(--border); padding: 20px; text-align: center; cursor: pointer; border-radius: 10px; margin-bottom: 16px; transition: 0.2s; }
+    .upload-area:hover { border-color: var(--accent); }
+
+    /* Reddit Mockup Styles */
+    .preview-frame { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; position: sticky; top: 100px; }
+    .reddit-post { background: #1A1A1B; border: 1px solid #343536; border-radius: 4px; display: flex; overflow: hidden; }
+    .reddit-votes { width: 40px; background: #151516; padding: 8px 4px; display: flex; flex-direction: column; align-items: center; gap: 4px; color: #D7DADC; }
+    .vote-icon { font-size: 20px; color: #818384; cursor: default; }
+    .reddit-content { flex: 1; padding: 8px 12px; }
+    .reddit-meta { font-size: 12px; color: #818384; margin-bottom: 8px; }
+    .subreddit-name { color: #D7DADC; font-weight: 700; text-decoration: none; margin-right: 4px; }
+    .reddit-title { font-size: 18px; font-weight: 500; color: #D7DADC; margin-bottom: 8px; line-height: 22px; }
+    .reddit-text { font-size: 14px; color: #D7DADC; line-height: 21px; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .reddit-image { width: 100%; border-radius: 4px; margin-top: 8px; display: none; }
+    .reddit-actions { display: flex; gap: 16px; margin-top: 12px; }
+    .reddit-action { font-size: 12px; font-weight: 700; color: #818384; display: flex; align-items: center; gap: 6px; }
+
+    /* Content Sections */
+    .content-section { padding: 80px 5%; background: var(--bg2); border-top: 1px solid var(--border); margin-top: 60px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 800px) { .content-grid { grid-template-columns: 1fr; } }
+    .content-item h2 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; color: var(--text); }
+    .content-item p { color: var(--muted); margin-bottom: 15px; }
+    .step-item { margin-bottom: 20px; }
+    .step-item h4 { color: var(--accent); margin-bottom: 5px; font-size: 1.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 5% 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 800px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+    }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer-widget h4 {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom {
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="index.html#tools">All Tools</a>
+    <a href="#how-to">How to Use</a>
+    <a href="#description">Details</a>
+  </nav>
+  <a href="index.html" class="btn btn-primary">Try All Networks ↗</a>
+</header>
+
+<div class="container">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h1 style="font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.5rem);">Reddit <span style="color: var(--accent);">Post Preview</span></h1>
+    <p style="color: var(--muted); max-width: 600px; margin: 10px auto;">Perfect your Reddit strategy by visualizing your post exactly as it appears in the subreddit feed.</p>
+  </div>
+
+  <div class="preview-layout">
+    <div class="input-panel">
+      <div class="form-group">
+        <label class="form-label">Subreddit Name (r/)</label>
+        <input type="text" id="redditSub" class="form-input" value="r/marketing" oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Title</label>
+        <input type="text" id="redditTitle" class="form-input" placeholder="An interesting title..." oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Body (Text)</label>
+        <textarea id="redditText" class="form-textarea" placeholder="Optional text body..." oninput="syncPreview()"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Post Image</label>
+        <div class="upload-area" onclick="document.getElementById('redditImgInput').click()">
+          <p id="uploadStatus">📷 Click to upload image</p>
+          <input type="file" id="redditImgInput" hidden accept="image/*" onchange="handleImage(this)">
+        </div>
+      </div>
+      <button class="form-input" style="background: var(--accent); border: none; font-weight: bold; cursor: pointer; color: white;" onclick="window.print()">Save Mockup (PDF)</button>
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-frame">
+        <div style="margin-bottom: 15px; font-size: 0.8rem; font-weight: bold; color: var(--muted);">DESKTOP CARD VIEW PREVIEW</div>
+        <div class="reddit-post">
+          <div class="reddit-votes">
+            <span class="vote-icon">▲</span>
+            <span style="font-size: 12px; font-weight: 700;">Vote</span>
+            <span class="vote-icon">▼</span>
+          </div>
+          <div class="reddit-content">
+            <div class="reddit-meta">
+              <span class="subreddit-name" id="previewSub">r/marketing</span>
+              • Posted by u/YourUser 2 hours ago
+            </div>
+            <div class="reddit-title" id="previewTitle">Your Post Title Goes Here</div>
+            <div class="reddit-text" id="previewText">This is where your self-text or link description will appear. It is limited to 5 lines in the main feed card view before being truncated.</div>
+            <img src="" alt="Reddit Post" class="reddit-image" id="previewImg">
+            <div class="reddit-actions">
+              <span class="reddit-action">💬 42 Comments</span>
+              <span class="reddit-action">🎁 Award</span>
+              <span class="reddit-action">↪ Share</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content-section" id="description">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>Why use a Reddit Mockup?</h2>
+      <p>Reddit is a community-driven platform where visual presentation and title clarity are everything. Using a <strong>Reddit Post Preview tool</strong> ensures:</p>
+      <ul style="margin-left: 20px; margin-top: 15px; color: var(--muted);">
+        <li style="margin-bottom: 10px;">Your title isn't too long or awkward in the feed layout.</li>
+        <li style="margin-bottom: 10px;">Your image aspect ratio displays correctly without weird cropping.</li>
+        <li style="margin-bottom: 10px;">Your first few sentences of body text (the "hook") are engaging enough to encourage clicks.</li>
+      </ul>
+    </div>
+    <div class="content-item">
+      <h2>Understand the Feed Dynamics</h2>
+      <p>Reddit's "Card View" is the default for most users. This view prioritizes the title and the media. By using this tool, you can see if your title stands out against the dark mode UI typically used by power users.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" style="background: var(--bg); border-top: none; padding-top: 0;" id="how-to">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>How to use the Reddit Previewer</h2>
+      <div class="step-item">
+        <h4>1. Set Your Subreddit</h4>
+        <p>Enter the target subreddit name. This helps you visualize how your brand or user handle fits into that community's aesthetic.</p>
+      </div>
+      <div class="step-item">
+        <h4>2. Craft a Punchy Title</h4>
+        <p>Type your title. Reddit titles are the most important part of your post—make sure it doesn't wrap awkwardly.</p>
+      </div>
+      <div class="step-item">
+        <h4>3. Upload and Review</h4>
+        <p>Upload your image to see how it looks alongside your text. If you are doing a text-only post, focus on the first three lines of the body.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div style="background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border);">
+        <h4 style="color: var(--accent); margin-bottom: 15px;">Pro Tip: Reddiquette</h4>
+        <p style="font-size: 0.9rem;">Remember that every subreddit has its own rules. While our tool helps with the <i>look</i>, make sure to read the sidebar of your target r/subreddit for content guidelines!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <!-- Brand Widget -->
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">👁</div>
+        Post<span>Preview</span>
+      </a>
+      <p>The free social media post preview tool for creators, marketers, and businesses. See before you post.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Twitter">𝕏</a>
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="Instagram">◎</a>
+      </div>
+    </div>
+
+    <!-- Tools Widget -->
+    <div class="footer-widget">
+      <h4>Preview Tools</h4>
+      <ul class="footer-links">
+        <li><a href="#preview">Facebook Preview</a></li>
+        <li><a href="#preview">Instagram Preview</a></li>
+        <li><a href="#preview">Twitter/X Preview</a></li>
+        <li><a href="#preview">LinkedIn Preview</a></li>
+        <li><a href="#preview">YouTube Preview</a></li>
+        <li><a href="#preview">TikTok Preview</a></li>
+        <li><a href="#preview">Pinterest Preview</a></li>
+        <li><a href="#preview">Reddit Preview</a></li>
+      </ul>
+    </div>
+
+    <!-- Resources Widget -->
+    <div class="footer-widget">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Social Media Tips</a></li>
+        <li><a href="#">Character Limits Guide</a></li>
+        <li><a href="#">Image Size Guide</a></li>
+        <li><a href="#">Platform Comparison</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+
+    <!-- Company Widget -->
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<script>
+  function syncPreview() {
+    const sub = document.getElementById('redditSub').value;
+    const title = document.getElementById('redditTitle').value;
+    const text = document.getElementById('redditText').value;
+    
+    document.getElementById('previewSub').innerText = sub || "r/subreddit";
+    document.getElementById('previewTitle').innerText = title || "Your Post Title Goes Here";
+    document.getElementById('previewText').innerText = text || "This is where your self-text or link description will appear...";
+  }
+
+  function handleImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('previewImg');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        document.getElementById('uploadStatus').innerText = "Image Uploaded!";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+</body>
+</html>
