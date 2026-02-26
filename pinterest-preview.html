@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinterest Pin Preview Tool – Optimize Your Pins & Titles | PostPreview</title>
+  <meta name="description" content="Use our free Pinterest preview tool to see exactly how your Pin titles, descriptions, and vertical images will appear in the Pinterest feed. Optimize for clicks instantly." />
+  <meta name="keywords" content="pinterest preview, pin mockup, pinterest post tool, pinterest image preview, social media preview tool" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/pinterest-preview" />
+
+  <meta property="og:title" content="Pinterest Pin Preview Tool – PostPreview" />
+  <meta property="og:description" content="Preview your Pinterest Pins instantly. See how your vertical content looks on the Pinterest feed before you publish." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/pinterest-preview" />
+  <meta property="og:image" content="https://postpreview.github.io/og-pinterest.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pinterest Preview Tool",
+    "url": "https://postpreview.github.io/pinterest-preview",
+    "description": "A free tool to preview how Pinterest Pins look in the feed before publishing.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS Inherited and adjusted from provided design system */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #e60023; /* Pinterest Red */
+      --accent2: #06b6d4; --text: #f0f0f5; --muted: #6b6b80;
+      --radius: 16px; --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+
+    /* Header & Footer Styles from Index */
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+    nav a:hover { color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 10px; font-weight: 500; cursor: pointer; border: none; text-decoration: none; transition: 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 20px rgba(24,119,242,0.3); }
+
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .preview-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .preview-layout { grid-template-columns: 1fr; } }
+
+    /* Input Panel */
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; height: fit-content; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; display: block; }
+    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); outline: none; transition: 0.2s; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { height: 100px; resize: none; }
+    .upload-area { border: 2px dashed var(--border); padding: 20px; text-align: center; cursor: pointer; border-radius: 10px; margin-bottom: 16px; transition: 0.2s; }
+    .upload-area:hover { border-color: var(--accent); }
+
+    /* Pinterest Mockup Styles */
+    .preview-frame { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 20px; display: flex; flex-direction: column; align-items: center; position: sticky; top: 100px; }
+    .pin-mockup { width: 100%; max-width: 252px; background: transparent; border-radius: 16px; overflow: hidden; }
+    .pin-image-container { width: 100%; aspect-ratio: 2/3; background: #222; border-radius: 16px; overflow: hidden; position: relative; }
+    .pin-image-container img { width: 100%; height: 100%; object-fit: cover; }
+    .pin-overlay-btn { position: absolute; top: 12px; right: 12px; background: var(--accent); color: white; padding: 8px 14px; border-radius: 20px; font-weight: 700; font-size: 14px; display: none; }
+    .pin-details { padding: 8px 4px; }
+    .pin-title { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .pin-author { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #fff; }
+    .pin-avatar { width: 24px; height: 24px; border-radius: 50%; background: #444; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
+
+    /* Content Sections */
+    .content-section { padding: 80px 5%; background: var(--bg2); border-top: 1px solid var(--border); margin-top: 60px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 800px) { .content-grid { grid-template-columns: 1fr; } }
+    .content-item h2 { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; color: var(--text); }
+    .content-item p { color: var(--muted); margin-bottom: 15px; }
+    .step-item { margin-bottom: 20px; }
+    .step-item h4 { color: var(--accent); margin-bottom: 5px; font-size: 1.1rem; }
+
+    /* Footer Styles */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 64px 5% 32px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-widget h4 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="index.html#tools">All Tools</a>
+    <a href="#how-to">How to Use</a>
+    <a href="#description">Details</a>
+  </nav>
+  <a href="index.html" class="btn btn-primary">Try All Networks ↗</a>
+</header>
+
+<div class="container">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h1 style="font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.5rem);">Pinterest <span style="color: var(--accent);">Pin Preview</span></h1>
+    <p style="color: var(--muted); max-width: 600px; margin: 10px auto;">Visualize your Pin layout and titles to ensure they grab attention in the busy Pinterest smart feed.</p>
+  </div>
+
+  <div class="preview-layout">
+    <div class="input-panel">
+      <div class="form-group">
+        <label class="form-label">Pin Title</label>
+        <input type="text" id="pinTitleInput" class="form-input" placeholder="Enter an engaging title..." oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Author/Brand Name</label>
+        <input type="text" id="pinAuthorInput" class="form-input" placeholder="Your Brand" oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Pin Image (2:3 Aspect Ratio recommended)</label>
+        <div class="upload-area" onclick="document.getElementById('pinFileInput').click()">
+          <p id="uploadStatus">📷 Click to upload vertical Pin image</p>
+          <input type="file" id="pinFileInput" hidden accept="image/*" onchange="handleImage(this)">
+        </div>
+      </div>
+      <button class="form-input" style="background: var(--accent); border: none; font-weight: bold; cursor: pointer;" onclick="window.print()">Save Mockup</button>
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-frame">
+        <div style="margin-bottom: 15px; font-size: 0.8rem; font-weight: bold; color: var(--muted);">SMART FEED PREVIEW</div>
+        <div class="pin-mockup">
+          <div class="pin-image-container" id="previewImageWrap">
+            <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #555; font-size: 14px; text-align: center; padding: 20px;">Upload 1000x1500px Image</div>
+            <div class="pin-overlay-btn" id="saveBtn">Save</div>
+          </div>
+          <div class="pin-details">
+            <div class="pin-title" id="previewTitle">Your Pin Title will appear here and truncate if it is too long...</div>
+            <div class="pin-author">
+              <div class="pin-avatar" id="avatarInit">B</div>
+              <span id="previewAuthor">Your Brand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content-section" id="description">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>Why use a Pinterest Mockup?</h2>
+      <p>Pinterest is a visual discovery engine. Unlike other feeds, Pinterest uses a multi-column staggered layout. Using a <strong>Pinterest Pin Preview tool</strong> ensures:</p>
+      <ul style="margin-left: 20px; margin-top: 15px; color: var(--muted);">
+        <li style="margin-bottom: 10px;">Your text overlays on images aren't cut off by the feed UI.</li>
+        <li style="margin-bottom: 10px;">Your Pin titles are punchy enough to lead with the most important keywords.</li>
+        <li style="margin-bottom: 10px;">The vertical aspect ratio (2:3) is optimized for mobile scrolling.</li>
+      </ul>
+    </div>
+    <div class="content-item">
+      <h2>Optimize for Discovery</h2>
+      <p>Pinterest is about intent. By previewing your Pin, you can see if your imagery immediately communicates the value of your link. High-performing Pins usually feature clear typography, high-contrast images, and a strong brand logo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" style="background: var(--bg); border-top: none; padding-top: 0;" id="how-to">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>How to use the Pinterest Previewer</h2>
+      <div class="step-item">
+        <h4>1. Upload Your Creative</h4>
+        <p>Select a vertical image. Pinterest recommends a 2:3 aspect ratio (e.g., 1000 x 1500 pixels) for best performance.</p>
+      </div>
+      <div class="step-item">
+        <h4>2. Craft a Keyword-Rich Title</h4>
+        <p>Type your title. Only the first 30-40 characters usually show in the main feed, so put your hook first!</p>
+      </div>
+      <div class="step-item">
+        <h4>3. Set Your Brand Identity</h4>
+        <p>Add your account name to see how your profile avatar and branding look alongside the Pin creative.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div style="background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border);">
+        <h4 style="color: var(--accent); margin-bottom: 15px;">Pro Tip: Safe Zones</h4>
+        <p style="font-size: 0.9rem;">Avoid placing critical text in the bottom right corner of your image creative, as Pinterest sometimes overlays icons like the "Visual Search" tool in that area.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">👁</div>
+        Post<span>Preview</span>
+      </a>
+      <p>The free social media post preview tool for creators, marketers, and businesses. See before you post.</p>
+    </div>
+    <div class="footer-widget">
+      <h4>Preview Tools</h4>
+      <ul class="footer-links">
+        <li><a href="/facebook-preview">Facebook Preview</a></li>
+        <li><a href="#">Instagram Preview</a></li>
+        <li><a href="#">Twitter/X Preview</a></li>
+        <li><a href="#">LinkedIn Preview</a></li>
+        <li><a href="/youtube-preview">YouTube Preview</a></li>
+        <li><a href="/tiktok-preview">TikTok Preview</a></li>
+        <li><a href="/pinterest-preview">Pinterest Preview</a></li>
+        <li><a href="#">Reddit Preview</a></li>
+      </ul>
+    </div>
+    <div class="footer-widget">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Social Media Tips</a></li>
+        <li><a href="#">Character Limits Guide</a></li>
+        <li><a href="#">Image Size Guide</a></li>
+        <li><a href="#">Platform Comparison</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<script>
+  function syncPreview() {
+    const title = document.getElementById('pinTitleInput').value;
+    const author = document.getElementById('pinAuthorInput').value;
+    
+    document.getElementById('previewTitle').innerText = title || "Your Pin Title will appear here...";
+    document.getElementById('previewAuthor').innerText = author || "Your Brand";
+    document.getElementById('avatarInit').innerText = author ? author.charAt(0).toUpperCase() : "B";
+  }
+
+  function handleImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const wrap = document.getElementById('previewImageWrap');
+        wrap.innerHTML = `<img src="${e.target.result}" alt="Pinterest Pin Preview"><div class="pin-overlay-btn" style="display:block;">Save</div>`;
+        document.getElementById('uploadStatus').innerText = "Image Uploaded!";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+</body>
+</html>
