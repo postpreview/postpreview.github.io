@@ -1526,6 +1526,127 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
-</script>
+  /**
+ * @schema
+ * {
+ * "name": "Social Media Preview Tool Logic",
+ * "type": "Interactive UI Component",
+ * "version": "1.0.0",
+ * "description": "Handles multi-platform real-time post previews including image uploads and dynamic text formatting."
+ * }
+ */
+
+const platforms = [
+  { id: 'twitter', name: 'Twitter / X', icon: '🐦', limit: 280 },
+  { id: 'facebook', name: 'Facebook', icon: '👥', limit: 5000 },
+  { id: 'instagram', name: 'Instagram', icon: '📸', limit: 2200 },
+  { id: 'linkedin', name: 'LinkedIn', icon: '💼', limit: 3000 },
+  { id: 'reddit', name: 'Reddit', icon: '🤖', limit: 40000 }
+];
+
+let currentPlatform = platforms[0];
+let uploadedImage = null;
+
+// Initialize the tool
+document.addEventListener('DOMContentLoaded', () => {
+  renderTabs();
+  setupEventListeners();
+  updatePreview();
+});
+
+function renderTabs() {
+  const tabsContainer = document.getElementById('platformTabs');
+  if (!tabsContainer) return;
+  
+  tabsContainer.innerHTML = platforms.map(p => `
+    <button class="ptab ${p.id === currentPlatform.id ? 'active' : ''}" 
+            onclick="switchPlatform('${p.id}')">
+      ${p.icon} ${p.name}
+    </button>
+  `).join('');
+}
+
+function switchPlatform(platformId) {
+  currentPlatform = platforms.find(p => p.id === platformId);
+  renderTabs();
+  updatePreview();
+}
+
+function setupEventListeners() {
+  const inputs = ['inputName', 'inputHandle', 'inputText', 'inputTitle', 'inputSubreddit'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', updatePreview);
+  });
+
+  const imageInput = document.getElementById('imageInput');
+  if (imageInput) {
+    imageInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          uploadedImage = event.target.result;
+          const thumbImg = document.getElementById('thumbImg');
+          if (thumbImg) thumbImg.src = uploadedImage;
+          const thumbContainer = document.getElementById('imagePreviewThumb');
+          if (thumbContainer) thumbContainer.style.display = 'block';
+          updatePreview();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
+
+function removeImage() {
+  uploadedImage = null;
+  const input = document.getElementById('imageInput');
+  if (input) input.value = '';
+  const thumb = document.getElementById('imagePreviewThumb');
+  if (thumb) thumb.style.display = 'none';
+  updatePreview();
+}
+
+function updatePreview() {
+  const name = document.getElementById('inputName')?.value || "Your Brand";
+  const handle = document.getElementById('inputHandle')?.value || "@username";
+  const text = document.getElementById('inputText')?.value || "";
+  const title = document.getElementById('inputTitle')?.value || "";
+  const subreddit = document.getElementById('inputSubreddit')?.value || "r/subreddit";
+  
+  // Update Char Count
+  const charCountEl = document.getElementById('charCount');
+  if (charCountEl) {
+    charCountEl.innerText = `${text.length} / ${currentPlatform.limit}`;
+    charCountEl.className = text.length > currentPlatform.limit ? 'char-count over' : 'char-count';
+  }
+
+  // Update Header
+  const platformNameDisplay = document.getElementById('previewPlatformName');
+  if (platformNameDisplay) platformNameDisplay.innerText = `${currentPlatform.name} Preview`;
+
+  // Generate Preview HTML
+  let previewHtml = '';
+  const imgHtml = uploadedImage ? `<img src="${uploadedImage}" style="width:100%; border-radius:12px; margin-top:10px;">` : '';
+
+  if (currentPlatform.id === 'twitter') {
+    previewHtml = `<div class="x-post"><div class="x-avatar">${name.charAt(0)}</div><div class="x-content"><div class="x-name-row"><span class="x-name">${name}</span><span class="x-handle">${handle}</span></div><div class="x-text">${formatText(text)}</div>${imgHtml}</div></div>`;
+  } else if (currentPlatform.id === 'reddit') {
+    previewHtml = `<div class="rd-post"><div class="rd-header"><span class="rd-sub">${subreddit}</span> • Posted by ${handle}</div><h3 class="rd-title">${title}</h3><div class="rd-content">${text}</div>${imgHtml}</div>`;
+  } else {
+    // Facebook/Generic Style
+    previewHtml = `<div class="fb-post"><div class="fb-header"><div class="fb-avatar">${name.charAt(0)}</div><div class="fb-meta"><div class="fb-name">${name}</div><div class="fb-time">Just now</div></div></div><div class="fb-text">${text}</div>${imgHtml}</div>`;
+  }
+
+  const previewBody = document.getElementById('previewBody');
+  if (previewBody) previewBody.innerHTML = previewHtml;
+}
+
+function formatText(str) {
+  return str.replace(/#(\w+)/g, '<span style="color:#1d9bf0;">#$1</span>')
+            .replace(/@(\w+)/g, '<span style="color:#1d9bf0;">@$1</span>');
+}
+</script>  
 </body>
 </html>
