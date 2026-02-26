@@ -1526,13 +1526,13 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
-  /**
+ /**
  * @schema
  * {
  * "name": "Social Media Preview Tool Logic",
  * "type": "Interactive UI Component",
- * "version": "1.0.0",
- * "description": "Handles multi-platform real-time post previews including image uploads and dynamic text formatting."
+ * "version": "1.1.0",
+ * "description": "Fixed image rendering and platform-specific UI styles for the preview window."
  * }
  */
 
@@ -1547,7 +1547,6 @@ const platforms = [
 let currentPlatform = platforms[0];
 let uploadedImage = null;
 
-// Initialize the tool
 document.addEventListener('DOMContentLoaded', () => {
   renderTabs();
   setupEventListeners();
@@ -1558,6 +1557,7 @@ function renderTabs() {
   const tabsContainer = document.getElementById('platformTabs');
   if (!tabsContainer) return;
   
+  // Changed class to 'ptab' to match your existing CSS
   tabsContainer.innerHTML = platforms.map(p => `
     <button class="ptab ${p.id === currentPlatform.id ? 'active' : ''}" 
             onclick="switchPlatform('${p.id}')">
@@ -1587,10 +1587,12 @@ function setupEventListeners() {
         const reader = new FileReader();
         reader.onload = function(event) {
           uploadedImage = event.target.result;
+          // Update the small thumbnail in the sidebar
           const thumbImg = document.getElementById('thumbImg');
           if (thumbImg) thumbImg.src = uploadedImage;
           const thumbContainer = document.getElementById('imagePreviewThumb');
           if (thumbContainer) thumbContainer.style.display = 'block';
+          // Immediately refresh the big preview
           updatePreview();
         };
         reader.readAsDataURL(file);
@@ -1601,46 +1603,68 @@ function setupEventListeners() {
 
 function removeImage() {
   uploadedImage = null;
-  const input = document.getElementById('imageInput');
-  if (input) input.value = '';
-  const thumb = document.getElementById('imagePreviewThumb');
-  if (thumb) thumb.style.display = 'none';
+  document.getElementById('imageInput').value = '';
+  document.getElementById('imagePreviewThumb').style.display = 'none';
   updatePreview();
 }
 
 function updatePreview() {
-  const name = document.getElementById('inputName')?.value || "Your Brand";
-  const handle = document.getElementById('inputHandle')?.value || "@username";
-  const text = document.getElementById('inputText')?.value || "";
-  const title = document.getElementById('inputTitle')?.value || "";
-  const subreddit = document.getElementById('inputSubreddit')?.value || "r/subreddit";
+  const name = document.getElementById('inputName').value || "Your Brand";
+  const handle = document.getElementById('inputHandle').value || "@yourbrand";
+  const text = document.getElementById('inputText').value || "";
+  const title = document.getElementById('inputTitle').value || "";
+  const subreddit = document.getElementById('inputSubreddit').value || "r/startups";
   
-  // Update Char Count
   const charCountEl = document.getElementById('charCount');
   if (charCountEl) {
     charCountEl.innerText = `${text.length} / ${currentPlatform.limit}`;
-    charCountEl.className = text.length > currentPlatform.limit ? 'char-count over' : 'char-count';
+    charCountEl.style.color = text.length > currentPlatform.limit ? '#ef4444' : '#6b7280';
   }
 
-  // Update Header
-  const platformNameDisplay = document.getElementById('previewPlatformName');
-  if (platformNameDisplay) platformNameDisplay.innerText = `${currentPlatform.name} Preview`;
+  document.getElementById('previewPlatformName').innerText = `${currentPlatform.name} Preview`;
 
-  // Generate Preview HTML
   let previewHtml = '';
-  const imgHtml = uploadedImage ? `<img src="${uploadedImage}" style="width:100%; border-radius:12px; margin-top:10px;">` : '';
+  // Force a max-height and object-fit so images don't break the preview box
+  const imgHtml = uploadedImage ? `<img src="${uploadedImage}" style="width:100%; border-radius:12px; margin-top:12px; border:1px solid #e5e7eb; max-height:300px; object-fit:cover;">` : '';
 
   if (currentPlatform.id === 'twitter') {
-    previewHtml = `<div class="x-post"><div class="x-avatar">${name.charAt(0)}</div><div class="x-content"><div class="x-name-row"><span class="x-name">${name}</span><span class="x-handle">${handle}</span></div><div class="x-text">${formatText(text)}</div>${imgHtml}</div></div>`;
+    previewHtml = `
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto; display:flex; gap:12px;">
+        <div style="width:40px; height:40px; background:#e5e7eb; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#6b7280;">${name.charAt(0)}</div>
+        <div style="flex:1;">
+          <div style="display:flex; gap:4px; font-size:15px;">
+            <span style="font-weight:700; color:#0f1419;">${name}</span>
+            <span style="color:#536471;">${handle} · 1m</span>
+          </div>
+          <div style="margin-top:2px; font-size:15px; color:#0f1419; line-height:1.4; white-space:pre-wrap;">${formatText(text)}</div>
+          ${imgHtml}
+        </div>
+      </div>`;
   } else if (currentPlatform.id === 'reddit') {
-    previewHtml = `<div class="rd-post"><div class="rd-header"><span class="rd-sub">${subreddit}</span> • Posted by ${handle}</div><h3 class="rd-title">${title}</h3><div class="rd-content">${text}</div>${imgHtml}</div>`;
+    previewHtml = `
+      <div style="font-family:IBM Plex Sans, Arial, sans-serif;">
+        <div style="font-size:12px; color:#787c7e; margin-bottom:8px;">${subreddit} • Posted by ${handle}</div>
+        <h3 style="font-size:18px; font-weight:500; margin-bottom:8px; color:#1a1a1b;">${title}</h3>
+        <div style="font-size:14px; line-height:21px; color:#1a1a1b; white-space:pre-wrap;">${text}</div>
+        ${imgHtml}
+      </div>`;
   } else {
-    // Facebook/Generic Style
-    previewHtml = `<div class="fb-post"><div class="fb-header"><div class="fb-avatar">${name.charAt(0)}</div><div class="fb-meta"><div class="fb-name">${name}</div><div class="fb-time">Just now</div></div></div><div class="fb-text">${text}</div>${imgHtml}</div>`;
+    // Standard Facebook/LinkedIn Style
+    previewHtml = `
+      <div style="font-family:Helvetica, Arial, sans-serif;">
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <div style="width:40px; height:40px; background:#e5e7eb; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#6b7280;">${name.charAt(0)}</div>
+          <div>
+            <div style="font-weight:600; color:#050505; font-size:15px;">${name}</div>
+            <div style="font-size:13px; color:#65676b;">Just now · 🌎</div>
+          </div>
+        </div>
+        <div style="font-size:15px; color:#050505; line-height:1.4; white-space:pre-wrap;">${text}</div>
+        ${imgHtml}
+      </div>`;
   }
 
-  const previewBody = document.getElementById('previewBody');
-  if (previewBody) previewBody.innerHTML = previewHtml;
+  document.getElementById('previewBody').innerHTML = previewHtml;
 }
 
 function formatText(str) {
