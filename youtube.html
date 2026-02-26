@@ -14,44 +14,103 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-:root { --accent: #ff0000; --accent-rgb: 255,0,0; }
-.yt-wrap { background: #0f0f0f; border-radius: 14px; overflow: hidden; font-family: 'Roboto','Arial',sans-serif; }
-/* Search Result */
-.yt-search-result { display: flex; gap: 10px; padding: 12px; }
-.yt-thumb-wrap { position: relative; flex-shrink: 0; width: 168px; }
-.yt-thumb { width: 168px; height: 94px; background: #3f3f3f; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #717171; font-size: 0.75rem; }
-.yt-thumb img { width:100%;height:100%;object-fit:cover;display:block; }
-.yt-duration { position:absolute; bottom:4px; right:4px; background:rgba(0,0,0,0.85); color:#fff; font-size:0.72rem; padding:1px 4px; border-radius:3px; font-weight:600; }
+:root { 
+  --accent: #ff0000; 
+  --yt-bg: #0f0f0f;
+  --yt-card: #272727;
+  --yt-text: #f1f1f1;
+  --yt-muted: #aaa;
+}
+
+/* Base Wrapper */
+.yt-wrap { 
+  background: var(--yt-bg); 
+  border-radius: 14px; 
+  overflow: hidden; 
+  font-family: 'Roboto', 'Arial', sans-serif; 
+  color: var(--yt-text);
+}
+
+/* --- Search Result View --- */
+.yt-search-result { 
+  display: flex; 
+  gap: 12px; 
+  padding: 12px; 
+  align-items: flex-start;
+}
+.yt-thumb-wrap { 
+  position: relative; 
+  flex: 0 0 160px; /* Standard mobile search thumb width */
+}
+.yt-thumb { 
+  width: 100%; 
+  aspect-ratio: 16 / 9;
+  background: #3f3f3f; 
+  border-radius: 8px; 
+  overflow: hidden; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+.yt-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.yt-duration { 
+  position: absolute; bottom: 4px; right: 4px; 
+  background: rgba(0,0,0,0.8); color: #fff; 
+  font-size: 10px; padding: 2px 4px; border-radius: 4px; font-weight: 500; 
+}
 .yt-info { flex: 1; min-width: 0; }
-.yt-title { font-size:0.9rem;font-weight:500;color:#f1f1f1;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
-.yt-channel-row { display:flex;align-items:center;gap:6px;margin-bottom:3px; }
-.yt-channel { font-size:0.78rem;color:#aaa; }
-.yt-verified-yt { color:#aaa;font-size:12px; }
-.yt-meta { font-size:0.78rem;color:#aaa; }
-/* Feed Card */
-.yt-feed-card { padding: 10px; }
-.yt-feed-thumb { width:100%;border-radius:10px;position:relative;overflow:hidden;background:#3f3f3f; aspect-ratio:16/9; display:flex;align-items:center;justify-content:center;color:#717171; }
-.yt-feed-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.yt-feed-duration { position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,0.85);color:#fff;font-size:0.72rem;padding:2px 5px;border-radius:3px;font-weight:700; }
-.yt-feed-footer { display:flex;gap:10px;margin-top:8px; }
-.yt-feed-channel-avatar { width:36px;height:36px;border-radius:50%;background:#ff0000;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden; }
-.yt-feed-channel-avatar img{width:100%;height:100%;object-fit:cover;}
-.yt-feed-title { font-size:0.88rem;font-weight:500;color:#f1f1f1;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
-.yt-feed-meta { font-size:0.75rem;color:#aaa;margin-top:2px; }
-/* Description */
-.yt-desc-box { background:#272727;border-radius:12px;margin:8px;padding:12px; }
-.yt-desc-title { font-size:0.88rem;font-weight:700;color:#f1f1f1;margin-bottom:8px; }
-.yt-desc-stats { font-size:0.8rem;color:#f1f1f1;margin-bottom:6px; }
-.yt-desc-text { font-size:0.82rem;color:#aaa;line-height:1.5;white-space:pre-wrap;word-break:break-word; }
-.yt-desc-hashtags { margin-top:6px; }
-.yt-hashtag { color:#3ea6ff;font-size:0.82rem; }
-/* Subscribe section */
-.yt-sub-bar { display:flex;align-items:center;gap:8px;padding:8px 10px; }
-.yt-channel-name { font-size:0.88rem;font-weight:700;color:#f1f1f1; }
-.yt-sub-count { font-size:0.75rem;color:#aaa; }
-.yt-sub-btn { background:#ff0000;color:#fff;border:none;border-radius:100px;padding:8px 18px;font-size:0.82rem;font-weight:700;cursor:pointer;margin-left:auto; }
-.yt-actions-bar { display:flex;gap:6px;padding:4px 10px 8px; }
-.yt-action-btn { background:#272727;border:none;border-radius:100px;padding:7px 14px;color:#f1f1f1;font-size:0.8rem;cursor:pointer;display:flex;align-items:center;gap:5px; }
+.yt-title { 
+  font-size: 14px; font-weight: 400; line-height: 1.4; 
+  margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; 
+}
+.yt-channel-row { display: flex; align-items: center; gap: 4px; color: var(--yt-muted); font-size: 12px; }
+.yt-meta { font-size: 12px; color: var(--yt-muted); margin-top: 2px; }
+
+/* --- Feed Card View --- */
+.yt-feed-card { padding-bottom: 16px; }
+.yt-feed-thumb { width: 100%; aspect-ratio: 16 / 9; position: relative; background: #3f3f3f; }
+.yt-feed-footer { display: flex; gap: 12px; padding: 12px; }
+.yt-feed-avatar { 
+  width: 36px; height: 36px; border-radius: 50%; background: var(--accent); 
+  display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; 
+}
+.yt-feed-title { font-size: 14px; font-weight: 500; line-height: 1.4; }
+
+/* --- Video Page View --- */
+.yt-video-player { width: 100%; aspect-ratio: 16/9; background: #000; display: flex; align-items: center; justify-content: center; }
+.yt-page-meta { padding: 12px; }
+.yt-page-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+
+.yt-sub-bar { 
+  display: flex; align-items: center; gap: 10px; padding: 0 12px 12px; 
+}
+.yt-sub-btn { 
+  background: #f1f1f1; color: #0f0f0f; border: none; border-radius: 18px; 
+  padding: 6px 14px; font-size: 12px; font-weight: 500; margin-left: auto; 
+}
+
+.yt-actions-scroll { 
+  display: flex; gap: 8px; padding: 0 12px 12px; overflow-x: auto; scrollbar-width: none; 
+}
+.yt-action-pill { 
+  background: rgba(255,255,255,0.1); border-radius: 18px; padding: 6px 12px; 
+  font-size: 12px; white-space: nowrap; display: flex; align-items: center; gap: 6px;
+}
+
+.yt-desc-box { 
+  background: var(--yt-card); border-radius: 12px; margin: 0 12px 12px; padding: 12px; 
+  font-size: 13px; cursor: pointer;
+}
+.yt-desc-text { color: var(--yt-text); white-space: pre-wrap; line-height: 1.4; }
+.yt-hashtag { color: #3ea6ff; }
+
+/* UI Controls Fixes */
+.tab-bar { background: var(--bg2); border-radius: 10px; padding: 4px; display: flex; gap: 4px; }
+.tab-btn { 
+  flex: 1; padding: 8px; border-radius: 8px; border: none; background: transparent; 
+  color: var(--muted); cursor: pointer; font-size: 0.85rem; transition: 0.2s;
+}
+.tab-btn.active { background: var(--accent); color: white; }
 </style>
 </head>
 <body>
