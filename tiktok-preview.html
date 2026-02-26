@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Video Post Preview Tool – See Your TikTok Before You Post | PostPreview</title>
+  <meta name="description" content="Use our free TikTok preview tool to see exactly how your video captions, usernames, and thumbnails will appear on the TikTok mobile feed. Optimize your hooks instantly." />
+  <meta name="keywords" content="tiktok preview, tiktok mockup, tiktok post tool, social media preview, tiktok video simulator, tiktok feed preview" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/tiktok-preview" />
+
+  <meta property="og:title" content="TikTok Video Post Preview Tool – PostPreview" />
+  <meta property="og:description" content="Preview your TikTok content instantly. See how your video looks on the mobile feed before you hit publish." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/tiktok-preview" />
+  <meta property="og:image" content="https://postpreview.github.io/og-tiktok.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TikTok Preview Tool",
+    "url": "https://postpreview.github.io/tiktok-preview",
+    "description": "A free tool to preview how TikTok videos and captions look in the mobile feed before publishing.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* CSS Inherited from Design System */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #ff0050; /* TikTok Pink */
+      --accent2: #00f2ea; /* TikTok Cyan */
+      --text: #f0f0f5; --muted: #6b6b80;
+      --radius: 16px; --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, #7c3aed, #06b6d4); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+    nav a:hover { color: var(--text); }
+
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .preview-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .preview-layout { grid-template-columns: 1fr; } }
+
+    /* Input Panel */
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; display: block; }
+    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); outline: none; transition: 0.2s; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { height: 100px; resize: none; }
+    .upload-area { border: 2px dashed var(--border); padding: 20px; text-align: center; cursor: pointer; border-radius: 10px; margin-bottom: 16px; transition: 0.2s; }
+    .upload-area:hover { border-color: var(--accent); }
+
+    /* TikTok Mockup Specifics */
+    .preview-frame { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; position: sticky; top: 100px; padding: 20px; display: flex; justify-content: center; }
+    .tt-mockup { width: 320px; height: 568px; background: #000; border-radius: 32px; overflow: hidden; position: relative; border: 8px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .tt-video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    .tt-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; background: linear-gradient(transparent 60%, rgba(0,0,0,0.8)); }
+    .tt-username { color: #fff; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+    .tt-caption { color: #fff; font-size: 14px; line-height: 1.4; margin-bottom: 12px; max-width: 85%; word-wrap: break-word; }
+    .tt-music { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #fff; opacity: 0.9; }
+    .tt-music-icon { font-size: 14px; }
+    
+    .tt-actions-side { position: absolute; right: 8px; bottom: 80px; display: flex; flex-direction: column; gap: 18px; align-items: center; }
+    .tt-action-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #fff; font-size: 11px; font-weight: 600; }
+    .tt-action-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+    .tt-avatar { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #fff; background: #555; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    
+    /* Content Sections */
+    .content-section { padding: 80px 5%; background: var(--bg2); border-top: 1px solid var(--border); margin-top: 60px; }
+    .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 800px) { .content-grid { grid-template-columns: 1fr; } }
+    .content-item h2 { font-family: var(--font-head); font-size: 1.8rem; margin-bottom: 20px; color: var(--text); }
+    .content-item p, .content-item li { color: var(--muted); margin-bottom: 12px; font-size: 1rem; }
+    .content-item ul { list-style: none; padding-left: 0; }
+    .content-item li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: bold; }
+
+    /* Footer Styles from facebook-preview.html */
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 80px 5% 40px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    .footer-widget h4 { font-family: var(--font-head); margin-bottom: 20px; font-size: 1.1rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; transition: 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">
+    <div class="logo-icon">P</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/facebook-preview">Facebook</a>
+    <a href="/youtube-preview">YouTube</a>
+    <a href="#" class="active" style="color: var(--accent);">TikTok</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="section-head">
+    <span class="hero-badge" style="background: rgba(255,0,80,0.1); border-color: rgba(255,0,80,0.3); color: var(--accent);">TikTok Preview Tool</span>
+    <h1 style="font-family: var(--font-head); font-size: 2.5rem; margin-bottom: 10px;">Preview Your <span style="color: var(--accent);">TikTok Feed</span></h1>
+    <p style="color: var(--muted);">Visualize your video captions, hashtags, and username on the mobile "For You" page.</p>
+  </div>
+
+  <div class="preview-layout">
+    <div class="input-panel">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" id="ttUser" class="form-input" placeholder="@yourusername" oninput="syncPreview()">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Caption & Hashtags</label>
+        <textarea id="ttCaption" class="form-textarea" placeholder="Enter your hook and #hashtags here..." oninput="syncPreview()"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Background Video/Image</label>
+        <div class="upload-area" onclick="document.getElementById('ttImgInput').click()">
+          <p id="uploadStatus">Click to upload video frame or thumbnail</p>
+          <input type="file" id="ttImgInput" hidden accept="image/*" onchange="handleImage(this)">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sound Name</label>
+        <input type="text" id="ttSound" class="form-input" placeholder="Original Sound - yourbrand" oninput="syncPreview()">
+      </div>
+    </div>
+
+    <div class="preview-panel">
+      <div class="preview-frame">
+        <div class="tt-mockup">
+          <img src="" alt="" class="tt-video-bg" id="previewBg">
+          <div class="tt-overlay">
+            <div class="tt-username" id="previewUser">@yourusername</div>
+            <div class="tt-caption" id="previewCaption">Your caption will appear here. Make sure your hook is visible before the "more" button! #tiktok #marketing</div>
+            <div class="tt-music">
+              <span class="tt-music-icon">♫</span>
+              <span id="previewSound">Original Sound - yourbrand</span>
+            </div>
+          </div>
+          <div class="tt-actions-side">
+            <div class="tt-avatar" id="avatarInit">Y</div>
+            <div class="tt-action-btn"><span class="tt-action-icon">❤️</span> 1.2M</div>
+            <div class="tt-action-btn"><span class="tt-action-icon">💬</span> 842</div>
+            <div class="tt-action-btn"><span class="tt-action-icon">🔖</span> 12K</div>
+            <div class="tt-action-btn"><span class="tt-action-icon">↪️</span> Share</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content-section">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>What is the TikTok Preview Tool?</h2>
+      <p>The TikTok Preview Tool is a powerful simulator designed for creators, social media managers, and brands who want to perfect their "For You" page (FYP) presence. TikTok's interface is unique, with text overlays and action buttons covering significant portions of your video.</p>
+      <p>Our tool helps you ensure that critical visual elements, text overlays, and captions aren't hidden behind the TikTok UI, allowing for maximum engagement and clear communication of your message.</p>
+    </div>
+    <div class="content-item">
+      <h2>Why Use a TikTok Mockup?</h2>
+      <ul>
+        <li>Avoid "Safe Zone" errors where text is covered by buttons.</li>
+        <li>Test how your caption hook reads in the first two lines.</li>
+        <li>See how your profile picture and username blend with your content.</li>
+        <li>Optimize your hashtags for visual clarity.</li>
+        <li>Perfect your aesthetic before you hit publish.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="content-section" style="background: var(--bg); border-top: none; padding-top: 0;">
+  <div class="content-grid">
+    <div class="content-item">
+      <h2>How to Use the TikTok Previewer</h2>
+      <ul>
+        <li><strong>Step 1:</strong> Enter your TikTok handle in the Username field to see how it appears over the video.</li>
+        <li><strong>Step 2:</strong> Type your caption and hashtags. Pay attention to where the text breaks—this is where the "more" button usually appears.</li>
+        <li><strong>Step 3:</strong> Upload a screenshot or thumbnail of your video to see it in the vertical 9:16 aspect ratio.</li>
+        <li><strong>Step 4:</strong> Adjust the Sound Name to match your brand or trending audio choice.</li>
+        <li><strong>Step 5:</strong> Review the live preview on the right to ensure your content is in the "Safe Zone."</li>
+      </ul>
+    </div>
+    <div class="content-item">
+      <h2>TikTok Optimization Tips</h2>
+      <p>Keep your most important text overlays in the center-top area. Avoid the bottom 25% and the right-side 15% of the screen, as these are "danger zones" where the caption and side buttons (Like, Comment, Share) will block your content.</p>
+      <p>Captions on TikTok are now longer, but only the first few words are visible in the feed. Use our tool to make sure your primary hook is seen immediately.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-widget">
+      <a href="/" class="logo">
+        <div class="logo-icon">P</div>
+        Post<span>Preview</span>
+      </a>
+      <p style="margin-top: 15px; font-size: 0.9rem; color: var(--muted);">The professional's toolkit for social media content visualization. Preview, optimize, and perfect your posts.</p>
+    </div>
+    <div class="footer-widget">
+      <h4>Platforms</h4>
+      <ul class="footer-links">
+        <li><a href="/facebook-preview">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Twitter/X</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="/youtube-preview">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-widget">
+      <h4>Tools</h4>
+      <ul class="footer-links">
+        <li><a href="#">Image Resizer</a></li>
+        <li><a href="#">Grid Preview</a></li>
+        <li><a href="#">Character Counter</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<script>
+  function syncPreview() {
+    const user = document.getElementById('ttUser').value;
+    const caption = document.getElementById('ttCaption').value;
+    const sound = document.getElementById('ttSound').value;
+    
+    document.getElementById('previewUser').innerText = user || "@yourusername";
+    document.getElementById('previewCaption').innerText = caption || "Your caption will appear here. Make sure your hook is visible before the 'more' button!";
+    document.getElementById('previewSound').innerText = sound || "Original Sound - yourbrand";
+    document.getElementById('avatarInit').innerText = user ? user.replace('@','').charAt(0).toUpperCase() : "Y";
+  }
+
+  function handleImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('previewBg').src = e.target.result;
+        document.getElementById('uploadStatus').innerText = "Media Uploaded!";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+</body>
+</html>
