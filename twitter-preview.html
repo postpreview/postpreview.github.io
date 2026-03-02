@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDPJKDNLYJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-RDPJKDNLYJ');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twitter / X Post Preview Tool – Preview Tweets & Images | PostPreview</title>
+  <meta name="description" content="Use our free Twitter/X Preview tool to see exactly how your tweets look before you post. Check character limits, images, and formatting instantly." />
+  <meta name="keywords" content="twitter preview, x post preview, tweet mockup, twitter card preview, tweet formatter, social media preview, twitter thread preview" />
+  <meta name="author" content="PostPreview" />
+  <link rel="canonical" href="https://postpreview.github.io/twitter-preview" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Twitter / X Post Preview Tool – PostPreview" />
+  <meta property="og:description" content="Visualize your tweets and X posts before you hit publish. Free, instant, and mobile-responsive Twitter previews." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://postpreview.github.io/twitter-preview" />
+  <meta property="og:image" content="https://postpreview.github.io/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Twitter / X Post Preview Tool – PostPreview" />
+  <meta name="twitter:description" content="Visualize your tweets before you post. Free tweet mockup tool." />
+  <meta name="twitter:image" content="https://postpreview.github.io/og-image.jpg" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PostPreview - Twitter / X Post Preview Tool",
+    "url": "https://postpreview.github.io/twitter-preview",
+    "description": "Free tool to preview Twitter and X posts before publishing. Check character limits, see how images appear, and format your tweets perfectly.",
+    "applicationCategory": "Social Networking Application",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Real-time tweet preview",
+      "280 character counter",
+      "Image upload preview",
+      "Dark mode mockup",
+      "Twitter/X UI simulation"
+    ],
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://postpreview.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Twitter Preview", "item": "https://postpreview.github.io/twitter-preview" }
+      ]
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
+      --border: rgba(255,255,255,0.07); --accent: #7c3aed; --accent2: #06b6d4;
+      --text: #f0f0f5; --muted: #6b6b80; --radius: 16px;
+      --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+      --twitter-blue: #1d9bf0;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; }
+
+    /* ─── HEADER ─── */
+    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .logo span { color: var(--accent2); }
+    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; border-radius: 10px; font-weight: 500; cursor: pointer; text-decoration: none; border: none; font-family: var(--font-body); font-size: 0.95rem; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #6d28d9); color: #fff; }
+
+    /* ─── LAYOUT ─── */
+    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+    .tool-layout { display: grid; grid-template-columns: 1fr 420px; gap: 40px; margin-top: 40px; }
+    @media (max-width: 900px) { .tool-layout { grid-template-columns: 1fr; } }
+
+    /* ─── INPUT PANEL ─── */
+    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; height: fit-content; }
+    .form-group { margin-bottom: 20px; }
+    .form-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; display: block; }
+    .form-input, .form-textarea {
+      width: 100%; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body);
+      font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--twitter-blue); }
+    .form-textarea { resize: vertical; }
+
+    /* Character counter */
+    .char-counter-wrap { display: flex; justify-content: flex-end; margin-top: 6px; }
+    .char-counter { font-size: 0.8rem; color: var(--muted); }
+    .char-counter.warn { color: #f59e0b; }
+    .char-counter.over { color: #ef4444; }
+
+    /* Tab switcher */
+    .tab-row { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tab-btn {
+      padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); font-size: 0.85rem;
+      cursor: pointer; font-family: var(--font-body); transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--twitter-blue); border-color: var(--twitter-blue); color: #fff; }
+
+    /* ─── TWITTER/X MOCKUP ─── */
+    .tw-card {
+      background: #000; border-radius: 16px; color: #e7e9ea;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      width: 100%; max-width: 420px; margin: 0 auto;
+      border: 1px solid #2f3336; overflow: hidden;
+    }
+
+    /* Top bar */
+    .tw-topbar {
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid #2f3336;
+    }
+    .tw-topbar-tabs { display: flex; gap: 24px; }
+    .tw-topbar-tab { font-size: 15px; font-weight: 700; color: #e7e9ea; padding-bottom: 4px; border-bottom: 2px solid var(--twitter-blue); }
+    .tw-topbar-tab.inactive { color: #6e767d; border-bottom: none; }
+
+    /* Post row */
+    .tw-post { display: flex; gap: 12px; padding: 12px 16px 0; }
+    .tw-avatar {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #fff;
+    }
+    .tw-body { flex: 1; min-width: 0; }
+    .tw-meta { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; flex-wrap: wrap; }
+    .tw-name { font-weight: 700; font-size: 15px; color: #e7e9ea; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tw-handle { font-size: 14px; color: #6e767d; white-space: nowrap; }
+    .tw-dot { color: #6e767d; font-size: 13px; }
+    .tw-time { font-size: 14px; color: #6e767d; }
+    .tw-text {
+      font-size: 15px; line-height: 1.5; color: #e7e9ea;
+      white-space: pre-wrap; word-break: break-word; margin-bottom: 12px;
+    }
+    .tw-text .tw-hashtag, .tw-text .tw-mention { color: var(--twitter-blue); }
+
+    /* Image area */
+    .tw-image-area {
+      border-radius: 12px; overflow: hidden; border: 1px solid #2f3336;
+      background: #16181c; aspect-ratio: 16/9; display: flex;
+      align-items: center; justify-content: center; margin-bottom: 12px;
+    }
+    .tw-image-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tw-image-placeholder { font-size: 13px; color: #6e767d; text-align: center; padding: 20px; }
+
+    /* Actions bar */
+    .tw-actions {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 0 12px; border-bottom: 1px solid #2f3336; margin: 0 -0px;
+    }
+    .tw-action {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: #6e767d; cursor: pointer;
+      padding: 6px 8px; border-radius: 50px; transition: all 0.15s;
+    }
+    .tw-action:hover { background: rgba(29,155,240,0.1); color: var(--twitter-blue); }
+    .tw-action-icon { font-size: 18px; }
+
+    /* Reply hint */
+    .tw-reply-hint {
+      padding: 10px 16px 12px; display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: #6e767d;
+    }
+    .tw-reply-avatar { width: 32px; height: 32px; border-radius: 50%; background: #2f3336; flex-shrink: 0; }
+    .tw-reply-box { flex: 1; background: transparent; border: none; color: #6e767d; font-size: 14px; outline: none; font-family: inherit; cursor: default; }
+
+    /* X / Twitter logo watermark */
+    .tw-x-logo { font-size: 18px; font-weight: 900; color: #e7e9ea; }
+
+    /* Preview label */
+    .preview-panel { position: relative; }
+    .preview-label {
+      text-align: center; font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+
+    /* ─── CONTENT SECTIONS ─── */
+    .content-section { padding: 80px 5%; background: var(--bg2); }
+    .section-title { font-family: var(--font-head); font-size: 2.2rem; margin-bottom: 20px; }
+    .section-subtitle { color: var(--muted); font-size: 1.05rem; max-width: 600px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
+    .step-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); }
+    .step-num { font-size: 2rem; font-weight: 800; color: var(--accent2); margin-bottom: 10px; font-family: var(--font-head); }
+
+    /* Badge */
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(29,155,240,0.15); color: var(--twitter-blue); border: 1px solid rgba(29,155,240,0.3); border-radius: 50px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 64px 5% 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } nav { display: none; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    .footer-brand .logo { margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: 15px; transition: all 0.2s; }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer-widget h4 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.8rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">👁</div>
+    Post<span>Preview</span>
+  </a>
+  <nav>
+    <a href="index.html#tools">All Tools</a>
+    <a href="#how-to">How to Use</a>
+    <a href="#description">Details</a>
+  </nav>
+  <a href="index.html" class="btn btn-primary">Back to Home</a>
+</header>
+
+<!-- ══════════════════ TOOL SECTION ══════════════════ -->
+<section class="container">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <div class="badge">𝕏 Twitter / X</div>
+    <h1 class="section-title">Twitter / X Post Preview Tool</h1>
+    <p class="section-subtitle" style="margin: 0 auto;">See exactly how your tweet will look before you post it — including images, handles, hashtags, and character count.</p>
+  </div>
+
+  <div class="tool-layout">
+    <!-- Input Panel -->
+    <div class="input-panel">
+      <div class="tab-row">
+        <button class="tab-btn active" id="tabTweet" onclick="switchTab('tweet')">Single Tweet</button>
+        <button class="tab-btn" id="tabProfile" onclick="switchTab('profile')">Profile Info</button>
+      </div>
+
+      <!-- Tweet Tab -->
+      <div id="paneTweet">
+        <div class="form-group">
+          <label class="form-label">Tweet Text</label>
+          <textarea id="twText" class="form-textarea" style="height: 140px;" placeholder="What's happening?">Just launched our new product! 🚀 Really excited for you all to try it.
+
+Check it out here → example.com/launch
+
+#ProductLaunch #Startup #BuildInPublic</textarea>
+          <div class="char-counter-wrap">
+            <span class="char-counter" id="charCount">0 / 280</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Attach Image (optional)</label>
+          <input type="file" id="twFile" accept="image/*" class="form-input" />
+        </div>
+      </div>
+
+      <!-- Profile Tab -->
+      <div id="paneProfile" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Display Name</label>
+          <input type="text" id="twName" class="form-input" placeholder="Your Name" value="YourBrand" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Handle (without @)</label>
+          <input type="text" id="twHandle" class="form-input" placeholder="yourbrand" value="yourbrand" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Verified Badge</label>
+          <select id="twVerified" class="form-input">
+            <option value="none">None</option>
+            <option value="blue">✓ Blue (Paid)</option>
+            <option value="gold">✓ Gold (Organization)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div class="preview-panel">
+      <p class="preview-label">Live Preview</p>
+      <div class="tw-card">
+        <!-- Top bar -->
+        <div class="tw-topbar">
+          <div class="tw-topbar-tabs">
+            <div class="tw-topbar-tab">For you</div>
+            <div class="tw-topbar-tab inactive">Following</div>
+          </div>
+          <div class="tw-x-logo">𝕏</div>
+        </div>
+
+        <!-- Post -->
+        <div class="tw-post">
+          <div class="tw-avatar" id="previewAvatar">Y</div>
+          <div class="tw-body">
+            <div class="tw-meta">
+              <span class="tw-name" id="previewName">YourBrand</span>
+              <span id="previewBadge" style="color:#1d9bf0; font-size:15px;"></span>
+              <span class="tw-handle" id="previewHandle">@yourbrand</span>
+              <span class="tw-dot">·</span>
+              <span class="tw-time">now</span>
+            </div>
+            <div class="tw-text" id="previewText">Just launched our new product! 🚀 Really excited for you all to try it.
+
+Check it out here → example.com/launch
+
+<span class="tw-hashtag">#ProductLaunch</span> <span class="tw-hashtag">#Startup</span> <span class="tw-hashtag">#BuildInPublic</span></div>
+            <div class="tw-image-area" id="previewImageArea">
+              <div class="tw-image-placeholder">16:9 image recommended<br>1200 × 675 px</div>
+            </div>
+            <div class="tw-actions">
+              <span class="tw-action"><span class="tw-action-icon">💬</span><span>4</span></span>
+              <span class="tw-action"><span class="tw-action-icon">🔁</span><span>12</span></span>
+              <span class="tw-action"><span class="tw-action-icon">♡</span><span>47</span></span>
+              <span class="tw-action"><span class="tw-action-icon">📊</span><span>1.2K</span></span>
+              <span class="tw-action"><span class="tw-action-icon">🔖</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reply hint -->
+        <div class="tw-reply-hint">
+          <div class="tw-reply-avatar"></div>
+          <input class="tw-reply-box" readonly placeholder="Post your reply" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ HOW TO ══════════════════ -->
+<section class="content-section" id="how-to">
+  <div class="container">
+    <h2 class="section-title">How to Use the Twitter Previewer</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Compose Your Tweet</h3>
+        <p style="color: var(--muted);">Type your tweet text. The live counter tracks your 280-character limit in real time so you never get cut off.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Set Your Profile</h3>
+        <p style="color: var(--muted);">Enter your display name, handle, and verification badge so the preview matches your actual Twitter/X profile.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Add an Image</h3>
+        <p style="color: var(--muted);">Upload a photo to see how it looks in the tweet card. Twitter crops images to 16:9, so verify composition here first.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Review & Post</h3>
+        <p style="color: var(--muted);">Check hashtags, mentions, and links are formatted correctly. Copy the polished text and post with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ DESCRIPTION ══════════════════ -->
+<section class="container" id="description">
+  <div style="max-width: 800px;">
+    <h2 class="section-title">Professional Twitter Planning</h2>
+    <p>Twitter's 280-character limit means every word counts. The difference between a tweet that drives clicks and one that gets ignored often comes down to how the first two lines read in the feed. Our <strong>Twitter / X Post Preview Tool</strong> lets you visualize your tweet inside an authentic dark-mode X UI before publishing — no app required.</p>
+    <br>
+    <p>Whether you're a social media manager scheduling content for a brand, an entrepreneur announcing a product launch, or a creator growing an audience, this tool helps you catch formatting issues before they go live. Hashtags and mentions are highlighted exactly as they appear on the platform, so you can ensure your calls to action land correctly.</p>
+    <br>
+    <p>The image preview renders in the native 16:9 Twitter card format, so you can verify your photo isn't cropped in an awkward place. Combine this tool with our <a href="instagram-preview.html" style="color: var(--twitter-blue);">Instagram Preview</a> and <a href="linkedin-preview.html" style="color: var(--twitter-blue);">LinkedIn Preview</a> tools to plan your entire cross-platform content strategy before you publish anything.</p>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">👁</div>
+        Post<span>Preview</span>
+      </a>
+      <p>The free social media post preview tool for creators, marketers, and businesses. See before you post.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Twitter">𝕏</a>
+        <a href="#" class="social-btn" title="LinkedIn">in</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="Instagram">◎</a>
+      </div>
+    </div>
+
+    <div class="footer-widget">
+      <h4>Preview Tools</h4>
+      <ul class="footer-links">
+        <li><a href="facebook-preview.html">Facebook Post Preview</a></li>
+        <li><a href="instagram-preview.html">Instagram Post Preview</a></li>
+        <li><a href="twitter-preview.html">Twitter/X Post Preview</a></li>
+        <li><a href="linkedin-preview.html">LinkedIn Post Preview</a></li>
+        <li><a href="youtube-preview.html">YouTube Post Preview</a></li>
+        <li><a href="tiktok-preview.html">TikTok Post Preview</a></li>
+        <li><a href="pinterest-preview.html">Pinterest Post Preview</a></li>
+        <li><a href="reddit-preview.html">Reddit Post Preview</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-widget">
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Social Media Tips</a></li>
+        <li><a href="#">Character Limits Guide</a></li>
+        <li><a href="#">Image Size Guide</a></li>
+        <li><a href="#">Platform Comparison</a></li>
+        <li><a href="#">Content Calendar</a></li>
+        <li><a href="#">Hashtag Guide</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-widget">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>Built with ❤️ for creators worldwide</span>
+  </div>
+</footer>
+
+<script>
+  /* ── Element refs ── */
+  const twText    = document.getElementById('twText');
+  const twFile    = document.getElementById('twFile');
+  const twName    = document.getElementById('twName');
+  const twHandle  = document.getElementById('twHandle');
+  const twVerified = document.getElementById('twVerified');
+
+  const previewAvatar  = document.getElementById('previewAvatar');
+  const previewName    = document.getElementById('previewName');
+  const previewHandle  = document.getElementById('previewHandle');
+  const previewBadge   = document.getElementById('previewBadge');
+  const previewText    = document.getElementById('previewText');
+  const previewImgArea = document.getElementById('previewImageArea');
+  const charCount      = document.getElementById('charCount');
+
+  /* ── Helpers ── */
+  function renderText(raw) {
+    return raw
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/(#[\w\u00C0-\u024F]+)/g, '<span class="tw-hashtag">$1</span>')
+      .replace(/(@[\w]+)/g, '<span class="tw-hashtag">$1</span>');
+  }
+
+  function updatePreview() {
+    /* Text & char count */
+    const txt = twText.value;
+    const len = txt.length;
+    charCount.textContent = `${len} / 280`;
+    charCount.className = 'char-counter' + (len > 280 ? ' over' : len > 250 ? ' warn' : '');
+    previewText.innerHTML = renderText(txt);
+
+    /* Profile */
+    const name   = twName.value || 'YourBrand';
+    const handle = twHandle.value.replace(/^@/, '') || 'yourbrand';
+    previewName.textContent   = name;
+    previewHandle.textContent = '@' + handle;
+    previewAvatar.textContent = name.charAt(0).toUpperCase();
+
+    /* Badge */
+    const badge = twVerified.value;
+    previewBadge.textContent = badge === 'blue' ? ' ✓' : badge === 'gold' ? ' ✓' : '';
+    previewBadge.style.color  = badge === 'gold' ? '#FFD700' : '#1d9bf0';
+  }
+
+  /* ── Tab switcher ── */
+  function switchTab(tab) {
+    document.getElementById('paneTweet').style.display   = tab === 'tweet'   ? 'block' : 'none';
+    document.getElementById('paneProfile').style.display = tab === 'profile' ? 'block' : 'none';
+    document.getElementById('tabTweet').className   = 'tab-btn' + (tab === 'tweet'   ? ' active' : '');
+    document.getElementById('tabProfile').className = 'tab-btn' + (tab === 'profile' ? ' active' : '');
+  }
+
+  /* ── Image upload ── */
+  twFile.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImgArea.innerHTML = `<img src="${e.target.result}" alt="Tweet image preview" />`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  /* ── Live update listeners ── */
+  [twText, twName, twHandle, twVerified].forEach(el => el.addEventListener('input', updatePreview));
+
+  /* ── Init ── */
+  updatePreview();
+</script>
+
+</body>
+</html>
