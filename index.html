@@ -1167,6 +1167,7 @@
 </footer>
 
 <!-- ══════════════════ JS ══════════════════ -->
+<!-- ══════════════════ JS ══════════════════ -->
 <script>
   // ── Platform Data ──
   const platforms = [
@@ -1182,91 +1183,74 @@
     { id: 'snapchat', name: 'Snapchat', icon: '👻', color: '#fffc00', bg: 'rgba(255,252,0,0.15)', tag: 'Max 250 chars', tagColor: '#fffc00', limit: 250 },
   ];
 
-  let currentPlatform = 'twitter';
+  let currentPlatformId = 'twitter';
   let uploadedImageSrc = null;
 
-  // ── Build Tools Grid ──
-  const toolsGrid = document.getElementById('toolsGrid');
-  platforms.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'tool-card' + (p.id === currentPlatform ? ' active' : '');
-    card.innerHTML = `
-      <div class="tool-icon" style="background:${p.bg};">${p.icon}</div>
-      <div class="tool-name">${p.name}</div>
-      <div class="tool-desc">Preview your ${p.name} posts exactly as your followers will see them.</div>
-      <div class="tool-tag" style="color:${p.tagColor};border-color:${p.tagColor}22;">${p.tag}</div>
-    `;
-    card.addEventListener('click', () => {
-      currentPlatform = p.id;
-      document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      updatePlatformTabs();
-      updatePreview();
-      document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
-    });
-    toolsGrid.appendChild(card);
-  });
+  // ── Initialization ──
+  window.onload = () => {
+    buildPlatformTabs();
+    updatePreview();
+    setupEventListeners();
+  };
 
-  // ── Build Platform Tabs ──
+  // ── Global Controller Function ──
+  function setCurrentPlatform(id) {
+    currentPlatformId = id;
+    
+    // Update Tool Cards UI
+    document.querySelectorAll('.tool-card').forEach(card => {
+      const cardTitle = card.querySelector('.tool-name').textContent.toLowerCase();
+      const targetName = platforms.find(p => p.id === id).name.toLowerCase();
+      card.classList.toggle('active', cardTitle.includes(targetName.split(' ')[0]));
+    });
+
+    updatePlatformTabs();
+    updatePreview();
+    
+    // Scroll to preview if coming from the tools grid
+    if (window.scrollY < 500) {
+        document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   function buildPlatformTabs() {
     const tabs = document.getElementById('platformTabs');
     tabs.innerHTML = '';
     platforms.forEach(p => {
       const tab = document.createElement('button');
-      tab.className = 'ptab' + (p.id === currentPlatform ? ' active' : '');
-      tab.textContent = p.icon + ' ' + p.name.split(' ')[0];
-      tab.addEventListener('click', () => {
-        currentPlatform = p.id;
-        updatePlatformTabs();
-        document.querySelectorAll('.tool-card').forEach((c, i) => {
-          c.classList.toggle('active', platforms[i].id === currentPlatform);
-        });
-        updatePreview();
-      });
+      tab.className = 'ptab' + (p.id === currentPlatformId ? ' active' : '');
+      tab.innerHTML = `${p.icon} ${p.name.split(' ')[0]}`;
+      tab.onclick = () => setCurrentPlatform(p.id);
       tabs.appendChild(tab);
     });
   }
 
   function updatePlatformTabs() {
-    document.querySelectorAll('.ptab').forEach((tab, i) => {
-      tab.classList.toggle('active', platforms[i].id === currentPlatform);
+    const tabs = document.querySelectorAll('.ptab');
+    platforms.forEach((p, i) => {
+        if(tabs[i]) tabs[i].className = 'ptab' + (p.id === currentPlatformId ? ' active' : '');
     });
-    document.getElementById('previewPlatformName').textContent = platforms.find(p => p.id === currentPlatform).name + ' Preview';
-    updateCharCount();
+    document.getElementById('previewPlatformName').textContent = platforms.find(p => p.id === currentPlatformId).name + ' Preview';
   }
 
-  buildPlatformTabs();
+  function setupEventListeners() {
+    const inputIds = ['inputName', 'inputHandle', 'inputText', 'inputTitle', 'inputSubreddit'];
+    inputIds.forEach(id => {
+      document.getElementById(id).addEventListener('input', updatePreview);
+    });
 
-  // ── Char Count ──
-  const inputText = document.getElementById('inputText');
-  const charCount = document.getElementById('charCount');
-
-  function updateCharCount() {
-    const p = platforms.find(x => x.id === currentPlatform);
-    const len = inputText.value.length;
-    charCount.textContent = `${len} / ${p.limit.toLocaleString()}`;
-    charCount.className = 'char-count';
-    if (len > p.limit) charCount.classList.add('over');
-    else if (len > p.limit * 0.85) charCount.classList.add('warn');
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+      if (!this.files[0]) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        uploadedImageSrc = event.target.result;
+        document.getElementById('thumbImg').src = uploadedImageSrc;
+        document.getElementById('imagePreviewThumb').style.display = 'block';
+        updatePreview();
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
   }
-
-  inputText.addEventListener('input', () => { updateCharCount(); updatePreview(); });
-  ['inputName','inputHandle','inputTitle','inputSubreddit'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updatePreview);
-  });
-
-  // ── Image Upload ──
-  document.getElementById('imageInput').addEventListener('change', function() {
-    if (!this.files[0]) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      uploadedImageSrc = e.target.result;
-      document.getElementById('thumbImg').src = uploadedImageSrc;
-      document.getElementById('imagePreviewThumb').style.display = 'block';
-      updatePreview();
-    };
-    reader.readAsDataURL(this.files[0]);
-  });
 
   function removeImage() {
     uploadedImageSrc = null;
@@ -1275,240 +1259,139 @@
     updatePreview();
   }
 
-  // ── Get Values ──
-  function vals() {
-    return {
-      name: document.getElementById('inputName').value || 'Your Brand',
-      handle: document.getElementById('inputHandle').value || '@yourbrand',
-      text: document.getElementById('inputText').value || '',
-      title: document.getElementById('inputTitle').value || 'Post Title',
-      subreddit: document.getElementById('inputSubreddit').value || 'r/general',
-      img: uploadedImageSrc
-    };
+  function updateCharCount() {
+    const p = platforms.find(x => x.id === currentPlatformId);
+    const text = document.getElementById('inputText').value;
+    const charCount = document.getElementById('charCount');
+    const len = text.length;
+    
+    charCount.textContent = `${len.toLocaleString()} / ${p.limit.toLocaleString()}`;
+    charCount.className = 'char-count';
+    if (len > p.limit) charCount.classList.add('over');
+    else if (len > p.limit * 0.85) charCount.classList.add('warn');
   }
-
-  function imgBlock(cls) {
-    const v = vals();
-    if (v.img) return `<div class="${cls}"><img src="${v.img}" alt="Post image" /></div>`;
-    return `<div class="${cls}">🖼️ Image Preview</div>`;
-  }
-
-  // ── Render Previews ──
-  const renderers = {
-    twitter: () => {
-      const v = vals();
-      const init = v.name ? v.name[0].toUpperCase() : 'U';
-      return `<div class="post-mockup x-post">
-        <div class="x-avatar">${init}</div>
-        <div class="x-content">
-          <div class="x-name-row">
-            <span class="x-name">${esc(v.name)}</span>
-            <span class="x-verified">✓</span>
-            <span class="x-handle">${esc(v.handle)} · now</span>
-          </div>
-          <div class="x-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
-          ${v.img ? `<div class="x-image"><img src="${v.img}" alt="post image"></div>` : ''}
-          <div class="x-actions">
-            <span class="x-action">💬 12</span>
-            <span class="x-action">🔁 48</span>
-            <span class="x-action">❤️ 284</span>
-            <span class="x-action">📈 9.2K</span>
-          </div>
-        </div>
-      </div>`;
-    },
-    facebook: () => {
-      const v = vals();
-      const init = v.name[0]?.toUpperCase() || 'U';
-      return `<div class="fb-post post-mockup">
-        <div class="fb-header">
-          <div class="fb-avatar">${init}</div>
-          <div class="fb-meta">
-            <div class="fb-name">${esc(v.name)}</div>
-            <div class="fb-time">Just now · 🌐</div>
-          </div>
-        </div>
-        <div class="fb-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
-        ${v.img ? `<div class="fb-image"><img src="${v.img}" alt="post"></div>` : ''}
-        <div class="fb-actions">
-          <div class="fb-action">👍 Like</div>
-          <div class="fb-action">💬 Comment</div>
-          <div class="fb-action">↗️ Share</div>
-        </div>
-      </div>`;
-    },
-    instagram: () => {
-      const v = vals();
-      const init = v.name[0]?.toUpperCase() || 'U';
-      return `<div class="post-mockup ig-post">
-        <div class="ig-header">
-          <div class="ig-avatar">${init}</div>
-          <div>
-            <div class="ig-name">${esc(v.handle.replace('@',''))}</div>
-            <div style="font-size:0.75rem;color:var(--muted);">Sponsored · 🌐</div>
-          </div>
-          <span style="margin-left:auto;color:var(--muted);">···</span>
-        </div>
-        ${v.img ? `<div class="ig-image"><img src="${v.img}" alt="post"></div>` : '<div class="ig-image">🖼️ Photo Preview</div>'}
-        <div class="ig-actions">
-          <span>❤️</span><span>💬</span><span>✈️</span>
-          <span style="margin-left:auto">🔖</span>
-        </div>
-        <div class="ig-likes">1,284 likes</div>
-        <div class="ig-caption"><strong>${esc(v.handle.replace('@',''))}</strong> ${esc(v.text).replace(/\n/g,'<br>')}</div>
-      </div>`;
-    },
-    linkedin: () => {
-      const v = vals();
-      const init = v.name[0]?.toUpperCase() || 'U';
-      return `<div class="post-mockup li-post">
-        <div class="li-header">
-          <div class="li-avatar">${init}</div>
-          <div class="li-info">
-            <div class="li-name">${esc(v.name)}</div>
-            <div class="li-title">Professional · 1st · Just now</div>
-          </div>
-        </div>
-        <div class="li-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
-        ${v.img ? `<div class="li-image"><img src="${v.img}" alt="post"></div>` : ''}
-        <div class="li-actions">
-          <button class="li-action">👍 Like</button>
-          <button class="li-action">💬 Comment</button>
-          <button class="li-action">🔁 Repost</button>
-          <button class="li-action">✈️ Send</button>
-        </div>
-      </div>`;
-    },
-    youtube: () => {
-      const v = vals();
-      return `<div class="post-mockup yt-post">
-        <div class="yt-thumb">
-          ${v.img ? `<img src="${v.img}" alt="thumbnail">` : '<span style="font-size:40px">▶️</span>'}
-          <div class="yt-play">▶</div>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:4px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff0000,#cc0000);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;">${v.name[0]?.toUpperCase()}</div>
-          <div>
-            <div class="yt-title">${esc(v.title)}</div>
-            <div class="yt-meta">${esc(v.name)} · 12K views · Just now</div>
-          </div>
-        </div>
-      </div>`;
-    },
-    tiktok: () => {
-      const v = vals();
-      return `<div class="post-mockup tt-post">
-        <div class="tt-video">
-          ${v.img ? `<img src="${v.img}" alt="video">` : ''}
-          <div class="tt-overlay">
-            <div class="tt-username">${esc(v.handle)}</div>
-            <div class="tt-caption">${esc(v.text).replace(/\n/g,' ')}</div>
-          </div>
-          <div class="tt-actions-side">
-            <div class="tt-action-btn"><span>❤️</span>24K</div>
-            <div class="tt-action-btn"><span>💬</span>312</div>
-            <div class="tt-action-btn"><span>🔖</span>5K</div>
-            <div class="tt-action-btn"><span>↗️</span>890</div>
-          </div>
-        </div>
-      </div>`;
-    },
-    pinterest: () => {
-      const v = vals();
-      return `<div class="post-mockup pin-post" style="max-width:240px;">
-        ${v.img ? `<div class="pin-image"><img src="${v.img}" alt="pin"></div>` : '<div class="pin-image" style="height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--muted);">📌 Pin Image</div>'}
-        <div class="pin-content">
-          <div class="pin-title">${esc(v.title)}</div>
-          <div class="pin-desc">${esc(v.text).replace(/\n/g,' ')}</div>
-          <button class="btn btn-primary" style="margin-top:10px;padding:6px 16px;font-size:0.8rem;">Save</button>
-        </div>
-      </div>`;
-    },
-    whatsapp: () => {
-      const v = vals();
-      const time = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-      return `<div class="post-mockup wa-post">
-        <div class="wa-bubble">
-          <div class="wa-text">${esc(v.text).replace(/\n/g,'<br>')}</div>
-          ${v.img ? `<img src="${v.img}" alt="img" style="width:100%;border-radius:8px;margin-top:8px;">` : ''}
-          <div class="wa-time">${time} ✓✓</div>
-        </div>
-      </div>`;
-    },
-    reddit: () => {
-      const v = vals();
-      return `<div class="post-mockup rd-post">
-        <div class="rd-header">
-          <span class="rd-sub">${esc(v.subreddit)}</span>
-          <span>· Posted by ${esc(v.handle)} · Just now</span>
-        </div>
-        <div class="rd-title">${esc(v.title)}</div>
-        ${v.text ? `<div class="rd-content">${esc(v.text).replace(/\n/g,'<br>')}</div>` : ''}
-        ${v.img ? `<div class="rd-image"><img src="${v.img}" alt="post"></div>` : ''}
-        <div class="rd-actions">
-          <button class="rd-action">▲ 1.2K</button>
-          <button class="rd-action">▼</button>
-          <button class="rd-action">💬 48 Comments</button>
-          <button class="rd-action">↗️ Share</button>
-          <button class="rd-action">··· More</button>
-        </div>
-      </div>`;
-    },
-    snapchat: () => {
-      const v = vals();
-      return `<div class="post-mockup sc-post">
-        <div class="sc-image">
-          ${v.img ? `<img src="${v.img}" alt="snap">` : '<span style="font-size:40px">👻</span>'}
-        </div>
-        <div class="sc-bottom">
-          <div class="sc-text">${esc(v.text).replace(/\n/g,' ')}</div>
-          <div class="sc-username">${esc(v.handle)}</div>
-        </div>
-      </div>`;
-    }
-  };
 
   function esc(str) {
+    if (!str) return "";
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  function updatePreview() {
-    const renderer = renderers[currentPlatform];
-    if (renderer) {
-      document.getElementById('previewBody').innerHTML = renderer();
-    }
-    updateCharCount();
+  function formatTwitterText(str) {
+    return esc(str).replace(/\n/g,'<br>')
+                  .replace(/#(\w+)/g, '<span style="color:#1d9bf0;">#$1</span>')
+                  .replace(/@(\w+)/g, '<span style="color:#1d9bf0;">@$1</span>');
   }
 
-  updatePreview();
+  // ── Render Logic ──
+  function updatePreview() {
+    const name = document.getElementById('inputName').value || "Your Brand";
+    const handle = document.getElementById('inputHandle').value || "@yourbrand";
+    const text = document.getElementById('inputText').value || "";
+    const title = document.getElementById('inputTitle').value || "Post Title";
+    const subreddit = document.getElementById('inputSubreddit').value || "r/startups";
+    const previewBody = document.getElementById('previewBody');
 
-  // ── FAQ ──
-  const faqs = [
-    { q: 'What is PostPreview?', a: 'PostPreview is a free online tool that lets you preview how your social media posts will look on different platforms before you publish them. It supports 10+ major social networks.' },
-    { q: 'Which social media platforms are supported?', a: 'PostPreview currently supports Facebook, Instagram, Twitter/X, LinkedIn, YouTube, TikTok, Pinterest, Snapchat, WhatsApp, and Reddit — with more platforms being added regularly.' },
-    { q: 'Is PostPreview free to use?', a: 'Yes! All PostPreview tools are completely free to use with no sign-up, subscription, or credit card required. Just visit the site and start previewing.' },
-    { q: 'Does PostPreview store my content?', a: 'No. Your content is processed entirely in your browser. We do not store, log, or share anything you type or upload. Your privacy is fully protected.' },
-    { q: 'Can I upload images to the preview?', a: 'Absolutely! You can upload any image from your device and see exactly how it will appear in each platform's post format — feeds, timelines, and stories.' },
-    { q: 'How accurate are the previews?', a: 'Our previews closely replicate the look and feel of each platform's native post UI, including avatars, action buttons, character limits, and layout. Small platform updates may create minor visual differences.' },
-    { q: 'Can I use PostPreview on mobile?', a: 'Yes! PostPreview is fully responsive and works great on smartphones, tablets, and desktop computers.' },
-  ];
+    updateCharCount();
 
-  const faqList = document.getElementById('faqList');
-  faqs.forEach(f => {
-    const item = document.createElement('div');
-    item.className = 'faq-item';
-    item.innerHTML = `
-      <div class="faq-q">
-        <span>${f.q}</span>
-        <span class="faq-chevron">⌄</span>
-      </div>
-      <div class="faq-a">${f.a}</div>
-    `;
-    item.querySelector('.faq-q').addEventListener('click', () => {
-      item.classList.toggle('open');
-    });
-    faqList.appendChild(item);
-  });
+    let html = '';
+
+    switch(currentPlatformId) {
+      case 'twitter':
+        const init = name[0]?.toUpperCase() || 'Y';
+        html = `
+          <div class="post-mockup x-post">
+            <div class="x-avatar">${init}</div>
+            <div class="x-content">
+              <div class="x-name-row">
+                <span class="x-name">${esc(name)}</span>
+                <span class="x-verified">✓</span>
+                <span class="x-handle">${esc(handle)} · 1m</span>
+              </div>
+              <div class="x-text">${formatTwitterText(text)}</div>
+              ${uploadedImageSrc ? `<div class="x-image"><img src="${uploadedImageSrc}"></div>` : ''}
+              <div class="x-actions">
+                <span class="x-action">💬 12</span>
+                <span class="x-action">🔁 48</span>
+                <span class="x-action">❤️ 284</span>
+                <span class="x-action">📈 9.2K</span>
+              </div>
+            </div>
+          </div>`;
+        break;
+
+      case 'facebook':
+        html = `
+          <div class="fb-post post-mockup">
+            <div class="fb-header">
+              <div class="fb-avatar">${name[0]?.toUpperCase()}</div>
+              <div class="fb-meta">
+                <div class="fb-name">${esc(name)}</div>
+                <div class="fb-time">Just now · 🌐</div>
+              </div>
+            </div>
+            <div class="fb-text">${esc(text).replace(/\n/g,'<br>')}</div>
+            ${uploadedImageSrc ? `<div class="fb-image"><img src="${uploadedImageSrc}"></div>` : ''}
+            <div class="fb-actions">
+              <div class="fb-action">👍 Like</div>
+              <div class="fb-action">💬 Comment</div>
+              <div class="fb-action">↗️ Share</div>
+            </div>
+          </div>`;
+        break;
+
+      case 'instagram':
+        html = `
+          <div class="post-mockup ig-post">
+            <div class="ig-header">
+              <div class="ig-avatar">${name[0]?.toUpperCase()}</div>
+              <div class="ig-name">${esc(handle.replace('@',''))}</div>
+            </div>
+            <div class="ig-image">
+              ${uploadedImageSrc ? `<img src="${uploadedImageSrc}">` : '📸 Image Preview'}
+            </div>
+            <div class="ig-actions"><span>❤️</span><span>💬</span><span>✈️</span><span style="margin-left:auto">🔖</span></div>
+            <div class="ig-likes">1,284 likes</div>
+            <div class="ig-caption"><strong>${esc(handle.replace('@',''))}</strong> ${esc(text)}</div>
+          </div>`;
+        break;
+
+      case 'linkedin':
+        html = `
+          <div class="post-mockup li-post">
+            <div class="li-header">
+              <div class="li-avatar">${name[0]?.toUpperCase()}</div>
+              <div class="li-info">
+                <div class="li-name">${esc(name)}</div>
+                <div class="li-title">Professional · 1st · Just now</div>
+              </div>
+            </div>
+            <div class="li-text">${esc(text).replace(/\n/g,'<br>')}</div>
+            ${uploadedImageSrc ? `<div class="li-image"><img src="${uploadedImageSrc}"></div>` : ''}
+            <div class="li-actions">
+                <button class="li-action">👍 Like</button>
+                <button class="li-action">💬 Comment</button>
+                <button class="li-action">🔁 Repost</button>
+            </div>
+          </div>`;
+        break;
+
+      case 'reddit':
+        html = `
+          <div class="post-mockup rd-post">
+            <div class="rd-header"><span class="rd-sub">${esc(subreddit)}</span> · Posted by ${esc(handle)}</div>
+            <div class="rd-title">${esc(title)}</div>
+            <div class="rd-content">${esc(text).replace(/\n/g,'<br>')}</div>
+            ${uploadedImageSrc ? `<div class="rd-image"><img src="${uploadedImageSrc}"></div>` : ''}
+            <div class="rd-actions"><button class="rd-action">▲ 1.2K</button><button class="rd-action">💬 48 Comments</button></div>
+          </div>`;
+        break;
+        
+      default:
+        html = `<div style="text-align:center; padding:40px; color:var(--muted);">Preview for ${currentPlatformId} coming soon...</div>`;
+    }
+
+    previewBody.innerHTML = html;
+  }
 
   // ── Intersection Observer for animations ──
   const observer = new IntersectionObserver((entries) => {
@@ -1526,151 +1409,7 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
- /**
- * @schema
- * {
- * "name": "Social Media Preview Tool Logic",
- * "type": "Interactive UI Component",
- * "version": "1.1.0",
- * "description": "Fixed image rendering and platform-specific UI styles for the preview window."
- * }
- */
-
-const platforms = [
-  { id: 'twitter', name: 'Twitter / X', icon: '🐦', limit: 280 },
-  { id: 'facebook', name: 'Facebook', icon: '👥', limit: 5000 },
-  { id: 'instagram', name: 'Instagram', icon: '📸', limit: 2200 },
-  { id: 'linkedin', name: 'LinkedIn', icon: '💼', limit: 3000 },
-  { id: 'reddit', name: 'Reddit', icon: '🤖', limit: 40000 }
-];
-
-let currentPlatform = platforms[0];
-let uploadedImage = null;
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderTabs();
-  setupEventListeners();
-  updatePreview();
-});
-
-function renderTabs() {
-  const tabsContainer = document.getElementById('platformTabs');
-  if (!tabsContainer) return;
-  
-  // Changed class to 'ptab' to match your existing CSS
-  tabsContainer.innerHTML = platforms.map(p => `
-    <button class="ptab ${p.id === currentPlatform.id ? 'active' : ''}" 
-            onclick="switchPlatform('${p.id}')">
-      ${p.icon} ${p.name}
-    </button>
-  `).join('');
-}
-
-function switchPlatform(platformId) {
-  currentPlatform = platforms.find(p => p.id === platformId);
-  renderTabs();
-  updatePreview();
-}
-
-function setupEventListeners() {
-  const inputs = ['inputName', 'inputHandle', 'inputText', 'inputTitle', 'inputSubreddit'];
-  inputs.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('input', updatePreview);
-  });
-
-  const imageInput = document.getElementById('imageInput');
-  if (imageInput) {
-    imageInput.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          uploadedImage = event.target.result;
-          // Update the small thumbnail in the sidebar
-          const thumbImg = document.getElementById('thumbImg');
-          if (thumbImg) thumbImg.src = uploadedImage;
-          const thumbContainer = document.getElementById('imagePreviewThumb');
-          if (thumbContainer) thumbContainer.style.display = 'block';
-          // Immediately refresh the big preview
-          updatePreview();
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-}
-
-function removeImage() {
-  uploadedImage = null;
-  document.getElementById('imageInput').value = '';
-  document.getElementById('imagePreviewThumb').style.display = 'none';
-  updatePreview();
-}
-
-function updatePreview() {
-  const name = document.getElementById('inputName').value || "Your Brand";
-  const handle = document.getElementById('inputHandle').value || "@yourbrand";
-  const text = document.getElementById('inputText').value || "";
-  const title = document.getElementById('inputTitle').value || "";
-  const subreddit = document.getElementById('inputSubreddit').value || "r/startups";
-  
-  const charCountEl = document.getElementById('charCount');
-  if (charCountEl) {
-    charCountEl.innerText = `${text.length} / ${currentPlatform.limit}`;
-    charCountEl.style.color = text.length > currentPlatform.limit ? '#ef4444' : '#6b7280';
-  }
-
-  document.getElementById('previewPlatformName').innerText = `${currentPlatform.name} Preview`;
-
-  let previewHtml = '';
-  // Force a max-height and object-fit so images don't break the preview box
-  const imgHtml = uploadedImage ? `<img src="${uploadedImage}" style="width:100%; border-radius:12px; margin-top:12px; border:1px solid #e5e7eb; max-height:300px; object-fit:cover;">` : '';
-
-  if (currentPlatform.id === 'twitter') {
-    previewHtml = `
-      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto; display:flex; gap:12px;">
-        <div style="width:40px; height:40px; background:#e5e7eb; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#6b7280;">${name.charAt(0)}</div>
-        <div style="flex:1;">
-          <div style="display:flex; gap:4px; font-size:15px;">
-            <span style="font-weight:700; color:#0f1419;">${name}</span>
-            <span style="color:#536471;">${handle} · 1m</span>
-          </div>
-          <div style="margin-top:2px; font-size:15px; color:#0f1419; line-height:1.4; white-space:pre-wrap;">${formatText(text)}</div>
-          ${imgHtml}
-        </div>
-      </div>`;
-  } else if (currentPlatform.id === 'reddit') {
-    previewHtml = `
-      <div style="font-family:IBM Plex Sans, Arial, sans-serif;">
-        <div style="font-size:12px; color:#787c7e; margin-bottom:8px;">${subreddit} • Posted by ${handle}</div>
-        <h3 style="font-size:18px; font-weight:500; margin-bottom:8px; color:#1a1a1b;">${title}</h3>
-        <div style="font-size:14px; line-height:21px; color:#1a1a1b; white-space:pre-wrap;">${text}</div>
-        ${imgHtml}
-      </div>`;
-  } else {
-    // Standard Facebook/LinkedIn Style
-    previewHtml = `
-      <div style="font-family:Helvetica, Arial, sans-serif;">
-        <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <div style="width:40px; height:40px; background:#e5e7eb; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#6b7280;">${name.charAt(0)}</div>
-          <div>
-            <div style="font-weight:600; color:#050505; font-size:15px;">${name}</div>
-            <div style="font-size:13px; color:#65676b;">Just now · 🌎</div>
-          </div>
-        </div>
-        <div style="font-size:15px; color:#050505; line-height:1.4; white-space:pre-wrap;">${text}</div>
-        ${imgHtml}
-      </div>`;
-  }
-
-  document.getElementById('previewBody').innerHTML = previewHtml;
-}
-
-function formatText(str) {
-  return str.replace(/#(\w+)/g, '<span style="color:#1d9bf0;">#$1</span>')
-            .replace(/@(\w+)/g, '<span style="color:#1d9bf0;">@$1</span>');
-}
+</script>
 </script>  
 </body>
 </html>
