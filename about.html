@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - PostPreview</title>
-    <meta name="description" content="Learn about the mission behind PostPreview and the team building tools for social media creators." />
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-    <link rel="stylesheet" href="css/style.css" /> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – PostPreview</title>
+  <meta name="description" content="Learn about the mission behind PostPreview and the team building tools for social media creators." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 </head>
 <body>
 
-    <div id="header-component"></div>
+<div id="header-component"></div>
 
-    <main class="page-container">
-        <div class="about-header">
-            <h1>About PostPreview</h1>
-            <p>Bringing clarity to your social media strategy.</p>
-        </div>
+<section class="hero" style="padding: 100px 5% 60px;">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">The Mission</div>
+  <h1 class="animate">Behind the <span class="gradient-text">Preview</span></h1>
+  <p class="animate delay-1">Helping creators and marketers visualize their impact before hitting the publish button.</p>
+</section>
 
-        <div class="bio-card">
-            <div class="founder-info">
-                <div class="founder-avatar">AW</div>
-                <div>
-                    <h3>Aansa Waqas</h3>
-                    <p>Founder & Lead Developer</p>
-                </div>
-            </div>
-            
-            <p>Hello! I'm <strong>Aansa Waqas</strong>. I built PostPreview to solve a common problem for creators: the "post and pray" anxiety. We've all published a post only to realize the text is cut off or the image looks cropped in the feed.</p>
-            
-            <div class="mission-section">
-                <h2>Our Mission</h2>
-                <p>PostPreview was created to give developers, marketers, and casual users a 100% free way to visualize their content exactly as it will appear on major platforms like Facebook, Instagram, and LinkedIn. No accounts, no subscriptions—just useful tools.</p>
-            </div>
-        </div>
-    </main>
+<section class="features-section">
+  <div class="container">
+    <div class="preview-layout" style="align-items: center; grid-template-columns: 1fr 1fr;">
+      <div class="animate delay-2">
+        <div class="section-label">Founder</div>
+        <h2 class="section-title">Meet Aansa Waqas</h2>
+        <p class="section-sub" style="margin-bottom: 24px;">
+            I am a developer and the founder of PostPreview. This project was born out of a simple need: the ability to see exactly how content looks across different algorithms and screens without having to post it first.
+        </p>
+        <p class="section-sub">
+            With a focus on clean code and user privacy, I built this suite of tools to be 100% free and client-side, ensuring your data never leaves your browser.
+        </p>
+      </div>
+      <div class="input-panel animate delay-3" style="text-align: center;">
+         <div class="logo-icon" style="width: 80px; height: 80px; font-size: 40px; margin: 0 auto 20px;">AW</div>
+         <h3 style="justify-content: center;">Aansa Waqas</h3>
+         <p style="color: var(--muted); font-size: 0.9rem;">Lead Developer & Founder</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div id="footer-component"></div>
+<div id="footer-component"></div>
 
-    <script src="components/header.js"></script>
-    <script src="components/footer.js"></script>  
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 </body>
 </html>
