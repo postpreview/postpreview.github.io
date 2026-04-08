@@ -53,7 +53,7 @@ const footerHTML = `
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 PostPreview. All rights reserved.</span>
+    <span>© 2026 PostPreview. All rights reserved.</span>
     <span>Built with ❤️ for creators worldwide</span>
   </div>
 </footer>
