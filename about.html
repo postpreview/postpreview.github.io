@@ -1,28 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>About Us - PostPreview</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "PostPreview",
-      "description": "PostPreview is a free platform for social media creators to visualize content before publishing."
-    }
-  }
-  </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - PostPreview</title>
+    <meta name="description" content="Learn about the mission behind PostPreview and the team building tools for social media creators." />
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <style>
+        /* Essential styles for the About page content */
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
+        .page-container { max-width: 800px; margin: 120px auto 60px; padding: 0 20px; }
+        .about-header { text-align: center; margin-bottom: 50px; }
+        .about-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .bio-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 40px; box-shadow: 4px 4px 0px var(--border); }
+        .founder-info { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; }
+        .founder-avatar { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold; }
+        .mission-section { margin-top: 40px; }
+        h2 { color: var(--primary); }
+    </style>
 </head>
 <body>
-  <div class="legal-container">
-    <div class="legal-content">
-      <h1>About PostPreview</h1>
-      <p>PostPreview was built to help social media managers and creators eliminate the guesswork of publishing content. Our mission is to provide accurate, real-time mockups for every major social platform.</p>
-      <p>Our tools are 100% free and prioritize user privacy by processing all data locally in your browser.</p>
-    </div>
-  </div>
+
+    <div id="header-component"></div>
+
+    <main class="page-container">
+        <div class="about-header">
+            <h1>About PostPreview</h1>
+            <p>Bringing clarity to your social media strategy.</p>
+        </div>
+
+        <div class="bio-card">
+            <div class="founder-info">
+                <div class="founder-avatar">AW</div>
+                <div>
+                    <h3>Aansa Waqas</h3>
+                    <p>Founder & Lead Developer</p>
+                </div>
+            </div>
+            
+            <p>Hello! I'm <strong>Aansa Waqas</strong>. I built PostPreview to solve a common problem for creators: the "post and pray" anxiety. We've all published a post only to realize the text is cut off or the image looks cropped in the feed.</p>
+            
+            <div class="mission-section">
+                <h2>Our Mission</h2>
+                <p>PostPreview was created to give developers, marketers, and casual users a 100% free way to visualize their content exactly as it will appear on major platforms like Facebook, Instagram, and LinkedIn. No accounts, no subscriptions—just useful tools.</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-component"></div>
+
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>
