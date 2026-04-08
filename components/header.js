@@ -12,7 +12,7 @@ const headerHTML = `
     <a href="#how">How It Works</a>
     <a href="#faq">FAQ</a>
   </nav>
-  <a href="#preview" class="btn btn-primary">Try Free ↗</a>
+  <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
 </header>
 `;
 
