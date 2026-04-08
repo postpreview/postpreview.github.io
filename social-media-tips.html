@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>  
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDPJKDNLYJ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -143,19 +143,7 @@
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo">
-    <div class="logo-icon">👁</div>
-    Post<span>Preview</span>
-  </a>
-  <nav>
-    <a href="/#tools">Tools</a>
-    <a href="/#preview">Preview</a>
-    <a href="social-media-tips.html">Tips</a>
-    <a href="/#faq">FAQ</a>
-  </nav>
-  <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
-</header>
+<div id="header-component"></div>
 
 <main>
   <article class="article-hero">
@@ -203,6 +191,9 @@
     </div>
   </article>
 </main>
+<div id="footer-component"></div>
 
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 </body>
 </html>
