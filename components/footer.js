@@ -36,7 +36,7 @@ const footerHTML = `
         <li><a href="character-limit-guide">Character Limits Guide</a></li>
         <li><a href="image-size-guide">Image Size Guide</a></li>
         <li><a href="platform-comparison">Platform Comparison</a></li>
-        <li><a href="content-calender">Content Calendar</a></li>
+        <li><a href="content-calendar">Content Calendar</a></li>
         <li><a href="hashtag-guide">Hashtag Guide</a></li>
       </ul>
     </div>
