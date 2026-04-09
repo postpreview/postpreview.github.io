@@ -6,11 +6,11 @@ const headerHTML = `
     Post<span>Preview</span>
   </a>
   <nav>
-    <a href="#tools">Tools</a>
-    <a href="#preview">Preview</a>
-    <a href="#features">Features</a>
-    <a href="#how">How It Works</a>
-    <a href="#faq">FAQ</a>
+    <a href="/#tools">Tools</a>
+    <a href="/#preview">Preview</a>
+    <a href="/#features">Features</a>
+    <a href="/#how">How It Works</a>
+    <a href="/#faq">FAQ</a>
     <a href="/guides">Guides</a>
   </nav>
   <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
