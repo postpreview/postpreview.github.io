@@ -152,10 +152,20 @@
       padding: 64px 5%;
       align-items: start;
     }
-    @media (max-width: 900px) {
-      .guide-layout { grid-template-columns: 1fr; }
-      .guide-sidebar { order: -1; }
-    }
+   @media (max-width: 900px) {
+  .guide-layout { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .guide-sidebar { 
+    /* Change order to 1 so it appears after the article (order 0) */
+    order: 1; 
+    /* Disable sticky positioning on mobile to prevent overlapping */
+    position: relative; 
+    top: 0;
+    margin-top: 40px;
+  }
+}
 
     /* Article content */
     .guide-content h2 {
