@@ -23,7 +23,7 @@ const footerHTML = `
         <li><a href="linkedin-preview">LinkedIn Post Preview</a></li>
         <li><a href="youtube-preview">YouTube Post Preview</a></li>
         <li><a href="tiktok-preview">TikTok Post Preview</a></li>
-        <li><a href="pinterest-preview">Pinterest Post Preview</a></li>
+        <li><a href="pinterest-pin-preview">Pinterest Pin Preview</a></li>
         <li><a href="reddit-preview">Reddit Post Preview</a></li>
       </ul>
     </div>
