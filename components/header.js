@@ -5,7 +5,10 @@ const headerHTML = `
     <div class="logo-icon">👁</div>
     Post<span>Preview</span>
   </a>
-  <nav>
+  
+  <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">☰</button>
+
+  <nav id="nav-menu">
     <a href="/#tools">Tools</a>
     <a href="/#preview">Preview</a>
     <a href="/#features">Features</a>
@@ -21,5 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const headerElem = document.getElementById('header-component');
   if (headerElem) {
     headerElem.innerHTML = headerHTML;
+
+    // Add logic to handle the mobile menu click
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (menuBtn && navMenu) {
+      menuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        // Switch between hamburger and close icon
+        menuBtn.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+      });
+    }
   }
 });
