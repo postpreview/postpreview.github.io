@@ -686,8 +686,43 @@
     .delay-4 { animation-delay: 0.4s; }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 600px) {
-      .hero h1 { letter-spacing: -1px; }
-      .hero-stats { gap: 24px; }
-      .preview-layout { grid-template-columns: 1fr; }
+    /* ─── IMPROVED RESPONSIVE NAVIGATION ─── */
+@media (max-width: 800px) {
+    /* Hide desktop nav by default on mobile, but allow a 'show' class */
+    nav { 
+        display: none; 
+        position: absolute;
+        top: 68px; /* Height of your header */
+        left: 0;
+        width: 100%;
+        background: var(--bg2);
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+        gap: 10px;
     }
+
+    /* This class will be toggled via JavaScript */
+    nav.active {
+        display: flex;
+    }
+
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    
+    /* Show the hamburger button (added in HTML step) */
+    .menu-toggle {
+        display: block;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: var(--text);
+        cursor: pointer;
+    }
+}
+
+/* Hide toggle button on desktop */
+@media (min-width: 801px) {
+    .menu-toggle {
+        display: none;
+    }
+}
