@@ -11,6 +11,7 @@ const headerHTML = `
     <a href="#features">Features</a>
     <a href="#how">How It Works</a>
     <a href="#faq">FAQ</a>
+    <a href="/guides">Guides</a>
   </nav>
   <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
 </header>
