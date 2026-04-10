@@ -40,7 +40,7 @@ const footerHTML = `
       </ul>
     </div>
     <div class="footer-widget">
-      <h4>Company</h4>
+      <h4>Pages</h4>
       <ul class="footer-links">
         <li><a href="about">About Us</a></li>
         <li><a href="contact">Contact</a></li>
