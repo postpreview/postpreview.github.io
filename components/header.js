@@ -17,8 +17,8 @@ const headerHTML = `
     <a href="/#faq">FAQ</a>
     <a href="/guides">Guides</a>
     <a href="/blog">Blog</a>
-  </nav>
-  <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
+    <a href="/#preview" class="btn btn-primary">Try Free ↗</a>
+  </nav>  
 </header>
 `;
 
