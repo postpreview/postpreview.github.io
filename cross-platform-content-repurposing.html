@@ -238,20 +238,7 @@
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo">
-    <div class="logo-icon">👁️</div>
-    Post<span>Preview</span>
-  </a>
-  <nav id="main-nav">
-    <a href="/#tools">Tools</a>
-    <a href="/blog">Blog</a>
-    <a href="/#features">Features</a>
-    <a href="/#faq">FAQ</a>
-  </nav>
-  <a href="/#preview" class="btn btn-primary">Try Free</a>
-  <button class="menu-toggle" onclick="document.getElementById('main-nav').classList.toggle('active')">☰</button>
-</header>
+<div id="header-component"></div>
 
 <section class="blog-hero">
   <div class="hero-glow"></div>
@@ -518,48 +505,10 @@
   </div>
 </div>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="/" class="logo"><div class="logo-icon">👁️</div>Post<span>Preview</span></a>
-      <p>Free social media post preview tools for creators, marketers, and brands. See before you publish.</p>
-    </div>
-    <div class="footer-widget">
-      <h4>Tools</h4>
-      <ul class="footer-links">
-        <li><a href="/twitter-preview">Twitter / X Preview</a></li>
-        <li><a href="/instagram-preview">Instagram Preview</a></li>
-        <li><a href="/linkedin-preview">LinkedIn Preview</a></li>
-        <li><a href="/tiktok-preview">TikTok Preview</a></li>
-      </ul>
-    </div>
-    <div class="footer-widget">
-      <h4>More Tools</h4>
-      <ul class="footer-links">
-        <li><a href="/facebook-preview">Facebook Preview</a></li>
-        <li><a href="/youtube-preview">YouTube Preview</a></li>
-        <li><a href="/pinterest-preview">Pinterest Preview</a></li>
-        <li><a href="/snapchat-preview">Snapchat Preview</a></li>
-      </ul>
-    </div>
-    <div class="footer-widget">
-      <h4>Resources</h4>
-      <ul class="footer-links">
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/ai-driven-analytics-social-media">AI Analytics Guide</a></li>
-        <li><a href="/cross-platform-content-repurposing">Repurposing Guide</a></li>
-        <li><a href="/building-personal-brand-2026">Personal Brand Guide</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 PostPreview. Free social media preview tools.</span>
-    <div style="display:flex;gap:20px;">
-      <a href="/privacy" style="color:var(--muted);text-decoration:none;">Privacy</a>
-      <a href="/terms" style="color:var(--muted);text-decoration:none;">Terms</a>
-    </div>
-  </div>
-</footer>
+<div id="footer-component"></div>
+
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 
 <script>
   document.querySelectorAll('.faq-q').forEach(q => {
