@@ -58,28 +58,17 @@ class FooterComponent {
                                 <li><a href="#" data-platform="tiktok">TikTok Preview</a></li>
                                 <li><a href="#" data-platform="reddit">Reddit Preview</a></li>
                             </ul>
-                        </div>
+                        </div>    
+                        
                         
                         <div class="footer-col">
-                            <h4>Resources</h4>
+                            <h4>Pages</h4>
                             <ul>
-                                <li><a href="#">Documentation</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Community</a></li>
-                                <li><a href="#">Support</a></li>
-                                <li><a href="#">Status</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="footer-col">
-                            <h4>Company</h4>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms of Service</a></li>
-                                <li><a href="#">Cookie Policy</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="/about">About Us</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="/privacy">Privacy Policy</a></li>
+                                <li><a href="/terms">Terms of Service</a></li>
+                                <li><a href="/cookies">Cookie Policy</a></li>                                
                             </ul>
                         </div>
                     </div>
