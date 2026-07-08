@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8148292690390336"
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8148292690390336"
      crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDPJKDNLYJ"></script>
@@ -14,7 +14,7 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instagram Post Preview Tool – Preview Captions & Images | PostPreview</title>
+  <title>Instagram Post Preview Tool – Preview Captions & Images</title>
   <meta name="description" content="Use our free Instagram Preview tool to see how your photos and captions look on the IG feed. Optimize your hashtags and formatting before you post." />
   <meta name="keywords" content="instagram preview, ig post mockup, instagram feed preview, instagram caption tool, social media preview" />
   <meta name="author" content="PostPreview" />
@@ -43,238 +43,619 @@
   }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <!-- Google Fonts & base styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Inherited Global Styles */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ===== CSS VARIABLES (consistent with homepage) ===== */
     :root {
-      --bg: #0a0a0f; --bg2: #111118; --bg3: #16161f; --card: #1a1a24;
-      --border: rgba(255,255,255,0.07); --accent: #7c3aed; --accent2: #06b6d4;
-      --text: #f0f0f5; --muted: #6b6b80; --radius: 16px;
-      --font-head: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+      --bg-primary: #f6f8fa;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f0f2f5;
+      --border-primary: #d0d7de;
+      --border-secondary: #e8ecf0;
+      --text-primary: #1f2328;
+      --text-secondary: #656d76;
+      --text-tertiary: #8b949e;
+      --accent-blue: #0969da;
+      --accent-blue-hover: #0550b3;
+      --accent-pink: #e4405f;
+      --shadow-sm: 0 1px 2px rgba(31,35,40,0.04);
+      --shadow-md: 0 4px 12px rgba(31,35,40,0.08);
+      --shadow-lg: 0 8px 32px rgba(31,35,40,0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      --max-width: 1200px;
+      --header-height: 64px;
     }
-    body { background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.6; }
-    
-    header { position: sticky; top: 0; z-index: 100; padding: 0 5%; height: 68px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-    .logo { font-family: var(--font-head); font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
-    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-    .logo span { color: var(--accent2); }
-    nav a { padding: 7px 14px; color: var(--muted); text-decoration: none; font-size: 0.9rem; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px; border-radius: 10px; font-weight: 500; cursor: pointer; text-decoration: none; border: none; }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), #6d28d9); color: #fff; }
 
-    /* Tool UI */
-    .container { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-    .tool-layout { display: grid; grid-template-columns: 1fr 400px; gap: 40px; margin-top: 40px; }
-    @media (max-width: 900px) { .tool-layout { grid-template-columns: 1fr; } }
-
-    .input-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; height: fit-content; }
-    .form-group { margin-bottom: 20px; }
-    .form-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; display: block; }
-    .form-input, .form-textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; color: var(--text); font-family: var(--font-body); }
-    
-    /* Instagram Mockup (Dark Mode) */
-    .ig-preview-card { background: #000; border-radius: 4px; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; width: 100%; max-width: 400px; margin: 0 auto; border: 1px solid #262626; }
-    .ig-header { padding: 12px; display: flex; align-items: center; gap: 10px; }
-    .ig-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); padding: 2px; }
-    .ig-avatar-inner { background: #000; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-    .ig-username { font-weight: 600; font-size: 14px; }
-    .ig-image-area { aspect-ratio: 1/1; background: #121212; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .ig-image-area img { width: 100%; height: 100%; object-fit: cover; }
-    .ig-actions { padding: 12px 12px 8px; display: flex; gap: 16px; font-size: 20px; }
-    .ig-caption-area { padding: 0 12px 12px; font-size: 14px; line-height: 1.4; }
-    .ig-caption-text { white-space: pre-wrap; word-break: break-word; }
-
-    /* Content Sections */
-    .content-section { padding: 80px 5%; background: var(--bg2); }
-    .section-title { font-family: var(--font-head); font-size: 2.2rem; margin-bottom: 20px; }
-    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
-    .step-card { background: var(--card); padding: 30px; border-radius: var(--radius); border: 1px solid var(--border); }
-    .step-num { font-size: 2rem; font-weight: 800; color: var(--accent2); margin-bottom: 10px; }
-
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 64px 5% 32px; }
-    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
-    @media (max-width: 800px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      padding: 64px 5% 32px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-top: var(--header-height);
+      min-height: 100vh;
     }
-    .footer-grid {
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* header placeholder */
+    .header-placeholder {
+      height: var(--header-height);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-secondary);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+    }
+    .header-placeholder .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+    .header-placeholder .logo span { color: var(--accent-pink); }
+
+    /* ===== APP WRAPPER ===== */
+    .app-section {
+      padding: 40px 0 60px;
+    }
+    .app-wrapper {
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 32px;
+      align-items: start;
     }
-    @media (max-width: 800px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      nav { display: none; }
-    }
-    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    .footer-brand .logo { margin-bottom: 12px; }
-    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
-    .footer-socials { display: flex; gap: 10px; margin-top: 20px; }
-    .social-btn {
-      width: 36px; height: 36px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 15px;
-      transition: all 0.2s;
+    /* editor */
+    .editor-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
     }
-    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-    .footer-widget h4 {
-      font-family: var(--font-head);
-      font-size: 0.9rem;
+    .editor-card h2 {
+      font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 16px;
-      color: var(--text);
-    }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--text); }
-
-    .footer-bottom {
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      flex-wrap: gap;
+      gap: 8px;
+    }
+    .editor-card label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: block;
+      margin: 16px 0 6px;
+    }
+    .editor-card textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 100px;
+      transition: border-color var(--transition-fast);
+    }
+    .editor-card textarea:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+    }
+    .editor-card input[type="text"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      transition: border-color var(--transition-fast);
+    }
+    .editor-card input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+    }
+    .char-counter {
+      text-align: right;
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+    .char-counter.warning { color: #bf8700; }
+    .char-counter.danger { color: #cf222e; }
+
+    .media-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    /* preview card - instagram style */
+    .preview-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: calc(var(--header-height) + 20px);
+    }
+    .preview-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ig-post {
+      background: #fff;
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .ig-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+    .ig-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .ig-user {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .ig-placeholder {
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+    }
+    .ig-image {
+      width: 100%;
+      background: var(--bg-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      border-top: 1px solid var(--border-secondary);
+      border-bottom: 1px solid var(--border-secondary);
+    }
+    .ig-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 400px;
+    }
+    .ig-image .no-img {
+      padding: 40px 20px;
+      color: var(--text-tertiary);
+      font-size: 0.9rem;
+    }
+    .ig-body {
+      padding: 12px 16px 16px;
+    }
+    .ig-caption {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ig-caption .mention { color: var(--accent-blue); }
+    .ig-caption .hashtag { color: var(--accent-blue); }
+    .ig-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+    }
+    .ig-actions span { display: flex; align-items: center; gap: 4px; }
+    .ig-time {
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .preview-empty {
+      color: var(--text-tertiary);
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    /* ===== SECTIONS (5+) ===== */
+    .section {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-secondary);
+    }
+    .section:first-of-type { border-top: none; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-pink);
+      background: rgba(228,64,95,0.06);
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin: 8px 0 4px;
+    }
+    .section-subtitle {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .feature-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-md);
+      padding: 24px 20px;
+      transition: var(--transition-smooth);
+    }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .feature-card h3 { font-weight: 700; margin-bottom: 6px; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .step-card { text-align: center; padding: 20px; background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-secondary); }
+    .step-number {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--bg-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin: 0 auto 12px;
+      color: var(--accent-pink);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+    }
+    .faq-item h4 { font-weight: 700; margin-bottom: 4px; }
+    .faq-item p { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .cta-box {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .cta-box h2 { font-weight: 800; font-size: 1.8rem; }
+    .cta-box p { color: var(--text-secondary); margin: 12px 0 24px; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      text-decoration: none;
+      background: var(--accent-pink);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-family: var(--font-sans);
+    }
+    .btn:hover { background: #c72a4a; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn-outline { background: transparent; border: 2px solid var(--border-primary); color: var(--text-primary); }
+    .btn-outline:hover { background: var(--bg-tertiary); }
+
+    .footer-placeholder {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-primary);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 0.85rem;
+    }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .app-wrapper { grid-template-columns: 1fr; }
+      .preview-card { position: static; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .editor-card, .preview-card { padding: 16px; }
+      .cta-box { padding: 32px 20px; }
+      .ig-post { max-width: 100%; }
     }
   </style>
 </head>
 <body>
-
-<div id="header-component"></div>
-  
-<section class="container">
-  <div style="text-align: center; margin-bottom: 50px;">
-    <h1 class="section-title">Instagram Post Preview Tool</h1>
-    <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">Plan your aesthetic. Preview how your photo and caption will appear on the Instagram mobile feed.</p>
-  </div>
-
-  <div class="tool-layout">
-    <div class="input-panel">
-      <div class="form-group">
-        <label class="form-label">Username</label>
-        <input type="text" id="igUser" class="form-input" placeholder="username" value="your_brand" />
-      </div>
-      <div class="form-group">
-        <label class="form-label">Caption</label>
-        <textarea id="igCaption" class="form-textarea" style="height: 150px;" placeholder="Write your caption here...">Golden hour vibes. ✨ New collection dropping tomorrow at 10 AM. Don't miss out! 
-
-#aesthetic #newdrop #instadaily</textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Upload Photo</label>
-        <input type="file" id="igFile" accept="image/*" class="form-input" />
-      </div>
+  <!-- Header placeholder -->
+  <header class="header-placeholder" role="banner">
+    <div class="logo">⏺ <span>Post</span>Preview</div>
+    <div style="margin-left: auto; display: flex; gap: 12px; align-items: center;">
+      <a href="#" style="color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.9rem;">Home</a>
+      <a href="#" style="color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.9rem;">Tools</a>
     </div>
+  </header>
 
-    <div class="preview-panel">
-      <div class="ig-preview-card">
-        <div class="ig-header">
-          <div class="ig-avatar"><div class="ig-avatar-inner" id="avatarLetter">Y</div></div>
-          <div class="ig-username" id="previewUser">your_brand</div>
+  <main>
+    <!-- APP SECTION -->
+    <section class="app-section" aria-labelledby="app-title">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <span class="section-label">// Instagram Post Preview</span>
+          <h1 id="app-title" style="font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -1px;">Preview Your Instagram Posts</h1>
+          <p style="color: var(--text-secondary); max-width: 600px; margin: 8px auto;">See exactly how your caption, image, and hashtags will look in the Instagram feed.</p>
         </div>
-        <div class="ig-image-area" id="previewImageArea">
-          <span style="color: #8e8e8e; font-size: 13px;">1080 x 1080 Recommended</span>
-        </div>
-        <div class="ig-actions">
-          <span>♡</span> <span>💬</span> <span>✈️</span>
-          <span style="margin-left: auto;">🔖</span>
-        </div>
-        <div class="ig-caption-area">
-          <span class="ig-username" id="captionUser">your_brand</span>
-          <span class="ig-caption-text" id="previewCaption">Golden hour vibes. ✨ New collection dropping tomorrow at 10 AM. Don't miss out! #aesthetic #newdrop #instadaily</span>
+
+        <div class="app-wrapper">
+          <!-- Editor -->
+          <div class="editor-card">
+            <h2>✏️ Compose</h2>
+            <label for="igCaption">Caption</label>
+            <textarea id="igCaption" placeholder="Write your caption...">🌿 Golden hour vibes at the lake. Nothing beats this view. #nature #goldenhour #peaceful</textarea>
+            <div class="char-counter" id="charCounter">0 / 2200</div>
+
+            <label for="igImage">Image URL (optional)</label>
+            <input type="text" id="igImage" placeholder="https://example.com/image.jpg" value="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=400&fit=crop&crop=center">
+
+            <label for="igUsername">Username</label>
+            <input type="text" id="igUsername" value="postpreview" style="margin-bottom: 4px;">
+
+            <div style="margin-top: 16px; display: flex; gap: 10px;">
+              <button class="btn" id="updatePreviewBtn">↻ Update Preview</button>
+              <button class="btn btn-outline" id="resetExampleBtn">↺ Reset</button>
+            </div>
+          </div>
+
+          <!-- Preview -->
+          <div class="preview-card">
+            <h2>👁️ Instagram Preview</h2>
+            <div id="igPreviewContainer">
+              <!-- dynamic preview injected -->
+            </div>
+            <p style="font-size:0.8rem; color: var(--text-tertiary); margin-top: 12px;">Accurate Instagram post preview · caption & image tester</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- SECTION 1: Features -->
+    <section class="section" aria-labelledby="features-ig">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// Features</span>
+          <h2 class="section-title" id="features-ig">Why Use This IG Preview Tool?</h2>
+          <p class="section-subtitle">Perfect your Instagram posts before they go live — check formatting, media, and hashtags.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card"><h3>📝 Caption Preview</h3><p>See your caption with line breaks, mentions, and hashtags rendered in real-time.</p></div>
+          <div class="feature-card"><h3>🖼️ Image Tester</h3><p>Add an image URL and preview how it looks inside the post card.</p></div>
+          <div class="feature-card"><h3>📊 Character Counter</h3><p>Track caption length with Instagram's 2,200 character limit and warnings.</p></div>
+          <div class="feature-card"><h3>🏷️ Hashtag Highlight</h3><p>Automatically highlights hashtags and mentions for easy verification.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: How it works -->
+    <section class="section" aria-labelledby="how-ig">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// How To</span>
+          <h2 class="section-title" id="how-ig">Preview an IG Post in 3 Steps</h2>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card"><div class="step-number">1</div><h3>Write</h3><p>Type your caption, add hashtags, mentions, and an image URL.</p></div>
+          <div class="step-card"><div class="step-number">2</div><h3>Customize</h3><p>Set your username to match your brand or profile.</p></div>
+          <div class="step-card"><div class="step-number">3</div><h3>Preview</h3><p>See the exact Instagram post rendering — ready to share.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Benefits -->
+    <section class="section" aria-labelledby="benefits-ig">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// Benefits</span>
+          <h2 class="section-title" id="benefits-ig">Post with Confidence on Instagram</h2>
+          <p class="section-subtitle">Avoid typos, check image alignment, and ensure your message is clear.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 800px; margin: 0 auto;">
+          <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border:1px solid var(--border-secondary);"><strong>✅ Accuracy</strong><p style="color:var(--text-secondary);font-size:0.9rem;">Matches Instagram's feed styling for text and images.</p></div>
+          <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border:1px solid var(--border-secondary);"><strong>✅ Speed</strong><p style="color:var(--text-secondary);font-size:0.9rem;">Instant updates — no reloads, no delays.</p></div>
+          <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border:1px solid var(--border-secondary);"><strong>✅ Free</strong><p style="color:var(--text-secondary);font-size:0.9rem;">Completely free, no account needed.</p></div>
+          <div style="background: var(--bg-secondary); padding: 20px; border-radius: var(--radius-md); border:1px solid var(--border-secondary);"><strong>✅ Mobile-friendly</strong><p style="color:var(--text-secondary);font-size:0.9rem;">Works on desktop, tablet, and mobile.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FAQ -->
+    <section class="section" aria-labelledby="faq-ig">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">// FAQ</span>
+          <h2 class="section-title" id="faq-ig">Instagram Preview — Common Questions</h2>
+        </div>
+        <div class="faq-grid">
+          <div class="faq-item"><h4>Is this preview accurate?</h4><p>Yes, we replicate Instagram's feed styling for captions, images, and mentions.</p></div>
+          <div class="faq-item"><h4>Can I preview videos?</h4><p>Currently we support image previews; video support is coming soon.</p></div>
+          <div class="faq-item"><h4>Do I need an account?</h4><p>No account required. Just open the tool and start previewing.</p></div>
+          <div class="faq-item"><h4>How do I reset the example?</h4><p>Click the "Reset" button to load the default preview content.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: CTA -->
+    <section class="section" aria-labelledby="cta-ig">
+      <div class="container">
+        <div class="cta-box">
+          <h2 id="cta-ig">Ready to Preview Your IG Post?</h2>
+          <p>Check your caption, image, and hashtags before you hit publish.</p>
+          <a href="#app-title" class="btn">⟳ Start Previewing</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer placeholder -->
+  <div class="footer-placeholder">
+    <p>© 2026 PostPreview — Instagram Post Preview Tool. All rights reserved.</p>
+    <p style="margin-top: 4px; font-size: 0.8rem;">instagram post preview · instagram caption preview · ig post preview · instagram photo preview · instagram post tester · social media caption preview</p>
   </div>
-</section>
 
-<section class="content-section" id="how-to">
-  <div class="container">
-    <h2 class="section-title">How to Use the IG Previewer</h2>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <h3>Set Your Profile</h3>
-        <p style="color: var(--muted);">Input your Instagram handle to see how it looks next to your caption and photo.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <h3>Optimize Captions</h3>
-        <p style="color: var(--muted);">Ensure your first line is catchy. Instagram hides longer captions behind a "more" link.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <h3>Check Aesthetics</h3>
-        <p style="color: var(--muted);">Upload your image to verify cropping and how the colors interact with the UI.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  <script>
+    (function() {
+      "use strict";
 
-<section class="container" id="description">
-  <div style="max-width: 800px;">
-    <h2 class="section-title">Professional Instagram Planning</h2>
-    <p>Instagram is a visual-first platform, but the combination of your image and the first two lines of your caption determines your engagement rate. Our <strong>Instagram Post Previewer</strong> allows you to mock up your posts instantly without having to use a mobile app or a private "finsta" account.</p>
-    <br>
-    <p>This tool is ideal for social media managers and influencers who need to check the formatting of line breaks and hashtag blocks. It supports all standard image formats and provides a 1:1 square preview common in the main feed.</p>
-  </div>
-</section>
+      // DOM refs
+      const captionEl = document.getElementById('igCaption');
+      const imageEl = document.getElementById('igImage');
+      const usernameEl = document.getElementById('igUsername');
+      const charCounter = document.getElementById('charCounter');
+      const previewContainer = document.getElementById('igPreviewContainer');
+      const updateBtn = document.getElementById('updatePreviewBtn');
+      const resetBtn = document.getElementById('resetExampleBtn');
 
-<!-- ══════════════════ FOOTER ══════════════════ -->
-<div id="footer-component"></div>
+      // Default example
+      const defaultCaption = "🌿 Golden hour vibes at the lake. Nothing beats this view. #nature #goldenhour #peaceful";
+      const defaultImage = "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=400&fit=crop&crop=center";
+      const defaultUsername = "postpreview";
 
-<script src="components/header.js"></script>
-<script src="components/footer.js"></script>
+      function renderPreview() {
+        const caption = captionEl.value || '';
+        const image = imageEl.value.trim() || '';
+        const username = usernameEl.value.trim() || 'user';
 
-<script>
-  const userIn = document.getElementById('igUser');
-  const capIn = document.getElementById('igCaption');
-  const fileIn = document.getElementById('igFile');
-  
-  const pUser = document.getElementById('previewUser');
-  const pCapUser = document.getElementById('captionUser');
-  const pCapText = document.getElementById('previewCaption');
-  const pImgArea = document.getElementById('previewImageArea');
-  const avatarLetter = document.getElementById('avatarLetter');
+        // char count
+        const len = caption.length;
+        charCounter.textContent = `${len} / 2200`;
+        charCounter.classList.remove('warning', 'danger');
+        if (len > 2000) charCounter.classList.add('warning');
+        if (len > 2200) charCounter.classList.add('danger');
 
-  function update() {
-    const username = userIn.value || 'username';
-    pUser.textContent = username;
-    pCapUser.textContent = username;
-    pCapText.textContent = ' ' + capIn.value;
-    avatarLetter.textContent = username.charAt(0).toUpperCase();
-  }
+        // Build preview
+        let html = `<div class="ig-post">`;
+        // header
+        html += `<div class="ig-header">`;
+        html += `<div class="ig-avatar">${username.charAt(0).toUpperCase()}</div>`;
+        html += `<div><span class="ig-user">${escapeHtml(username)}</span></div>`;
+        html += `</div>`;
+        // image
+        html += `<div class="ig-image">`;
+        if (image) {
+          html += `<img src="${escapeHtml(image)}" alt="Instagram post image" loading="lazy">`;
+        } else {
+          html += `<div class="no-img">📷 No image added</div>`;
+        }
+        html += `</div>`;
+        // body
+        html += `<div class="ig-body">`;
+        html += `<div class="ig-caption">${formatCaption(caption)}</div>`;
+        html += `<div class="ig-actions">`;
+        html += `<span>❤️ 0</span><span>💬 0</span><span>📤 0</span>`;
+        html += `</div>`;
+        html += `<div class="ig-time">Just now</div>`;
+        html += `</div></div>`;
 
-  userIn.addEventListener('input', update);
-  capIn.addEventListener('input', update);
-
-  fileIn.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        pImgArea.innerHTML = `<img src="${e.target.result}" alt="Instagram Preview" />`;
+        previewContainer.innerHTML = html;
       }
-      reader.readAsDataURL(file);
-    }
-  });
-</script>
 
+      function formatCaption(text) {
+        let t = escapeHtml(text);
+        t = t.replace(/(^|\s)@(\w+)/g, '$1<span class="mention">@$2</span>');
+        t = t.replace(/(^|\s)#(\w+)/g, '$1<span class="hashtag">#$2</span>');
+        return t;
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function resetExample() {
+        captionEl.value = defaultCaption;
+        imageEl.value = defaultImage;
+        usernameEl.value = defaultUsername;
+        renderPreview();
+      }
+
+      // event listeners
+      updateBtn.addEventListener('click', renderPreview);
+      resetBtn.addEventListener('click', resetExample);
+
+      // live update on input (debounced)
+      let timeout;
+      [captionEl, imageEl, usernameEl].forEach(el => {
+        el.addEventListener('input', function() {
+          clearTimeout(timeout);
+          timeout = setTimeout(renderPreview, 200);
+        });
+      });
+
+      // initial render
+      resetExample();
+    })();
+  </script>
 </body>
 </html>
