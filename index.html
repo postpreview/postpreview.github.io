@@ -451,133 +451,134 @@
     <script src="/js/preview-apps.js"></script>
   
     <script>
-       
-        // ============ SCROLL ANIMATIONS ============
-        function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    // ============ SCROLL ANIMATIONS ============
+    function initScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -40px 0px'
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
             });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
 
-            animatedElements.forEach(el => observer.observe(el));
+        animatedElements.forEach(el => observer.observe(el));
 
-            // Also observe stat numbers for counting animation
-            const statNumbers = document.querySelectorAll('.stat-number');
-            const statObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'none';
-                        entry.target.offsetHeight;
-                        entry.target.style.animation = '';
-                        statObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            statNumbers.forEach(el => statObserver.observe(el));
-        }
-
-        // ============ FAQ ACCORDION ============
-        function initFAQ() {
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const questionBtn = item.querySelector('.faq-question');
-                questionBtn.addEventListener('click', () => {
-                    const isOpen = item.classList.contains('open');
-                    // Close all
-                    faqItems.forEach(i => {
-                        i.classList.remove('open');
-                        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-                    });
-                    // Open clicked (if not already open)
-                    if (!isOpen) {
-                        item.classList.add('open');
-                        questionBtn.setAttribute('aria-expanded', 'true');
-                    }
-                });
+        // Also observe stat numbers for counting animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'none';
+                    entry.target.offsetHeight;
+                    entry.target.style.animation = '';
+                    statObserver.unobserve(entry.target);
+                }
             });
-        }
+        }, { threshold: 0.5 });
 
-        // ============ SMOOTH SCROLL FOR ALL ANCHOR LINKS ============
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        const headerOffset = 80;
-                        const elementPosition = target.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+        statNumbers.forEach(el => statObserver.observe(el));
+    }
+
+    // ============ FAQ ACCORDION ============
+    function initFAQ() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const questionBtn = item.querySelector('.faq-question');
+            questionBtn.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                // Close all
+                faqItems.forEach(i => {
+                    i.classList.remove('open');
+                    i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
                 });
+                // Open clicked (if not already open)
+                if (!isOpen) {
+                    item.classList.add('open');
+                    questionBtn.setAttribute('aria-expanded', 'true');
+                }
             });
-        }
+        });
+    }
 
-        // ============ APP CARD CLICK HANDLER ============
-        function initAppCards() {
-            const appCards = document.querySelectorAll('.app-card');
-            appCards.forEach(card => {
-                card.addEventListener('click', function(e) {
+    // ============ SMOOTH SCROLL FOR ALL ANCHOR LINKS ============
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
                     e.preventDefault();
-                    const platformName = this.querySelector('.app-card-name').textContent;
-                    // Placeholder for future app functionality
-                    console.log(`[PostPreview] Preview app selected: ${platformName} — Full preview coming soon!`);
-                    // Subtle visual feedback
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
-                });
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
-        }
+        });
+    }
 
-        // ============ INITIALIZE EVERYTHING ============
-        function init() {
-            createHeader();
-            createFooter();
-            initScrollAnimations();
-            initFAQ();
-            initSmoothScroll();
-            initAppCards();
+    // ============ INITIALIZE EVERYTHING ============
+    function init() {
+        // Header and Footer are now handled by external components
+        // header.js and footer.js will auto-initialize when loaded
+        
+        initScrollAnimations();
+        initFAQ();
+        initSmoothScroll();
 
-            // Set initial header state
-            const siteHeader = document.getElementById('siteHeader');
-            if (siteHeader && window.pageYOffset > 50) {
-                siteHeader.classList.add('scrolled');
-            }
-        }
-
-        // Run on DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
+        // Check if header component exists (from header.js)
+        if (window.headerComponent) {
+            console.log('[PostPreview] Header component loaded successfully');
         } else {
-            init();
+            console.warn('[PostPreview] Header component not found. Make sure header.js is loaded.');
         }
 
-        // ============ SERVICE WORKER REGISTRATION (Optional PWA) ============
-        // Left as a placeholder for future PWA implementation
-        console.log(
-            '%c🚀 PostPreview %c v2.0 %cReady',
-            'font-weight:bold;color:#0969da;',
-            'color:#656d76;',
-            'color:#1a7f37;font-weight:bold;'
-        );
-        console.log('%cPreview your posts before they go live.', 'color:#8b949e;font-style:italic;');
-    </script>
+        // Check if footer component exists (from footer.js)
+        if (window.footerComponent) {
+            console.log('[PostPreview] Footer component loaded successfully');
+        } else {
+            console.warn('[PostPreview] Footer component not found. Make sure footer.js is loaded.');
+        }
+
+        // Check if preview apps component exists (from preview-apps.js)
+        if (window.previewAppsComponent) {
+            console.log('[PostPreview] Preview Apps component loaded successfully');
+            
+            // Example: Set custom click handler
+            window.previewAppsComponent.setOnAppClick((appData) => {
+                console.log(`[PostPreview] Custom handler: ${appData.name} clicked`);
+            });
+        } else {
+            console.warn('[PostPreview] Preview Apps component not found. Make sure preview-apps.js is loaded.');
+        }
+    }
+
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    // ============ SERVICE WORKER REGISTRATION (Optional PWA) ============
+    // Left as a placeholder for future PWA implementation
+    console.log(
+        '%c🚀 PostPreview %c v2.0 %cReady',
+        'font-weight:bold;color:#0969da;',
+        'color:#656d76;',
+        'color:#1a7f37;font-weight:bold;'
+    );
+    console.log('%cPreview your posts before they go live.', 'color:#8b949e;font-style:italic;');
+</script>
 </body>
 </html>
