@@ -1,207 +1,338 @@
-// Main interactivity for PostPreview homepage
-(function(){
-  // App definitions for cards
-  const apps = [
-    { id: 'facebook', name: 'Facebook', color: '#1877F2', subtitle: 'Link card and feed preview' },
-    { id: 'x', name: 'X (formerly Twitter)', color: '#1DA1F2', subtitle: 'Tweet style preview' },
-    { id: 'linkedin', name: 'LinkedIn', color: '#0A66C2', subtitle: 'Professional post preview' },
-    { id: 'pinterest', name: 'Pinterest', color: '#E60023', subtitle: 'Pin preview' },
-    { id: 'threads', name: 'Threads', color: '#6A5AE0', subtitle: 'Short form preview' },
-    { id: 'instagram', name: 'Instagram', color: '#E1306C', subtitle: 'Feed and story preview' },
-    { id: 'reddit', name: 'Reddit', color: '#FF4500', subtitle: 'Post and comment preview' },
-    { id: 'tiktok', name: 'TikTok', color: '#010101', subtitle: 'Short video card preview' }
-  ];
+// ============ MAIN SITE FUNCTIONALITY ============
+// This file contains core site-wide functionality
+// Header, Footer, and Preview Apps are handled by their respective component files
 
-  // Render app cards
-  const grid = document.getElementById('app-grid');
-  apps.forEach(app => {
-    const card = document.createElement('button');
-    card.className = 'app-card';
-    card.setAttribute('role','listitem');
-    card.setAttribute('data-app', app.id);
-    card.innerHTML = `
-      <div class="app-icon" style="background:${app.color}">${app.name.charAt(0)}</div>
-      <div class="app-meta">
-        <div class="app-name">${app.name}</div>
-        <div class="app-sub">${app.subtitle}</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted)">Coming soon</div>
-    `;
-    card.addEventListener('click', () => selectApp(app.id));
-    grid.appendChild(card);
-  });
+const PostPreview = {
+    // ============ SCROLL ANIMATIONS ============
+    initScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
-  // Preview rendering logic
-  const previewCanvas = document.getElementById('preview-canvas');
-  const postText = document.getElementById('post-text');
-  const postImage = document.getElementById('post-image');
-  const platformSelect = document.getElementById('platform-select');
-  const updateBtn = document.getElementById('update-preview');
-  const copyBtn = document.getElementById('copy-text');
-  const heroSample = document.getElementById('hero-sample-text');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
 
-  // Initialize with sample content
-  postText.value = "Announcing our new PostPreview tool — preview posts before you publish. #preview #seo";
-  postImage.value = "";
-  heroSample.textContent = postText.value;
+        animatedElements.forEach(el => observer.observe(el));
 
-  function renderPreview(platform, text, imageUrl){
-    // Basic mock templates per platform (no external APIs)
-    const safeText = escapeHtml(text || '');
-    const safeImage = imageUrl ? escapeHtml(imageUrl) : '';
-    let html = '';
+        // Also observe stat numbers for counting animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'none';
+                    entry.target.offsetHeight; // Trigger reflow
+                    entry.target.style.animation = '';
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
 
-    switch(platform){
-      case 'facebook':
-        html = `
-          <div class="device" style="max-width:520px">
-            <div style="padding:12px;background:#fff;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-              <div style="display:flex;gap:10px;align-items:center">
-                <div style="width:40px;height:40px;border-radius:8px;background:${apps[0].color}"></div>
-                <div>
-                  <div style="font-weight:700">PostPreview</div>
-                  <div style="font-size:12px;color:var(--muted)">2m</div>
-                </div>
-              </div>
-              <p style="margin:12px 0">${safeText}</p>
-              ${safeImage ? `<img src="${safeImage}" alt="preview image" style="width:100%;border-radius:8px;object-fit:cover">` : ''}
-            </div>
-          </div>`;
-        break;
+        statNumbers.forEach(el => statObserver.observe(el));
+    },
 
-      case 'x':
-        html = `
-          <div style="max-width:520px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            <div style="display:flex;gap:10px;align-items:center">
-              <div style="width:36px;height:36px;border-radius:8px;background:${apps[1].color}"></div>
-              <div style="font-weight:700">PostPreview</div>
-            </div>
-            <p style="margin:12px 0;font-family:var(--mono)">${safeText}</p>
-            ${safeImage ? `<div style="margin-top:8px"><img src="${safeImage}" alt="preview image" style="width:100%;border-radius:8px;object-fit:cover"></div>` : ''}
-          </div>`;
-        break;
+    // ============ FAQ ACCORDION ============
+    initFAQ() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const questionBtn = item.querySelector('.faq-question');
+            
+            if (!questionBtn) return;
+            
+            questionBtn.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                // Close all FAQ items
+                faqItems.forEach(i => {
+                    i.classList.remove('open');
+                    const btn = i.querySelector('.faq-question');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                });
+                
+                // Open clicked item (if it wasn't already open)
+                if (!isOpen) {
+                    item.classList.add('open');
+                    questionBtn.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            // Add keyboard support
+            questionBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    questionBtn.click();
+                }
+            });
+        });
+    },
 
-      case 'linkedin':
-        html = `
-          <div style="max-width:520px;background:#fff;padding:14px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            <div style="display:flex;gap:10px;align-items:center">
-              <div style="width:40px;height:40px;border-radius:8px;background:${apps[2].color}"></div>
-              <div>
-                <div style="font-weight:700">PostPreview</div>
-                <div style="font-size:12px;color:var(--muted)">Company • 1h</div>
-              </div>
-            </div>
-            <p style="margin:12px 0">${safeText}</p>
-            ${safeImage ? `<img src="${safeImage}" alt="preview image" style="width:100%;border-radius:8px;object-fit:cover">` : ''}
-          </div>`;
-        break;
+    // ============ SMOOTH SCROLL FOR ALL ANCHOR LINKS ============
+    initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                
+                // Skip if it's just "#" or empty
+                if (!targetId || targetId === '#') return;
+                
+                const target = document.querySelector(targetId);
+                
+                if (target) {
+                    e.preventDefault();
+                    
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    },
 
-      case 'pinterest':
-        html = `
-          <div style="max-width:360px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            ${safeImage ? `<img src="${safeImage}" alt="pin image" style="width:100%;height:220px;object-fit:cover;border-radius:8px">` : `<div style="height:220px;background:linear-gradient(180deg,#f3f4f6,#fff);border-radius:8px"></div>`}
-            <p style="margin:10px 0;font-weight:700">${safeText}</p>
-          </div>`;
-        break;
+    // ============ BACK TO TOP BUTTON ============
+    initBackToTop() {
+        // Create back to top button
+        const backToTopBtn = document.createElement('button');
+        backToTopBtn.id = 'backToTop';
+        backToTopBtn.innerHTML = '↑';
+        backToTopBtn.setAttribute('aria-label', 'Back to top');
+        backToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
+        
+        document.body.appendChild(backToTopBtn);
+        
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                backToTopBtn.style.opacity = '1';
+                backToTopBtn.style.visibility = 'visible';
+            } else {
+                backToTopBtn.style.opacity = '0';
+                backToTopBtn.style.visibility = 'hidden';
+            }
+        }, { passive: true });
+        
+        // Scroll to top on click
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Hover effect
+        backToTopBtn.addEventListener('mouseenter', () => {
+            backToTopBtn.style.transform = 'translateY(-3px)';
+            backToTopBtn.style.boxShadow = '0 8px 24px rgba(9, 105, 218, 0.4)';
+        });
+        
+        backToTopBtn.addEventListener('mouseleave', () => {
+            backToTopBtn.style.transform = 'translateY(0)';
+            backToTopBtn.style.boxShadow = '0 4px 12px rgba(9, 105, 218, 0.3)';
+        });
+    },
 
-      case 'threads':
-        html = `
-          <div style="max-width:520px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            <div style="display:flex;gap:10px;align-items:center">
-              <div style="width:36px;height:36px;border-radius:8px;background:${apps[4].color}"></div>
-              <div style="font-weight:700">PostPreview</div>
-            </div>
-            <p style="margin:12px 0">${safeText}</p>
-          </div>`;
-        break;
+    // ============ KEYBOARD NAVIGATION ENHANCEMENTS ============
+    initKeyboardNav() {
+        // Add skip to main content link
+        const skipLink = document.createElement('a');
+        skipLink.href = '#main-content';
+        skipLink.className = 'skip-link sr-only';
+        skipLink.textContent = 'Skip to main content';
+        skipLink.style.cssText = `
+            position: absolute;
+            top: -100%;
+            left: 0;
+            background: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            z-index: 9999;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            transition: top 0.3s ease;
+        `;
+        
+        skipLink.addEventListener('focus', () => {
+            skipLink.style.top = '0';
+        });
+        
+        skipLink.addEventListener('blur', () => {
+            skipLink.style.top = '-100%';
+        });
+        
+        document.body.insertBefore(skipLink, document.body.firstChild);
+    },
 
-      case 'instagram':
-        html = `
-          <div style="max-width:420px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            ${safeImage ? `<img src="${safeImage}" alt="insta image" style="width:100%;height:320px;object-fit:cover;border-radius:8px">` : `<div style="height:320px;background:linear-gradient(180deg,#fff,#f8fafc);border-radius:8px"></div>`}
-            <div style="padding-top:10px"><p style="margin:0">${safeText}</p></div>
-          </div>`;
-        break;
+    // ============ PERFORMANCE OBSERVER ============
+    initPerformanceObserver() {
+        // Lazy load images if any
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                img.src = img.dataset.src;
+            });
+        } else {
+            // Fallback for browsers that don't support lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+    },
 
-      case 'reddit':
-        html = `
-          <div style="max-width:520px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            <div style="display:flex;gap:10px;align-items:center">
-              <div style="width:36px;height:36px;border-radius:8px;background:${apps[6].color}"></div>
-              <div style="font-weight:700">r/PostPreview</div>
-            </div>
-            <p style="margin:12px 0">${safeText}</p>
-            ${safeImage ? `<img src="${safeImage}" alt="preview image" style="width:100%;border-radius:8px;object-fit:cover">` : ''}
-          </div>`;
-        break;
+    // ============ ERROR HANDLING ============
+    handleError(error, context = '') {
+        console.error(`[PostPreview Error] ${context}:`, error);
+        
+        // In production, you might want to send this to an error tracking service
+        // if (window.errorTracker) {
+        //     window.errorTracker.captureException(error, { context });
+        // }
+    },
 
-      case 'tiktok':
-        html = `
-          <div style="max-width:360px;background:#fff;padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,0.03)">
-            ${safeImage ? `<div style="width:100%;height:420px;background-image:url('${safeImage}');background-size:cover;border-radius:8px"></div>` : `<div style="height:420px;background:linear-gradient(180deg,#000,#111);border-radius:8px"></div>`}
-            <p style="margin-top:10px;color:var(--muted)">${safeText}</p>
-          </div>`;
-        break;
+    // ============ COMPONENT HEALTH CHECK ============
+    checkComponents() {
+        const components = {
+            header: window.headerComponent,
+            footer: window.footerComponent,
+            previewApps: window.previewAppsComponent
+        };
+        
+        Object.entries(components).forEach(([name, component]) => {
+            if (component) {
+                console.log(`%c[PostPreview] ${name} component loaded successfully`, 'color: #1a7f37;');
+            } else {
+                console.warn(`%c[PostPreview] ${name} component not found. Make sure ${name}.js is loaded.`, 'color: #bf8700;');
+            }
+        });
+        
+        return components;
+    },
 
-      default:
-        html = `<div style="color:var(--muted)">Select a platform to preview</div>`;
+    // ============ GLOBAL EVENT LISTENERS ============
+    initGlobalListeners() {
+        // Listen for platform selection events from preview apps
+        window.addEventListener('previewAppSelected', (event) => {
+            const { platform, name, color } = event.detail;
+            console.log(`[PostPreview] Platform selected: ${name} (${platform})`);
+            
+            // You could trigger analytics, modals, or navigation here
+            // Example: Google Analytics event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'platform_selected', {
+                    'platform': platform,
+                    'platform_name': name
+                });
+            }
+        });
+        
+        // Handle window resize for responsive adjustments
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                console.log('[PostPreview] Window resized');
+                // Add any resize-specific logic here
+            }, 250);
+        });
+        
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            console.log('[PostPreview] Back online');
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('[PostPreview] Went offline');
+        });
+    },
+
+    // ============ INITIALIZATION ============
+    init() {
+        try {
+            console.log(
+                '%c🚀 PostPreview %c v2.0 %cInitializing...',
+                'font-weight:bold;color:#0969da;',
+                'color:#656d76;',
+                'color:#1a7f37;font-weight:bold;'
+            );
+            
+            // Initialize core features
+            this.initScrollAnimations();
+            this.initFAQ();
+            this.initSmoothScroll();
+            this.initBackToTop();
+            this.initKeyboardNav();
+            this.initPerformanceObserver();
+            this.initGlobalListeners();
+            
+            // Check component health
+            const components = this.checkComponents();
+            
+            // Set initial header state
+            const siteHeader = document.getElementById('siteHeader');
+            if (siteHeader && window.pageYOffset > 50) {
+                siteHeader.classList.add('scrolled');
+            }
+            
+            // Add loaded class to body for CSS transitions
+            document.body.classList.add('loaded');
+            
+            console.log(
+                '%c✅ PostPreview %c v2.0 %cReady',
+                'font-weight:bold;color:#0969da;',
+                'color:#656d76;',
+                'color:#1a7f37;font-weight:bold;'
+            );
+            console.log('%cPreview your posts before they go live.', 'color:#8b949e;font-style:italic;');
+            
+        } catch (error) {
+            this.handleError(error, 'Initialization');
+        }
     }
+};
 
-    previewCanvas.innerHTML = html;
-  }
+// ============ START THE APPLICATION ============
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        PostPreview.init();
+    });
+} else {
+    // DOM already loaded
+    PostPreview.init();
+}
 
-  // Escape HTML to avoid injection
-  function escapeHtml(str){
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;')
-      .replace(/\n/g, '<br>');
-  }
-
-  // Select app from grid
-  function selectApp(appId){
-    platformSelect.value = appId;
-    renderPreview(appId, postText.value, postImage.value);
-    // Smooth scroll to preview
-    document.getElementById('live').scrollIntoView({behavior:'smooth', block:'start'});
-  }
-
-  // Update preview button
-  updateBtn.addEventListener('click', () => {
-    const platform = platformSelect.value;
-    renderPreview(platform, postText.value, postImage.value);
-    // update hero sample text
-    const heroSampleEl = document.getElementById('hero-sample-text');
-    if(heroSampleEl) heroSampleEl.textContent = postText.value;
-  });
-
-  // Copy text button
-  copyBtn.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(postText.value || '');
-      copyBtn.textContent = 'Copied';
-      setTimeout(()=> copyBtn.textContent = 'Copy Text', 1400);
-    } catch(e){
-      copyBtn.textContent = 'Copy';
-    }
-  });
-
-  // Keyboard shortcut: Ctrl/Cmd + Enter to update preview
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      updateBtn.click();
-    }
-  });
-
-  // Initialize default preview
-  renderPreview(platformSelect.value, postText.value, postImage.value);
-
-  // Accessibility: focus styles
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'Tab') document.body.classList.add('show-focus');
-  });
-
-})();
+// Export for module usage
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PostPreview;
+}
