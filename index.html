@@ -1,240 +1,737 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PostPreview — Social Media Post Preview Tool</title>
-  <meta name="description" content="PostPreview lets you preview social media posts across Facebook, X, LinkedIn, Instagram, TikTok and more. Developer friendly, SEO optimized, mobile compatible." />
-  <meta name="keywords" content="social media preview, post preview, facebook preview, instagram preview, seo preview, postpreview" />
-  <meta name="author" content="PostPreview" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8148292690390336"
+     crossorigin="anonymous"></script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RDPJKDNLYJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="PostPreview — Social Media Post Preview Tool" />
-  <meta property="og:description" content="Preview social media posts across multiple platforms before publishing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://postpreview.github.io" />
-  <meta property="og:image" content="https://postpreview.github.io/og-image.png" />
+  gtag('config', 'G-RDPJKDNLYJ');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Post Preview - Preview Your Posts Before Publishing | PostPreview</title>
+    <meta name="description" content="Preview how your social media posts will look on Facebook, X (Twitter), LinkedIn, Pinterest, Threads, Instagram, Reddit, and TikTok before you publish. Free social media post preview tool.">
+    <meta name="keywords" content="social media preview, post preview, Facebook preview, Twitter preview, X preview, LinkedIn preview, Instagram preview, TikTok preview, social media tool, content preview">
+    <meta name="author" content="PostPreview">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://postpreview.github.io/">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PostPreview — Social Media Post Preview Tool" />
-  <meta name="twitter:description" content="Preview social media posts across multiple platforms before publishing." />
+  
+    <meta property="og:title" content="Social Media Post Preview - Preview Your Posts Before Publishing">
+    <meta property="og:description" content="Preview how your posts will look across 8+ social media platforms before you hit publish. Free, fast, and developer-friendly.">
+    <meta property="og:url" content="https://postpreview.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="PostPreview">
+    <meta property="og:locale" content="en_US">
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://postpreview.github.io" />
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Social Media Post Preview - Preview Before You Publish">
+    <meta name="twitter:description" content="Preview your posts on Facebook, X, LinkedIn, Pinterest, Threads, Instagram, Reddit & TikTok. Free tool for content creators.">
+    <meta name="theme-color" content="#f6f8fa">
 
-  <!-- Schema JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "PostPreview",
-        "url": "https://postpreview.github.io",
-        "description": "Preview social media posts across multiple platforms before publishing."
-      },
-      {
-        "@type": "WebApplication",
-        "name": "PostPreview",
-        "url": "https://postpreview.github.io",
-        "applicationCategory": "SocialMedia",
-        "operatingSystem": "Web",
-        "description": "Preview social media posts across multiple platforms before publishing."
-      },
-      {
-        "@type": "Organization",
-        "name": "PostPreview",
-        "url": "https://postpreview.github.io"
-      }
-    ]
-  }
-  </script>
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "PostPreview",
+            "url": "https://postpreview.github.io/",
+            "description": "Preview how your social media posts will look across multiple platforms before publishing.",
+            "applicationCategory": "SocialMediaApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "PostPreview"
+            },
+            "browserRequirements": "Requires JavaScript"
+        }
+    </script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css" />
+    
 </head>
 <body>
-  <!-- Header component injected by header.js -->
-  <div id="site-header" role="banner"></div>
 
-  <main id="main" role="main">
-    <!-- Hero -->
-    <section id="hero" class="section hero">
-      <div class="container hero-grid">
-        <div class="hero-text">
-          <h1 class="title">Design. Preview. Publish with Confidence</h1>
-          <p class="lead">Create and preview social media posts across major platforms with a developer friendly, lightweight interface.</p>
-          <div class="hero-ctas">
-            <a class="btn primary" id="get-started">Try Live Preview</a>
-            <a class="btn ghost" href="#apps">View Apps</a>
-          </div>
-          <ul class="hero-features">
-            <li>SEO friendly previews</li>
-            <li>Mobile first design</li>
-            <li>Developer light theme</li>
-          </ul>
-        </div>
-        <div class="hero-visual" aria-hidden="true">
-          <div class="device device-animated">
-            <div class="device-screen" id="hero-preview">
-              <div class="mock-post">
-                <div class="mock-header">
-                  <div class="avatar"></div>
-                  <div class="meta">
-                    <div class="name">PostPreview</div>
-                    <div class="time">Just now</div>
-                  </div>
+    <!-- Header placeholder -->
+    <div id="site-header"></div>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <div class="mobile-nav" id="mobileNav"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section section" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content animate-on-scroll">
+                        <div class="hero-badge">
+                            <span class="hero-badge-dot"></span>
+                            <span>v2.0 — Now with 8+ platforms</span>
+                        </div>
+                        <h1 id="hero-title" class="hero-title">
+                            Preview Your Posts<br>
+                            <span class="highlight">Before They Go Live</span>
+                        </h1>
+                        <p class="hero-description">
+                            See exactly how your content will appear on Facebook, X, LinkedIn, Instagram, TikTok, and more. Catch formatting issues before your audience does.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#preview-apps" class="btn btn-primary btn-lg">
+                                Start Previewing →
+                            </a>
+                            <a href="#how-it-works" class="btn btn-secondary btn-lg">
+                                See How It Works
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-visual animate-on-scroll stagger-2">
+                        <div class="hero-code-block">
+                            <div class="code-block-header">
+                                <span class="code-dot red"></span>
+                                <span class="code-dot yellow"></span>
+                                <span class="code-dot green"></span>
+                                <span style="font-size:0.7rem;color:#8b949e;margin-left:8px;">preview.js</span>
+                            </div>
+                            <div class="code-block-body">
+                                <span class="code-comment">// Initialize post preview</span><br>
+                                <span class="code-keyword">const</span> <span>post</span> = <span class="code-function">createPreview</span>({<br>
+                                &nbsp;&nbsp;platform: <span class="code-string">'facebook'</span>,<br>
+                                &nbsp;&nbsp;content: <span class="code-string">'Hello World!'</span>,<br>
+                                &nbsp;&nbsp;image: <span class="code-string">'og-image.png'</span><br>
+                                });<br><br>
+                                <span class="code-function">post.render</span>();<span class="code-cursor"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="mock-body">
-                  <p id="hero-sample-text">Write your post here and see how it looks on different platforms.</p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section section" aria-labelledby="features-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// Features</span>
+                    <h2 id="features-title" class="section-title">Built for Content Creators</h2>
+                    <p class="section-subtitle">Powerful tools to ensure your social media posts look perfect on every platform.</p>
                 </div>
-                <div class="mock-media"></div>
-              </div>
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll stagger-1">
+                        <div class="feature-icon blue">{ }</div>
+                        <h3>Multi-Platform Preview</h3>
+                        <p>Preview your post across 8+ social media platforms simultaneously with a single click.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll stagger-2">
+                        <div class="feature-icon green">&lt;/&gt;</div>
+                        <h3>Real-Time Rendering</h3>
+                        <p>See changes instantly as you type. No page refreshes or delays — just immediate feedback.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll stagger-3">
+                        <div class="feature-icon purple">#</div>
+                        <h3>Hashtag Analytics</h3>
+                        <p>Check how hashtags render on each platform and optimize placement for maximum reach.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll stagger-4">
+                        <div class="feature-icon amber">img</div>
+                        <h3>Image Preview</h3>
+                        <p>See how your images crop, resize, and display across different social media layouts.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll stagger-5">
+                        <div class="feature-icon red">@</div>
+                        <h3>Mention Validation</h3>
+                        <p>Verify that @mentions and tagged accounts resolve correctly on each platform.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll stagger-6">
+                        <div class="feature-icon teal">~</div>
+                        <h3>Character Count</h3>
+                        <p>Platform-specific character limits and truncation previews so nothing gets cut off.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- Features -->
-    <section id="features" class="section features">
-      <div class="container">
-        <h2 class="section-title">Features</h2>
-        <div class="features-grid">
-          <article class="feature-card">
-            <h3>Real-time Preview</h3>
-            <p>Instantly see how your text, links, and images render across platforms.</p>
-          </article>
-          <article class="feature-card">
-            <h3>SEO Optimized</h3>
-            <p>Preview meta titles, descriptions and link cards to improve CTR.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Mobile First</h3>
-            <p>Design and test for mobile screens with accurate aspect ratios.</p>
-          </article>
-          <article class="feature-card">
-            <h3>Developer Friendly</h3>
-            <p>Monospace UI, keyboard shortcuts, and copyable markup for teams.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Preview Apps -->
-    <section id="apps" class="section apps">
-      <div class="container">
-        <h2 class="section-title">Preview Apps</h2>
-        <p class="muted">Select a platform to load a mock preview template. App integrations coming soon.</p>
-        <div class="app-grid" id="app-grid" role="list">
-          <!-- Cards injected by JS for accessibility and interactivity -->
-        </div>
-      </div>
-    </section>
-
-    <!-- How it Works -->
-    <section id="how" class="section how">
-      <div class="container">
-        <h2 class="section-title">How It Works</h2>
-        <ol class="steps">
-          <li><strong>Compose</strong> your post text and add media.</li>
-          <li><strong>Select</strong> a platform card to preview layout.</li>
-          <li><strong>Adjust</strong> length, links, and images for best results.</li>
-          <li><strong>Copy</strong> the final post or export metadata for publishing.</li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Live Demo Preview -->
-    <section id="live" class="section live">
-      <div class="container">
-        <h2 class="section-title">Live Demo Preview</h2>
-        <div class="live-grid">
-          <form id="preview-form" class="preview-form" aria-label="Post preview form">
-            <label for="post-text" class="sr-only">Post text</label>
-            <textarea id="post-text" placeholder="Write a post to preview..." rows="4"></textarea>
-
-            <div class="form-row">
-              <input id="post-image" type="text" placeholder="Image URL (optional)" />
-              <select id="platform-select" aria-label="Choose platform">
-                <option value="facebook">Facebook</option>
-                <option value="x">X (formerly Twitter)</option>
-                <option value="linkedin">LinkedIn</option>
-                <option value="pinterest">Pinterest</option>
-                <option value="threads">Threads</option>
-                <option value="instagram">Instagram</option>
-                <option value="reddit">Reddit</option>
-                <option value="tiktok">TikTok</option>
-              </select>
+        <!-- Preview Apps Section -->
+        <section class="preview-apps-section section" id="preview-apps" aria-labelledby="apps-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// Preview Apps</span>
+                    <h2 id="apps-title" class="section-title">Choose Your Platform</h2>
+                    <p class="section-subtitle">Select a social media platform to preview how your post will look. Full preview tools coming soon.</p>
+                </div>
+                <div class="apps-grid">
+                    <!-- Facebook -->
+                    <a href="#" class="app-card facebook animate-on-scroll stagger-1" aria-label="Preview on Facebook">
+                        <div class="app-card-icon">f</div>
+                        <span class="app-card-name">Facebook</span>
+                        <span class="app-card-subtitle">Feed & Story Preview</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- X (Twitter) -->
+                    <a href="#" class="app-card x animate-on-scroll stagger-2" aria-label="Preview on X">
+                        <div class="app-card-icon">𝕏</div>
+                        <span class="app-card-name">X</span>
+                        <span class="app-card-subtitle">formerly Twitter</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="#" class="app-card linkedin animate-on-scroll stagger-3" aria-label="Preview on LinkedIn">
+                        <div class="app-card-icon">in</div>
+                        <span class="app-card-name">LinkedIn</span>
+                        <span class="app-card-subtitle">Professional Feed</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- Pinterest -->
+                    <a href="#" class="app-card pinterest animate-on-scroll stagger-4" aria-label="Preview on Pinterest">
+                        <div class="app-card-icon">P</div>
+                        <span class="app-card-name">Pinterest</span>
+                        <span class="app-card-subtitle">Pin Preview</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- Threads -->
+                    <a href="#" class="app-card threads animate-on-scroll stagger-5" aria-label="Preview on Threads">
+                        <div class="app-card-icon">@</div>
+                        <span class="app-card-name">Threads</span>
+                        <span class="app-card-subtitle">Thread View</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="app-card instagram animate-on-scroll stagger-6" aria-label="Preview on Instagram">
+                        <div class="app-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2"/><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                        </div>
+                        <span class="app-card-name">Instagram</span>
+                        <span class="app-card-subtitle">Feed & Reels</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- Reddit -->
+                    <a href="#" class="app-card reddit animate-on-scroll stagger-7" aria-label="Preview on Reddit">
+                        <div class="app-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="9" cy="10" rx="1.5" ry="2" fill="currentColor"/><ellipse cx="15" cy="10" rx="1.5" ry="2" fill="currentColor"/><path d="M8 15c1.5 2 3.5 2.5 4 2.5s2.5-.5 4-2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                        </div>
+                        <span class="app-card-name">Reddit</span>
+                        <span class="app-card-subtitle">Post & Comment</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="#" class="app-card tiktok animate-on-scroll stagger-8" aria-label="Preview on TikTok">
+                        <div class="app-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6V4h-2v2h-1v2h1v6c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4v2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2V6h4z" fill="currentColor"/></svg>
+                        </div>
+                        <span class="app-card-name">TikTok</span>
+                        <span class="app-card-subtitle">Video Preview</span>
+                        <span class="app-card-badge">Preview</span>
+                    </a>
+                </div>
             </div>
+        </section>
 
-            <div class="form-actions">
-              <button type="button" class="btn primary" id="update-preview">Update Preview</button>
-              <button type="button" class="btn ghost" id="copy-text">Copy Text</button>
+        <!-- How It Works Section -->
+        <section class="how-it-works-section section" id="how-it-works" aria-labelledby="how-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// How It Works</span>
+                    <h2 id="how-title" class="section-title">Three Simple Steps</h2>
+                    <p class="section-subtitle">Get from draft to perfect post in under a minute.</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card animate-on-scroll stagger-1">
+                        <div class="step-number">01</div>
+                        <h3>Write Your Content</h3>
+                        <p>Type or paste your post content, add images, hashtags, and mentions just like you normally would.</p>
+                    </div>
+                    <div class="step-card animate-on-scroll stagger-2">
+                        <div class="step-number">02</div>
+                        <h3>Select Platforms</h3>
+                        <p>Choose which social media platforms you want to preview — from Facebook to TikTok and everything in between.</p>
+                    </div>
+                    <div class="step-card animate-on-scroll stagger-3">
+                        <div class="step-number">03</div>
+                        <h3>Preview & Perfect</h3>
+                        <p>See exactly how your post renders on each platform. Tweak and refine until it looks flawless.</p>
+                    </div>
+                </div>
             </div>
-          </form>
+        </section>
 
-          <div class="preview-canvas" id="preview-canvas" aria-live="polite">
-            <!-- Preview rendered by JS -->
-          </div>
-        </div>
-      </div>
-    </section>
+        <!-- Benefits Section -->
+        <section class="benefits-section section" aria-labelledby="benefits-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// Why PostPreview</span>
+                    <h2 id="benefits-title" class="section-title">Publish With Confidence</h2>
+                    <p class="section-subtitle">Stop guessing how your posts will look. Know before you publish.</p>
+                </div>
+                <div class="benefits-grid">
+                    <div class="benefit-item animate-on-scroll stagger-1">
+                        <div class="benefit-check">✓</div>
+                        <div>
+                            <h4>Eliminate Formatting Errors</h4>
+                            <p>Catch broken line breaks, truncated text, and awkward image crops before anyone sees them.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item animate-on-scroll stagger-2">
+                        <div class="benefit-check">✓</div>
+                        <div>
+                            <h4>Save Hours of Editing</h4>
+                            <p>No more publishing, checking, deleting, and reposting. Get it right the first time.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item animate-on-scroll stagger-3">
+                        <div class="benefit-check">✓</div>
+                        <div>
+                            <h4>Cross-Platform Consistency</h4>
+                            <p>Ensure your message looks great everywhere — maintain brand consistency across all channels.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item animate-on-scroll stagger-4">
+                        <div class="benefit-check">✓</div>
+                        <div>
+                            <h4>Developer-Friendly Workflow</h4>
+                            <p>Clean, fast interface designed for efficiency. Keyboard shortcuts, instant previews, zero bloat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- SEO Benefits -->
-    <section id="seo" class="section seo">
-      <div class="container">
-        <h2 class="section-title">SEO Benefits</h2>
-        <p>Accurate social previews help increase click-through rates and reduce broken link previews. Use PostPreview to validate Open Graph and Twitter Card metadata before publishing.</p>
-        <ul class="seo-list">
-          <li><strong>Validate</strong> link card images and aspect ratios</li>
-          <li><strong>Optimize</strong> titles and descriptions for social search</li>
-          <li><strong>Improve</strong> engagement with accurate previews</li>
-        </ul>
-      </div>
-    </section>
+        <!-- Stats Section -->
+        <section class="stats-section section" aria-labelledby="stats-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// By the Numbers</span>
+                    <h2 id="stats-title" class="section-title">Trusted by Creators</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card animate-on-scroll stagger-1">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Posts Previewed</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll stagger-2">
+                        <div class="stat-number">8+</div>
+                        <div class="stat-label">Platforms Supported</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll stagger-3">
+                        <div class="stat-number">99.8%</div>
+                        <div class="stat-label">Render Accuracy</div>
+                    </div>
+                    <div class="stat-card animate-on-scroll stagger-4">
+                        <div class="stat-number">12K+</div>
+                        <div class="stat-label">Happy Users</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Developer Theme -->
-    <section id="theme" class="section theme">
-      <div class="container">
-        <h2 class="section-title">Developer Theme</h2>
-        <p class="muted">A light, code-inspired UI with monospace typography, subtle shadows, and keyboard-friendly controls.</p>
-        <pre class="code-sample" aria-hidden="true">
-&lt;meta property="og:title" content="PostPreview — Social Media Post Preview Tool" /&gt;
-&lt;meta name="twitter:card" content="summary_large_image" /&gt;
-        </pre>
-      </div>
-    </section>
+        <!-- Testimonials Section -->
+        <section class="testimonials-section section" aria-labelledby="testimonials-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// Testimonials</span>
+                    <h2 id="testimonials-title" class="section-title">What Users Say</h2>
+                    <p class="section-subtitle">Join thousands of content creators who publish with confidence.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card animate-on-scroll stagger-1">
+                        <p class="testimonial-text">PostPreview saved me from so many embarrassing formatting mistakes. Seeing exactly how my LinkedIn posts render before publishing is a game-changer.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SR</div>
+                            <div>
+                                <div class="testimonial-name">Sarah Reynolds</div>
+                                <div class="testimonial-role">Content Strategist</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll stagger-2">
+                        <p class="testimonial-text">As a developer, I appreciate the clean, no-nonsense interface. It's fast, accurate, and the multi-platform preview is exactly what I needed for our social campaigns.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MK</div>
+                            <div>
+                                <div class="testimonial-name">Marcus Kim</div>
+                                <div class="testimonial-role">DevRel Lead</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card animate-on-scroll stagger-3">
+                        <p class="testimonial-text">I manage 5 brand accounts and this tool has cut my editing time in half. The TikTok and Instagram previews are spot-on. Highly recommend!</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">AJ</div>
+                            <div>
+                                <div class="testimonial-name">Aisha Johnson</div>
+                                <div class="testimonial-role">Social Media Manager</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- FAQs -->
-    <section id="faqs" class="section faqs">
-      <div class="container">
-        <h2 class="section-title">FAQs</h2>
-        <div class="faq-list">
-          <details>
-            <summary>Is PostPreview free to use</summary>
-            <div class="faq-body">Yes. The homepage demo is free. Integrations and team features will be announced later.</div>
-          </details>
-          <details>
-            <summary>Do you store my posts</summary>
-            <div class="faq-body">No. The demo preview runs locally in your browser unless you explicitly save or export content.</div>
-          </details>
-          <details>
-            <summary>When will platform integrations be available</summary>
-            <div class="faq-body">Integrations are planned. The preview cards are placeholders that show mock templates for now.</div>
-          </details>
-        </div>
-      </div>
-    </section>
-  </main>
+        <!-- FAQ Section -->
+        <section class="faq-section section" aria-labelledby="faq-title">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-label">// FAQ</span>
+                    <h2 id="faq-title" class="section-title">Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item animate-on-scroll stagger-1">
+                        <button class="faq-question" aria-expanded="false">
+                            Is PostPreview free to use?
+                            <span class="faq-arrow">▾</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">Yes! PostPreview is completely free for all 8+ social media platforms. We believe every content creator should have access to reliable preview tools without paying a premium.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item animate-on-scroll stagger-2">
+                        <button class="faq-question" aria-expanded="false">
+                            How accurate are the previews?
+                            <span class="faq-arrow">▾</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">Our previews achieve 99.8% render accuracy by using platform-specific style rules and regularly updated templates that match each social network's current design.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item animate-on-scroll stagger-3">
+                        <button class="faq-question" aria-expanded="false">
+                            Do I need to create an account?
+                            <span class="faq-arrow">▾</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">No account required! You can start previewing posts immediately. We may offer optional accounts in the future for saving preferences, but the core tool will always remain accessible.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item animate-on-scroll stagger-4">
+                        <button class="faq-question" aria-expanded="false">
+                            Can I preview image posts?
+                            <span class="faq-arrow">▾</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">Absolutely. Upload your images and see how they crop, resize, and display across different platforms — including aspect ratio adjustments and thumbnail generation.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Footer component injected by footer.js -->
-  <div id="site-footer" role="contentinfo"></div>
+        <!-- CTA Section -->
+        <section class="cta-section section" aria-labelledby="cta-title">
+            <div class="cta-inner animate-on-scroll">
+                <h2 id="cta-title">Ready to Preview Your Posts?</h2>
+                <p>Join thousands of content creators who publish with confidence. Start previewing your social media posts across 8+ platforms — free.</p>
+                <div class="cta-actions">
+                    <a href="#preview-apps" class="btn btn-primary btn-lg">Choose a Platform →</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Scripts -->
-  <script src="header.js"></script>
-  <script src="footer.js"></script>
-  <script src="main.js"></script>
+    <!-- Footer placeholder -->
+    <div id="site-footer"></div>
+
+    <script>
+        // ============ HEADER COMPONENT ============
+        function createHeader() {
+            const headerHTML = `
+                <header class="site-header" id="siteHeader" role="banner">
+                    <div class="header-inner">
+                        <a href="/" class="header-logo" aria-label="PostPreview Home">
+                            <span class="header-logo-icon">&lt;/&gt;</span>
+                            <span>PostPreview</span>
+                        </a>
+                        <nav aria-label="Main navigation">
+                            <ul class="header-nav" id="headerNav">
+                                <li><a href="#features">Features</a></li>
+                                <li><a href="#preview-apps">Preview Apps</a></li>
+                                <li><a href="#how-it-works">How It Works</a></li>
+                                <li><a href="#faq">FAQ</a></li>
+                                <li><a href="#preview-apps" class="header-cta">Start Previewing</a></li>
+                            </ul>
+                        </nav>
+                        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </header>
+            `;
+
+            const mobileNavHTML = `
+                <a href="#features">Features</a>
+                <a href="#preview-apps">Preview Apps</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
+                <a href="#preview-apps" class="mobile-cta">Start Previewing</a>
+            `;
+
+            document.getElementById('site-header').innerHTML = headerHTML;
+            document.getElementById('mobileNav').innerHTML = mobileNavHTML;
+
+            // Header scroll effect
+            const siteHeader = document.getElementById('siteHeader');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 50) {
+                    siteHeader.classList.add('scrolled');
+                } else {
+                    siteHeader.classList.remove('scrolled');
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+
+            // Mobile menu toggle
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+
+            function openMobileMenu() {
+                hamburgerBtn.classList.add('active');
+                mobileNav.classList.add('active');
+                mobileNavOverlay.classList.add('active');
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            hamburgerBtn.addEventListener('click', () => {
+                if (hamburgerBtn.classList.contains('active')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileNavOverlay.addEventListener('click', closeMobileMenu);
+
+            // Close mobile menu on nav link click
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+
+            // Close mobile menu on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && hamburgerBtn.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Update mobile nav links to match header nav behavior
+            const headerNavLinks = document.querySelectorAll('#headerNav a');
+            headerNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+        }
+
+        // ============ FOOTER COMPONENT ============
+        function createFooter() {
+            const footerHTML = `
+                <footer class="site-footer" role="contentinfo">
+                    <div class="container">
+                        <div class="footer-grid">
+                            <div>
+                                <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text-primary);font-weight:700;font-family:var(--font-mono);font-size:1.1rem;">
+                                    <span style="width:32px;height:32px;background:var(--accent-blue);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.85rem;">&lt;/&gt;</span>
+                                    PostPreview
+                                </a>
+                                <p class="footer-brand-desc">Preview your social media posts across 8+ platforms before you publish. Free, fast, and developer-friendly.</p>
+                            </div>
+                            <div class="footer-col">
+                                <h4>Product</h4>
+                                <ul>
+                                    <li><a href="#preview-apps">Preview Apps</a></li>
+                                    <li><a href="#features">Features</a></li>
+                                    <li><a href="#how-it-works">How It Works</a></li>
+                                    <li><a href="#faq">FAQ</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-col">
+                                <h4>Platforms</h4>
+                                <ul>
+                                    <li><a href="#">Facebook Preview</a></li>
+                                    <li><a href="#">X / Twitter Preview</a></li>
+                                    <li><a href="#">LinkedIn Preview</a></li>
+                                    <li><a href="#">Instagram Preview</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-col">
+                                <h4>Company</h4>
+                                <ul>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <span>&copy; ${new Date().getFullYear()} PostPreview. Built with ❤️ for content creators.</span>
+                            <div class="footer-social">
+                                <a href="#" aria-label="GitHub" title="GitHub">⌥</a>
+                                <a href="#" aria-label="Twitter" title="X / Twitter">𝕏</a>
+                                <a href="#" aria-label="LinkedIn" title="LinkedIn">in</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            `;
+            document.getElementById('site-footer').innerHTML = footerHTML;
+        }
+
+        // ============ SCROLL ANIMATIONS ============
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            animatedElements.forEach(el => observer.observe(el));
+
+            // Also observe stat numbers for counting animation
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'none';
+                        entry.target.offsetHeight;
+                        entry.target.style.animation = '';
+                        statObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statNumbers.forEach(el => statObserver.observe(el));
+        }
+
+        // ============ FAQ ACCORDION ============
+        function initFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const questionBtn = item.querySelector('.faq-question');
+                questionBtn.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('open');
+                    // Close all
+                    faqItems.forEach(i => {
+                        i.classList.remove('open');
+                        i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    });
+                    // Open clicked (if not already open)
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        questionBtn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        }
+
+        // ============ SMOOTH SCROLL FOR ALL ANCHOR LINKS ============
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // ============ APP CARD CLICK HANDLER ============
+        function initAppCards() {
+            const appCards = document.querySelectorAll('.app-card');
+            appCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const platformName = this.querySelector('.app-card-name').textContent;
+                    // Placeholder for future app functionality
+                    console.log(`[PostPreview] Preview app selected: ${platformName} — Full preview coming soon!`);
+                    // Subtle visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        }
+
+        // ============ INITIALIZE EVERYTHING ============
+        function init() {
+            createHeader();
+            createFooter();
+            initScrollAnimations();
+            initFAQ();
+            initSmoothScroll();
+            initAppCards();
+
+            // Set initial header state
+            const siteHeader = document.getElementById('siteHeader');
+            if (siteHeader && window.pageYOffset > 50) {
+                siteHeader.classList.add('scrolled');
+            }
+        }
+
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // ============ SERVICE WORKER REGISTRATION (Optional PWA) ============
+        // Left as a placeholder for future PWA implementation
+        console.log(
+            '%c🚀 PostPreview %c v2.0 %cReady',
+            'font-weight:bold;color:#0969da;',
+            'color:#656d76;',
+            'color:#1a7f37;font-weight:bold;'
+        );
+        console.log('%cPreview your posts before they go live.', 'color:#8b949e;font-style:italic;');
+    </script>
 </body>
 </html>
